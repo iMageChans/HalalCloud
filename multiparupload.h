@@ -8,7 +8,7 @@ class MultiparUpload : public QObject
     Q_OBJECT
 public:
     explicit MultiparUpload(QObject *parent = nullptr);
-    void Upload(QString url, QString, token, QString uuid);
+    void Upload(QString url, QString, token, QString uuid, QString path);
 signals:
 
 public slots:
