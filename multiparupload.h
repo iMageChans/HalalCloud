@@ -14,16 +14,19 @@ signals:
 public slots:
 
 private:
+    void getUploadToken(QString url, QString token, QString key);
+    void defaultConfig(QString path, QString token, QString uploadbatch);
+
     QString Token;
-    QString key;
+    QString Key;
     QString Url;
-    QString path;
-    QString iploadBatch;
+    QString Path;
+    QString UploadBatch;
     int Size;
     int Progress;
-    int block_size;
-    int bput_size;
-    int blocknum;
+    int Block_size;
+    int Bput_size;
+    int Blocknum;
 };
 
 #endif // MULTIPARUPLOAD_H
