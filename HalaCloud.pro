@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     baseapi.cpp \
-    util.cpp
+    util.cpp \
+    multiparupload.cpp
 
 HEADERS += \
         mainwindow.h \
     baseapi.h \
-    util.h
+    util.h \
+    multiparupload.h
 
 FORMS += \
         mainwindow.ui

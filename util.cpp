@@ -8,20 +8,17 @@
 
 Util::Util(QObject *parent) : QObject(parent)
 {
-
+    fire = new BaseAPI;
 }
 
 void Util::Login(QString username, QString password){
     QByteArray datas;
     datas.append("value=" + username);
     datas.append("&password=" + password);
-    BaseAPI *fire = new BaseAPI;
     fire->post("/v1/user/login","",datas);
    JsonData = fire->datas;
    QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
    if (setting.contains(tr("AotuLogin/token"))){
-       Token = setting.value("AotuLogin/token").toString();
-   }else{
        setting.beginGroup(tr("AotuLogin"));
        QJsonValue data = this->getJson(JsonData, "token");
        QString key("token");
@@ -75,4 +72,20 @@ QString Util::JsonToString(QJsonValue value){
     if (value.isString()){
         return value.toString();
     }
+}
+
+void Util::LoginOut(QString time){
+    QByteArray datas;
+    datas.append("time=" + time);
+    fire->post("/v1/user/logout", this->getToken(), datas);
+    if (this->getJson(fire->datas, "status") == 200){
+        QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
+        if (setting.contains(tr("AotuLogin/token"))){
+            setting.remove( "token");
+        }
+    }
+}
+
+void Util::getFilesList(QString Token, QString path, int orderBy, int type){
+
 }
