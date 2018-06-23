@@ -17,6 +17,9 @@ void BaseAPI::post(QString url, QString token, QByteArray data){
     QEventLoop temp_loop;
     QNetworkRequest request;
     request.setUrl(Url);
+    QByteArray bearer;
+    bearer.append("Bearer " + token);
+    request.setRawHeader("Authorization", bearer);
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->post( request, data);
     connect(reply, SIGNAL(finished()), &temp_loop, SLOT(quit()));
@@ -24,6 +27,7 @@ void BaseAPI::post(QString url, QString token, QByteArray data){
     qDebug() << "start";
     QVariant statusCodeV = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
     QVariant redirectionTargetUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+    qDebug() << reply->errorString();
     if (reply->error() == QNetworkReply::NoError){
         QByteArray bytes = reply->readAll();
         datas = bytes;

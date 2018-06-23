@@ -3,6 +3,7 @@
 #include "util.h"
 #include <QDebug>
 #include <QJsonValue>
+#include <QDateTime>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     util->Login("15618537992","bin258963");
     QJsonValue data = util->getJson(util->JsonData, "token");
     qDebug() << util->getToken();
+    util->LoginOut( QDateTime::currentDateTime().toTime_t());
 }
 
 MainWindow::~MainWindow()
