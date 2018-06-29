@@ -3,6 +3,7 @@
 
 #include <QObject>
 class QJsonValue;
+class BaseAPI;
 
 class Util : public QObject
 {
@@ -10,6 +11,7 @@ class Util : public QObject
 public:
     explicit Util(QObject *parent = nullptr);
     void Login(QString username, QString password);
+    void LoginOut(int time);
     QString getToken();
     QString JsonToString(QJsonValue value);
     QJsonValue getJson(QByteArray data, QString key);
@@ -22,7 +24,7 @@ signals:
 public slots:
 
 private:
-
+    BaseAPI *fire;
 };
 
 #endif // UTIL_H

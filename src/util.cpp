@@ -74,18 +74,21 @@ QString Util::JsonToString(QJsonValue value){
     }
 }
 
-void Util::LoginOut(QString time){
+void Util::LoginOut(int time){
+    qDebug() << QString::number(time);
     QByteArray datas;
-    datas.append("time=" + time);
+    datas.append("time=" + QString::number(time));
     fire->post("/v1/user/logout", this->getToken(), datas);
     if (this->getJson(fire->datas, "status") == 200){
         QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
         if (setting.contains(tr("AotuLogin/token"))){
+            setting.beginGroup(tr("AotuLogin"));
             setting.remove( "token");
+            setting.endGroup();
         }
     }
 }
 
-void Util::getFilesList(QString Token, QString path, int orderBy, int type){
+//void Util::getFilesList(QString Token, QString path, int orderBy, int type){
 
-}
+//}
