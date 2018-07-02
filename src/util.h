@@ -13,6 +13,7 @@ public:
     void Login(QString username, QString password);
     void LoginOut(int time);
     void getFilesList(QString Token, QString Parent, QString path, int orderBy, int type);
+    QString getFilesHash(QString filePath);
     QString getToken();
     QString JsonToString(QJsonValue value);
     QJsonValue getJson(QByteArray data, QString key);

@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QSettings>
 #include <QJsonParseError>
+#include <QFile>
+#include <QCryptographicHash>
 
 Util::Util(QObject *parent) : QObject(parent)
 {
@@ -98,4 +100,17 @@ void Util::getFilesList(QString Token, QString Parent, QString path, int orderBy
     JsonData = fire->datas;
     QJsonValue data = this->getJsonLast(JsonData, "result", "list");
     qDebug() << this->JsonToString(data);
+}
+
+QString Util::getFilesHash(QString filePath){
+    QFile localFile(filePath);
+    if(!localFile.open(QFile::ReadOnly)){
+        qDebug() << "file open error";
+        return 0;
+    }
+    localFile.open(QFile::ReadOnly);
+    QByteArray ba = QCryptographicHash::hash(localFile.readAll(),QCryptographicHash::Sha1);
+    localFile.close();
+    qDebug() << ba.toHex().constData();
+    return ba.toHex().constData();
 }
