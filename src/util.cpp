@@ -18,14 +18,12 @@ void Util::Login(QString username, QString password){
     fire->post("/v1/user/login","",datas);
    JsonData = fire->datas;
    QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
-   if (setting.contains(tr("AotuLogin/token"))){
-       setting.beginGroup(tr("AotuLogin"));
-       QJsonValue data = this->getJson(JsonData, "token");
-       QString key("token");
-       QString value = this->JsonToString(data);
-       setting.setValue(key,value);
-       setting.endGroup();
-   }
+   setting.beginGroup(tr("AotuLogin"));
+   QJsonValue data = this->getJson(JsonData, "token");
+   QString key("token");
+   QString value = this->JsonToString(data);
+   setting.setValue(key,value);
+   setting.endGroup();
 }
 
 QString Util::getToken(){
@@ -89,6 +87,15 @@ void Util::LoginOut(int time){
     }
 }
 
-//void Util::getFilesList(QString Token, QString path, int orderBy, int type){
-
-//}
+void Util::getFilesList(QString Token, QString Parent, QString path, int orderBy, int type){
+    QByteArray datas;
+    datas.append("parent=" + Parent);
+    datas.append("&path=" + path);
+    datas.append("&recycle=-1");
+    datas.append("&orderBy=" +  QString::number(orderBy));
+    datas.append("&type=" +  QString::number(type));
+    fire->post("/v1/files/page",Token,datas);
+    JsonData = fire->datas;
+    QJsonValue data = this->getJsonLast(JsonData, "result", "list");
+    qDebug() << this->JsonToString(data);
+}

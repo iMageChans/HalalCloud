@@ -18,8 +18,12 @@ void BaseAPI::post(QString url, QString token, QByteArray data){
     QNetworkRequest request;
     request.setUrl(Url);
     QByteArray bearer;
-    bearer.append("Bearer " + token);
-    request.setRawHeader("Authorization", bearer);
+    qDebug() << token.length();
+    if(token.length() > 0){
+        bearer.append("Bearer " + token);
+        request.setRawHeader("Authorization", bearer);
+    }
+    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->post( request, data);
     connect(reply, SIGNAL(finished()), &temp_loop, SLOT(quit()));

@@ -14,8 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     Util *util = new Util;
     util->Login("15618537992","bin258963");
     QJsonValue data = util->getJson(util->JsonData, "token");
-    qDebug() << util->getToken();
-    util->LoginOut( QDateTime::currentDateTime().toTime_t());
+    //util->LoginOut(time.toTime_t());
+    util->getFilesList(util->getToken(),"","",1,-1);
 }
 
 MainWindow::~MainWindow()
