@@ -19,7 +19,7 @@ public slots:
 
 private:
     void getUploadToken(QString url, QString token, QString path, QString fileName, QString hash);
-    void defaultConfig(QString path, QString token, QString uploadbatch);
+    void uploadProgress(QString size);
 
     BaseAPI *fire;
 

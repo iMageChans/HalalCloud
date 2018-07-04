@@ -28,8 +28,43 @@ void MultiparUpload::defineConfig(QString path, QString upload_id){
     qDebug() << Blocknum;
 }
 
+void MultiparUpload::uploadProgress(int size){
+    Progress += size;
+}
+
+void MultiparUpload::makeBlock(QString offset){
+
+}
+
+void MultiparUpload::makeBput(QString offset){
+
+}
+
+QString MultiparUpload::getBlockUrl(int size, int blocknum){
+    return QString("%1/mkblk/%2/%3").arg(Url,QString::number(size),QString::number(blocknum));
+}
+
+QString MultiparUpload::getBputkUrl(QString ctx, int offset){
+    return QString("%1/bput/%2/%3").arg(Url, ctx, QString::number(offset));
+}
+
+QString MultiparUpload::getFileUrl(){
+    return QString("%1/mkfile/%2").arg(Url, Size);
+}
+
 void MultiparUpload::Upload(QString url, QString token, QString uuid, QString path, QString fileName, QString hash){
     this->getUploadToken(url, token, path, fileName, hash);
+}
+
+QString MultiparUpload::mlkUrl(int offset){
+    int blockid = offset / Block_size;
+    int size = 0;
+    if(blockid < Blocknum - 1){
+        size = Block_size;
+    }else{
+        size = Size - (blockid * Block_size);
+    }
+    return this->getBlockUrl(size, blockid);
 }
 
 void MultiparUpload::getUploadToken(QString url, QString token, QString path, QString fileName, QString hash){
