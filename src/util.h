@@ -11,7 +11,7 @@ class Util : public QObject
 public:
     explicit Util(QObject *parent = nullptr);
     void Login(QString username, QString password);
-    void LoginOut(int time);
+    void LoginOut();
     void getFilesList(QString Token, QString Parent, QString path, int orderBy, int type);
     QString getFilesHash(QString filePath);
     QString getToken();
@@ -26,7 +26,7 @@ signals:
 public slots:
 
 private:
-    BaseAPI *fire;
+    BaseAPI *response;
 };
 
 #endif // UTIL_H

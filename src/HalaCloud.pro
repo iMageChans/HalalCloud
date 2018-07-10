@@ -34,7 +34,8 @@ HEADERS += \
         mainwindow.h \
     baseapi.h \
     util.h \
-    multiparupload.h
+    multiparupload.h \
+    networkdata.h
 
 FORMS += \
         mainwindow.ui

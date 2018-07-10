@@ -7,35 +7,77 @@
 #include <QEventLoop>
 #include <QDebug>
 
+
 BaseAPI::BaseAPI(QObject *parent) : QObject(parent)
 {
 }
 
-void BaseAPI::post(QString url, QString token, QByteArray data){
-    QUrl Url("http://api.blog120.com" + url);
+QByteArray BaseAPI::Fire(QString url, QString token, QByteArray data, method m){
 
-    QEventLoop temp_loop;
+    switch (m) {
+    case get:return this->Get(url,token);break;
+    case post:return this->Post(url,token,data);break;
+    case post_no_token:return this->noTokenPost(url,data);break;
+    }
+}
+
+QByteArray BaseAPI::Get(QString url, QString token){
+    QUrl Url("http://api.blog120.com" + url);
+    QByteArray bearer;
+
     QNetworkRequest request;
     request.setUrl(Url);
-    QByteArray bearer;
-    qDebug() << token.length();
-    if(token.length() > 0){
-        bearer.append("Bearer " + token);
-        request.setRawHeader("Authorization", bearer);
-    }
+
+    bearer.append("Bearer " + token);
+    request.setRawHeader("Authorization", bearer);
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
-    QNetworkReply *reply = manage->post( request, data);
+    QNetworkReply *reply = manage->get(request);
+    return this->wrapper_response(reply);
+
+}
+
+QByteArray BaseAPI::noTokenPost(QString url, QByteArray data){
+    QUrl Url("http://api.blog120.com" + url);
+
+    QNetworkRequest request;
+    request.setUrl(Url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    QNetworkAccessManager *manage = new QNetworkAccessManager(this);
+    QNetworkReply *reply = manage->post(request, data);
+    return this->wrapper_response(reply);
+}
+
+QByteArray BaseAPI::Post(QString url, QString token, QByteArray data){
+    QUrl Url("http://api.blog120.com" + url);
+    QByteArray bearer;
+
+    QNetworkRequest request;
+    request.setUrl(Url);
+
+    bearer.append("Bearer " + token);
+    request.setRawHeader("Authorization", bearer);
+    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    QNetworkAccessManager *manage = new QNetworkAccessManager(this);
+    QNetworkReply *reply = manage->post(request, data);
+    return this->wrapper_response(reply);
+}
+
+QByteArray BaseAPI::wrapper_response(QNetworkReply *reply){
+
+    QEventLoop temp_loop;
+
     connect(reply, SIGNAL(finished()), &temp_loop, SLOT(quit()));
     temp_loop.exec();
     qDebug() << "start";
     QVariant statusCodeV = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
     QVariant redirectionTargetUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-    qDebug() << reply->errorString();
-    if (reply->error() == QNetworkReply::NoError){
-        QByteArray bytes = reply->readAll();
-        datas = bytes;
+    QByteArray bytes = reply->readAll();
+    if (reply->error() != QNetworkReply::NoError){
+        qDebug() << reply->error();
     }
+//    qDebug() << bytes;
     reply->deleteLater();
     qDebug() << "finished";
+    return bytes;
 }

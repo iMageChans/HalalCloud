@@ -5,13 +5,14 @@
 #include <QString>
 
 class BaseAPI;
+class Util;
 
 class MultiparUpload : public QObject
 {
     Q_OBJECT
 public:
     explicit MultiparUpload(QObject *parent = nullptr);
-    void Upload(QString url, QString token, QString uuid, QString path, QString fileName, QString hash);
+    void Upload(QString url, QString token, QString path, QString fileName, QString hash);
     void defineConfig(QString path, QString upload_id);
 signals:
 
@@ -22,6 +23,7 @@ private:
     void uploadProgress(QString size);
 
     BaseAPI *fire;
+    Util *util;
 
     QString Token;
     QString Key;

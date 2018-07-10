@@ -1,5 +1,6 @@
 #include "util.h"
 #include "baseapi.h"
+#include "networkdata.h"
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QDebug>
@@ -7,33 +8,11 @@
 #include <QJsonParseError>
 #include <QFile>
 #include <QCryptographicHash>
+#include <QDateTime>
 
 Util::Util(QObject *parent) : QObject(parent)
 {
-    fire = new BaseAPI;
-}
-
-void Util::Login(QString username, QString password){
-    QByteArray datas;
-    datas.append("value=" + username);
-    datas.append("&password=" + password);
-    fire->post("/v1/user/login","",datas);
-   JsonData = fire->datas;
-   QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
-   setting.beginGroup(tr("AotuLogin"));
-   QJsonValue data = this->getJson(JsonData, "token");
-   QString key("token");
-   QString value = this->JsonToString(data);
-   setting.setValue(key,value);
-   setting.endGroup();
-}
-
-QString Util::getToken(){
-    QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
-    if (setting.contains(tr("AotuLogin/Token"))){
-        Token = setting.value("AotuLogin/Token").toString();
-    }
-    return Token;
+    response = new BaseAPI;
 }
 
 QJsonValue Util::getJson(QByteArray data, QString key){
@@ -74,12 +53,32 @@ QString Util::JsonToString(QJsonValue value){
     }
 }
 
-void Util::LoginOut(int time){
-    qDebug() << QString::number(time);
-    QByteArray datas;
-    datas.append("time=" + QString::number(time));
-    fire->post("/v1/user/logout", this->getToken(), datas);
-    if (this->getJson(fire->datas, "status") == 200){
+void Util::Login(QString username, QString password){
+    QByteArray datas = LoginData(username,password);
+    JsonData = response->Fire("/v1/user/login","",datas, post_no_token);
+    QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
+    setting.beginGroup(tr("AotuLogin"));
+    QJsonValue data = this->getJson(JsonData, "token");
+    QString key("token");
+    QString value = this->JsonToString(data);
+    setting.setValue(key,value);
+    setting.endGroup();
+}
+
+QString Util::getToken(){
+    QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
+    if (setting.contains(tr("AotuLogin/Token"))){
+        Token = setting.value("AotuLogin/Token").toString();
+    }
+    return Token;
+}
+
+void Util::LoginOut(){
+    QDateTime time = QDateTime::currentDateTime();
+    qDebug() << QString::number(time.toTime_t());
+    QByteArray datas = LoginOutData(time.toTime_t());
+    QByteArray rsp = response->Fire("/v1/user/logout", this->getToken(), datas, post);
+    if (this->getJson(rsp, "status") == 200){
         QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
         if (setting.contains(tr("AotuLogin/token"))){
             setting.beginGroup(tr("AotuLogin"));
@@ -90,14 +89,8 @@ void Util::LoginOut(int time){
 }
 
 void Util::getFilesList(QString Token, QString Parent, QString path, int orderBy, int type){
-    QByteArray datas;
-    datas.append("parent=" + Parent);
-    datas.append("&path=" + path);
-    datas.append("&recycle=-1");
-    datas.append("&orderBy=" +  QString::number(orderBy));
-    datas.append("&type=" +  QString::number(type));
-    fire->post("/v1/files/page",Token,datas);
-    JsonData = fire->datas;
+    QByteArray datas = FilesListData(Parent, path, QString::number(orderBy), QString::number(type));
+    JsonData = response->Fire("/v1/files/page", Token, datas, post);
     QJsonValue data = this->getJsonLast(JsonData, "result", "list");
     qDebug() << this->JsonToString(data);
 }
