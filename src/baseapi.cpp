@@ -1,4 +1,5 @@
 #include "baseapi.h"
+#include "abstract.h"
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
@@ -23,14 +24,7 @@ QByteArray BaseAPI::Fire(QString url, QString token, QByteArray data, method m){
 
 QByteArray BaseAPI::Get(QString url, QString token){
     QUrl Url("http://api.blog120.com" + url);
-    QByteArray bearer;
-
-    QNetworkRequest request;
-    request.setUrl(Url);
-
-    bearer.append("Bearer " + token);
-    request.setRawHeader("Authorization", bearer);
-    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    QNetworkRequest request = RequesBuild(token, Url, "", Default);
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->get(request);
     return this->wrapper_response(reply);
@@ -39,10 +33,7 @@ QByteArray BaseAPI::Get(QString url, QString token){
 
 QByteArray BaseAPI::noTokenPost(QString url, QByteArray data){
     QUrl Url("http://api.blog120.com" + url);
-
-    QNetworkRequest request;
-    request.setUrl(Url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    QNetworkRequest request = RequesBuild(token, Url, "", noToken);
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->post(request, data);
     return this->wrapper_response(reply);
@@ -50,14 +41,7 @@ QByteArray BaseAPI::noTokenPost(QString url, QByteArray data){
 
 QByteArray BaseAPI::Post(QString url, QString token, QByteArray data){
     QUrl Url("http://api.blog120.com" + url);
-    QByteArray bearer;
-
-    QNetworkRequest request;
-    request.setUrl(Url);
-
-    bearer.append("Bearer " + token);
-    request.setRawHeader("Authorization", bearer);
-    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    QNetworkRequest request = RequesBuild(token, Url, "", Default);
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->post(request, data);
     return this->wrapper_response(reply);
@@ -76,7 +60,7 @@ QByteArray BaseAPI::wrapper_response(QNetworkReply *reply){
     if (reply->error() != QNetworkReply::NoError){
         qDebug() << reply->error();
     }
-//    qDebug() << bytes;
+    qDebug() << bytes;
     reply->deleteLater();
     qDebug() << "finished";
     return bytes;
