@@ -17,7 +17,7 @@ public:
     QString getToken();
     QString JsonToString(QJsonValue value);
     QJsonValue getJson(QByteArray data, QString key);
-    QJsonValue getJsonLast(QByteArray data, QString key, QString lastKey);
+    QJsonValue getJsonNest(QByteArray data, QString key, QString lastKey);
 
     QByteArray JsonData;
     QString Token;

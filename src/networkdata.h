@@ -9,14 +9,14 @@ QByteArray LoginData(const data &value, const data &password){
     datas.append("value=" + value);
     datas.append("&password=" + password);
     return datas;
-};
+}
 
 template <typename data>
 QByteArray LoginOutData(const data &time){
     QByteArray datas;
     datas.append("time=" + QString::number(time));
     return datas;
-};
+}
 
 template <typename List>
 QByteArray FilesListData(const List &Parent, const List &Path, const List &OrderBy, const List &Type){
@@ -27,6 +27,6 @@ QByteArray FilesListData(const List &Parent, const List &Path, const List &Order
     datas.append("&orderBy=" +  OrderBy);
     datas.append("&type=" +  Type);
     return datas;
-};
+}
 
 #endif // NETWORKDATA_H

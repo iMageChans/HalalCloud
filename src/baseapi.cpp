@@ -23,8 +23,7 @@ QByteArray BaseAPI::Fire(QString url, QString token, QByteArray data, method m){
 }
 
 QByteArray BaseAPI::Get(QString url, QString token){
-    QUrl Url("http://api.blog120.com" + url);
-    QNetworkRequest request = RequesBuild(token, Url, "", Default);
+    QNetworkRequest request = DefaultHeader(token, url);
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->get(request);
     return this->wrapper_response(reply);
@@ -32,16 +31,14 @@ QByteArray BaseAPI::Get(QString url, QString token){
 }
 
 QByteArray BaseAPI::noTokenPost(QString url, QByteArray data){
-    QUrl Url("http://api.blog120.com" + url);
-    QNetworkRequest request = RequesBuild(token, Url, "", noToken);
+    QNetworkRequest request = LoginHeader(url);
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->post(request, data);
     return this->wrapper_response(reply);
 }
 
 QByteArray BaseAPI::Post(QString url, QString token, QByteArray data){
-    QUrl Url("http://api.blog120.com" + url);
-    QNetworkRequest request = RequesBuild(token, Url, "", Default);
+    QNetworkRequest request = DefaultHeader(token, url);
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->post(request, data);
     return this->wrapper_response(reply);
@@ -50,7 +47,6 @@ QByteArray BaseAPI::Post(QString url, QString token, QByteArray data){
 QByteArray BaseAPI::wrapper_response(QNetworkReply *reply){
 
     QEventLoop temp_loop;
-
     connect(reply, SIGNAL(finished()), &temp_loop, SLOT(quit()));
     temp_loop.exec();
     qDebug() << "start";
