@@ -17,9 +17,8 @@ Util::Util(QObject *parent) : QObject(parent)
 
 QJsonValue Util::getJson(QByteArray data, QString key){
     QJsonParseError jsonError;
-    QJsonValue Error;
     QJsonDocument docment = QJsonDocument::fromJson(data, &jsonError);
-    if(docment.isNull() && jsonError.error != QJsonParseError::NoError){}
+    if(docment.isNull() && jsonError.error != QJsonParseError::NoError){return Error;}
     if(!docment.isObject()){return Error;}
     QJsonObject object = docment.object();
     if (!object.contains(key)){return Error;}
@@ -27,7 +26,6 @@ QJsonValue Util::getJson(QByteArray data, QString key){
 }
 
 QJsonValue Util::getJsonNest(QByteArray data, QString key, QString nestKey){
-    QJsonValue Error;
     QJsonValue datas = this->getJson(data,key);
     QJsonObject object = datas.toObject();
     QJsonValue nestObj =  object.value(key);
@@ -44,13 +42,11 @@ QString Util::JsonToString(QJsonValue value){
 void Util::Login(QString username, QString password){
     QByteArray datas = LoginData(username,password);
     JsonData = response->Fire("/v1/user/login","",datas, post_no_token);
-    qDebug() << JsonData;
     QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
     setting.beginGroup(tr("AotuLogin"));
     QJsonValue data = this->getJson(JsonData, "token");
     QString key("token");
     QString value = this->JsonToString(data);
-    qDebug() << value;
     setting.setValue(key,value);
     setting.endGroup();
 }
@@ -65,7 +61,6 @@ QString Util::getToken(){
 
 void Util::LoginOut(){
     QDateTime time = QDateTime::currentDateTime();
-    qDebug() << QString::number(time.toTime_t());
     QByteArray datas = LoginOutData(time.toTime_t());
     QByteArray rsp = response->Fire("/v1/user/logout", this->getToken(), datas, post);
     if (this->getJson(rsp, "status") == 200){
@@ -78,9 +73,9 @@ void Util::LoginOut(){
     }
 }
 
-void Util::getFilesList(QString Token, QString Parent, QString path, int orderBy, int type){
-    QByteArray datas = FilesListData(Parent, path, QString::number(orderBy), QString::number(type));
-    JsonData = response->Fire("/v1/files/page", Token, datas, post);
+void Util::getFilesList(QString Token, QString Parent, QString path, QString Mime){
+    QByteArray datas = FilesListData(Parent, path, Mime);
+    JsonData = response->Fire("/v1/files/list", Token, datas, post);
     QJsonValue data = this->getJsonNest(JsonData, "result", "list");
     qDebug() << this->JsonToString(data);
 }
@@ -96,4 +91,16 @@ QString Util::getFilesHash(QString filePath){
     localFile.close();
     qDebug() << ba.toHex().constData();
     return ba.toHex().constData();
+}
+
+void Util::getPageFile(QString Token, QString Parent, QString Path){
+    QByteArray datas = PageListData(Parent, Path);
+    JsonData = response->Fire("/v1/files/page", Token, datas, post);
+    qDebug() << JsonData;
+}
+
+void Util::getFilesInfo(QString Token, QString uuid, QString Path){
+    QByteArray datas = FliesInfoData(uuid, Path);
+    JsonData = response->Fire("/v1/files/get", Token, datas, post);
+    qDebug() << JsonData;
 }

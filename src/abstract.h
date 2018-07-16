@@ -6,8 +6,7 @@
 
 enum request{
     Default,
-    noToken,
-    multiparUpload
+    noToken
 };
 
 template <typename R>
@@ -15,7 +14,6 @@ QNetworkRequest RequesBuild(const R &Token, const R &Url, const R &UploadId, req
     switch (r) {
     case Default:return defaultHeader(Token, Url);break;
     case noToken:return LoginHeader(Url);break;
-    case multiparUpload:return multiparUploadHeader(Token, Url, UploadId);break;
     }
 }
 
@@ -27,17 +25,16 @@ QNetworkRequest DefaultHeader(const R &Token, const R &Url){
     request.setUrl(url);
     bearer.append("Bearer " + Token);
     request.setRawHeader("Authorization", bearer);
-    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/json"));
     return request;
 }
 
 template <typename R>
 QNetworkRequest LoginHeader(const R &Url){
     QUrl url("http://api.blog120.com" + Url);
-    QByteArray bearer;
     QNetworkRequest request;
     request.setUrl(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
+    request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/json"));
     return request;
 }
 

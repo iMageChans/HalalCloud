@@ -2,7 +2,7 @@
 #define UTIL_H
 
 #include <QObject>
-class QJsonValue;
+#include <QJsonValue>
 class BaseAPI;
 
 class Util : public QObject
@@ -12,7 +12,8 @@ public:
     explicit Util(QObject *parent = nullptr);
     void Login(QString username, QString password);
     void LoginOut();
-    void getFilesList(QString Token, QString Parent, QString path, int orderBy, int type);
+    void getFilesList(QString Token, QString Parent, QString path);
+    void getPageFile(QString Token, QString Parent);
     QString getFilesHash(QString filePath);
     QString getToken();
     QString JsonToString(QJsonValue value);
@@ -27,6 +28,7 @@ public slots:
 
 private:
     BaseAPI *response;
+    QJsonValue Error;
 };
 
 #endif // UTIL_H
