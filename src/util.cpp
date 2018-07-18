@@ -93,14 +93,26 @@ QString Util::getFilesHash(QString filePath){
     return ba.toHex().constData();
 }
 
-void Util::getPageFile(QString Token, QString Parent, QString Path){
-    QByteArray datas = PageListData(Parent, Path);
+void Util::getPageFile(QString Token, QString Parent, QString path){
+    QByteArray datas = PageListData(Parent, path);
     JsonData = response->Fire("/v1/files/page", Token, datas, post);
     qDebug() << JsonData;
 }
 
-void Util::getFilesInfo(QString Token, QString uuid, QString Path){
-    QByteArray datas = FliesInfoData(uuid, Path);
+void Util::getFilesInfo(QString Token, QString uuid, QString path){
+    QByteArray datas = FliesInfoData(uuid, path);
     JsonData = response->Fire("/v1/files/get", Token, datas, post);
+    qDebug() << JsonData;
+}
+
+void Util::createFiles(QString Token, QString name, QString path){
+    QByteArray datas = CreateDicectory(name, path);
+    JsonData = response->Fire("/v1/files/createDirectory", Token, datas, post);
+    qDebug() << JsonData;
+}
+
+void Util::moveFiles(QString Token, QString uuid, QString path, QString parent){
+    QByteArray datas = FilesMove(uuid, path, parent);
+    JsonData = response->Fire("/v1/files/move", Token, datas, post);
     qDebug() << JsonData;
 }
