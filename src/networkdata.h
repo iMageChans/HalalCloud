@@ -76,6 +76,16 @@ QByteArray FilesMove(const Move &uuid, const Move &Path, const Move &Parent){
     return getJsonData(Json);
 }
 
+template <typename Rename>
+QByteArray FilesRename(const Rename &uuid, const Rename &Path, const Rename &Name){
+    QJsonObject Json;
+    Json.insert("uuid",uuid);
+    Json.insert("path",Path);
+    Json.insert("name", name);
+    Json.insert("overwrite", "flase");
+    return getJsonData(Json);
+}
+
 template <typename Recycle>
 QByteArray FilesRecycle(const Recycle &uuid, const Recycle &Path){
     QJsonObject Json;

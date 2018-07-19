@@ -116,3 +116,33 @@ void Util::moveFiles(QString Token, QString uuid, QString path, QString parent){
     JsonData = response->Fire("/v1/files/move", Token, datas, post);
     qDebug() << JsonData;
 }
+
+void Util::renameFiles(QString Token, QString uuid, QString path, QString name){
+    QByteArray datas = FilesRename(uuid, path, name);
+    JsonData = response->Fire("/v1/files/rename", Token, datas, post);
+    qDebug() << JsonData;
+}
+
+void Util::recycleFiles(QString Token, QString uuid, QString path){
+    QByteArray datas = FilesRecycle(uuid, path);
+    JsonData = response->Fire("/v1/files/recycle", Token, datas, post);
+    qDebug() << JsonData;
+}
+
+void Util::removeFiles(QString Token, QString uuid, QString path){
+    QByteArray datas = FilesRemove(uuid, path);
+    JsonData = response->Fire("/v1/files/remove", Token, datas, post);
+    qDebug() << JsonData;
+}
+
+void Util::previewPDF(QString Token, QString uuid, QString path){
+    QByteArray datas = PreviewPDF(uuid, path);
+    JsonData = response->Fire("/v1/preview/pdf", Token, datas, post);
+    qDebug() << JsonData;
+}
+
+void Util::previewImage(QString Token, QString uuid, QString path){
+    QByteArray datas = PreviewImage(uuid, path);
+    JsonData = response->Fire("/v1/preview/image", Token, datas, post);
+    qDebug() << JsonData;
+}
