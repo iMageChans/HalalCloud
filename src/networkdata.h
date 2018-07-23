@@ -8,6 +8,7 @@
 template <typename JsonData>
 QByteArray getJsonData(const JsonData &Json){
     QByteArray datas;
+    QJsonDocument docum;
     docum.setObject(Json);
     datas = docum.toJson(QJsonDocument::Compact);
     return datas;
@@ -81,7 +82,7 @@ QByteArray FilesRename(const Rename &uuid, const Rename &Path, const Rename &Nam
     QJsonObject Json;
     Json.insert("uuid",uuid);
     Json.insert("path",Path);
-    Json.insert("name", name);
+    Json.insert("name", Name);
     Json.insert("overwrite", "flase");
     return getJsonData(Json);
 }

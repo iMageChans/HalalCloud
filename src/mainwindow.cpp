@@ -17,9 +17,17 @@ MainWindow::MainWindow(QWidget *parent) :
     Util *util = new Util;
     MultiparUpload *upload = new MultiparUpload;
     util->Login("15618537992","bin258963");
-    //QJsonValue data = util->getJson(util->JsonData, "token");
-    //util->LoginOut(time.toTime_t());
-    //util->getFilesList(util->getToken(),"","",1,-1);
+    QString Token = util->JsonToString(util->getJson(util->JsonData, "token"));
+    qDebug() << Token;
+    util->getFilesList(Token,"","","");
+    util->getPageFile(Token,"","");
+    util->getFilesInfo(Token,"1820","");
+    util->createFiles(Token,"moximoxipayaya","/");
+//    util->moveFiles(Token,"1831","","");
+    util->renameFiles(Token,"1831","","payaya");
+    util->recycleFiles(Token,"1831","");
+    util->removeFiles(Token,"1831","");
+
 }
 
 MainWindow::~MainWindow()
