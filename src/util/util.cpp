@@ -9,6 +9,8 @@
 #include <QFile>
 #include <QCryptographicHash>
 #include <QDateTime>
+#include <QSettings>
+#include <QDir>
 
 Util::Util(QObject *parent) : QObject(parent)
 {
@@ -42,19 +44,14 @@ QString Util::JsonToString(QJsonValue value){
 void Util::Login(QString username, QString password){
     QByteArray datas = LoginData(username,password);
     JsonData = response->Fire("/v1/user/login","",datas, post_no_token);
-    QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
-    setting.beginGroup(tr("AotuLogin"));
-    QJsonValue data = this->getJson(JsonData, "token");
-    QString key("token");
-    QString value = this->JsonToString(data);
-    setting.setValue(key,value);
-    setting.endGroup();
+    this->saveToken(JsonData);
 }
 
 QString Util::getToken(){
-    QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
-    if (setting.contains(tr("AotuLogin/Token"))){
-        Token = setting.value("AotuLogin/Token").toString();
+    QSettings settings(this->SystemPath(), QSettings::NativeFormat);
+    Token = settings.value("AotuLogin/token").toString();
+    if (settings.contains(tr("AotuLogin/token"))){
+        Token = settings.value("AotuLogin/token").toString();
     }
     return Token;
 }
@@ -64,20 +61,13 @@ void Util::LoginOut(){
     QByteArray datas = LoginOutData(time.toTime_t());
     QByteArray rsp = response->Fire("/v1/user/logout", this->getToken(), datas, post);
     if (this->getJson(rsp, "status") == 200){
-        QSettings setting("C:/Users/Chans/Desktop/i.ini",QSettings::IniFormat);
+        QSettings setting(this->SystemPath(),QSettings::IniFormat);
         if (setting.contains(tr("AotuLogin/token"))){
             setting.beginGroup(tr("AotuLogin"));
             setting.remove( "token");
             setting.endGroup();
         }
     }
-}
-
-void Util::getFilesList(QString Token, QString Parent, QString path, QString Mime){
-    QByteArray datas = FilesListData(Parent, path, Mime);
-    JsonData = response->Fire("/v1/files/list", Token, datas, post);
-    QJsonValue data = this->getJsonNest(JsonData, "result", "list");
-    qDebug() << this->JsonToString(data);
 }
 
 QString Util::getFilesHash(QString filePath){
@@ -93,56 +83,85 @@ QString Util::getFilesHash(QString filePath){
     return ba.toHex().constData();
 }
 
-void Util::getPageFile(QString Token, QString Parent, QString path){
+void Util::getFilesList(QString Parent, QString path, QString Mime){
+    QByteArray datas = FilesListData(Parent, path, Mime);
+    JsonData = response->Fire("/v1/files/list", this->getToken(), datas, post);
+    QJsonValue data = this->getJsonNest(JsonData, "result", "list");
+    qDebug() << this->JsonToString(data);
+}
+
+void Util::getPageFile(QString Parent, QString path){
     QByteArray datas = PageListData(Parent, path);
-    JsonData = response->Fire("/v1/files/page", Token, datas, post);
+    JsonData = response->Fire("/v1/files/page", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::getFilesInfo(QString Token, QString uuid, QString path){
+void Util::getFilesInfo(QString uuid, QString path){
     QByteArray datas = FliesInfoData(uuid, path);
-    JsonData = response->Fire("/v1/files/get", Token, datas, post);
+    JsonData = response->Fire("/v1/files/get", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::createFiles(QString Token, QString name, QString path){
+void Util::createFiles(QString name, QString path){
     QByteArray datas = CreateDicectory(name, path);
-    JsonData = response->Fire("/v1/files/createDirectory", Token, datas, post);
+    JsonData = response->Fire("/v1/files/createDirectory", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::moveFiles(QString Token, QString uuid, QString path, QString parent){
+void Util::moveFiles(QString uuid, QString path, QString parent){
     QByteArray datas = FilesMove(uuid, path, parent);
-    JsonData = response->Fire("/v1/files/move", Token, datas, post);
+    JsonData = response->Fire("/v1/files/move", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::renameFiles(QString Token, QString uuid, QString path, QString name){
+void Util::renameFiles(QString uuid, QString path, QString name){
     QByteArray datas = FilesRename(uuid, path, name);
-    JsonData = response->Fire("/v1/files/rename", Token, datas, post);
+    JsonData = response->Fire("/v1/files/rename", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::recycleFiles(QString Token, QString uuid, QString path){
+void Util::recycleFiles(QString uuid, QString path){
     QByteArray datas = FilesRecycle(uuid, path);
-    JsonData = response->Fire("/v1/files/recycle", Token, datas, post);
+    JsonData = response->Fire("/v1/files/recycle", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::removeFiles(QString Token, QString uuid, QString path){
+void Util::removeFiles(QString uuid, QString path){
     QByteArray datas = FilesRemove(uuid, path);
-    JsonData = response->Fire("/v1/files/remove", Token, datas, post);
+    JsonData = response->Fire("/v1/files/remove", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::previewPDF(QString Token, QString uuid, QString path){
+void Util::previewPDF(QString uuid, QString path){
     QByteArray datas = PreviewPDF(uuid, path);
-    JsonData = response->Fire("/v1/preview/pdf", Token, datas, post);
+    JsonData = response->Fire("/v1/preview/pdf", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::previewImage(QString Token, QString uuid, QString path){
+void Util::previewImage(QString uuid, QString path){
     QByteArray datas = PreviewImage(uuid, path);
-    JsonData = response->Fire("/v1/preview/image", Token, datas, post);
+    JsonData = response->Fire("/v1/preview/image", this->getToken(), datas, post);
     qDebug() << JsonData;
+}
+
+void Util::saveToken(QByteArray Token){
+    QSettings settings(this->SystemPath(), QSettings::NativeFormat);
+    settings.beginGroup(tr("AotuLogin"));
+    QJsonValue data = this->getJson(Token, "token");
+    QString key("token");
+    QString value = this->JsonToString(data);
+    settings.setValue(key,value);
+    settings.endGroup();
+}
+
+QString Util::SystemPath(){
+#ifdef Q_OS_MAC
+    {
+        return QDir::homePath() + "/Library/Preferences/com.HalalCloud.plist";
+    }
+#else
+    {
+        return ""HKEY_CURRENT_USER\\Software\\Microsoft\\HalalCloud"
+    }
+#endif
 }

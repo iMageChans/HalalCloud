@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "util.h"
-#include "multiparupload.h"
+#include "util/util.h"
+#include "util/multiparupload.h"
 #include <QDebug>
 #include <QJsonValue>
 #include <QDateTime>
@@ -15,11 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     Util *util = new Util;
-    MultiparUpload *upload = new MultiparUpload;
     util->Login("15618537992","bin258963");
-    QString Token = util->JsonToString(util->getJson(util->JsonData, "token"));
-    qDebug() << Token;
-
 }
 
 MainWindow::~MainWindow()
