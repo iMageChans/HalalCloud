@@ -24,19 +24,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    baseapi.cpp \
-    util.cpp \
-    multiparupload.cpp
+        controller/main.cpp \
+        controller/mainwindow.cpp \
+    util/baseapi.cpp \
+    util/util.cpp \
+    util/multiparupload.cpp \
+    view/loginwidget.cpp \
+    model/model.cpp \
+    util/config.cpp \
+    model/viewmodel.cpp
 
 HEADERS += \
-        mainwindow.h \
-    baseapi.h \
-    util.h \
-    multiparupload.h \
-    networkdata.h \
-    abstract.h
+        controller/mainwindow.h \
+    util/baseapi.h \
+    util/util.h \
+    util/multiparupload.h \
+    util/networkdata.h \
+    util/abstract.h \
+    view/loginwidget.h \
+    model/model.h \
+    util/config.h \
+    model/viewmodel.h
 
 FORMS += \
-        mainwindow.ui
+        controller/mainwindow.ui
