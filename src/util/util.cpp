@@ -17,7 +17,7 @@ Util::Util(QObject *parent) : QObject(parent)
     response = new BaseAPI;
 }
 
-QJsonValue Util::getJson(QByteArray data, QString key){
+QJsonValue Util::getJson(const QByteArray &data, const QString &key){
     QJsonParseError jsonError;
     QJsonDocument docment = QJsonDocument::fromJson(data, &jsonError);
     if(docment.isNull() && jsonError.error != QJsonParseError::NoError){return Error;}
@@ -27,7 +27,7 @@ QJsonValue Util::getJson(QByteArray data, QString key){
     return object.value(key);
 }
 
-QJsonValue Util::getJsonNest(QByteArray data, QString key, QString nestKey){
+QJsonValue Util::getJsonNest(const QByteArray &data, const QString &key, const QString &nestKey){
     QJsonValue datas = this->getJson(data,key);
     QJsonObject object = datas.toObject();
     QJsonValue nestObj =  object.value(key);
@@ -37,12 +37,13 @@ QJsonValue Util::getJsonNest(QByteArray data, QString key, QString nestKey){
     return value.value(nestKey);
 }
 
-QString Util::JsonToString(QJsonValue value){
+QString Util::JsonToString(const QJsonValue &value){
     return value.toString();
 }
 
-void Util::Login(QString username, QString password){
+void Util::Login(const QString &username, const QString &password){
     QByteArray datas = LoginData(username,password);
+    qDebug() << &datas;
     JsonData = response->Fire("/v1/user/login","",datas, post_no_token);
     this->saveToken(JsonData);
 }
@@ -70,7 +71,7 @@ void Util::LoginOut(){
     }
 }
 
-QString Util::getFilesHash(QString filePath){
+QString Util::getFilesHash(const QString &filePath){
     QFile localFile(filePath);
     if(!localFile.open(QFile::ReadOnly)){
         qDebug() << "file open error";
@@ -83,68 +84,68 @@ QString Util::getFilesHash(QString filePath){
     return ba.toHex().constData();
 }
 
-void Util::getFilesList(QString Parent, QString path, QString Mime){
+void Util::getFilesList(const QString &Parent, const QString &path, const QString &Mime){
     QByteArray datas = FilesListData(Parent, path, Mime);
     JsonData = response->Fire("/v1/files/list", this->getToken(), datas, post);
     QJsonValue data = this->getJsonNest(JsonData, "result", "list");
     qDebug() << this->JsonToString(data);
 }
 
-void Util::getPageFile(QString Parent, QString path){
+void Util::getPageFile(const QString &Parent, const QString &path){
     QByteArray datas = PageListData(Parent, path);
     JsonData = response->Fire("/v1/files/page", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::getFilesInfo(QString uuid, QString path){
+void Util::getFilesInfo(const QString &uuid, const QString &path){
     QByteArray datas = FliesInfoData(uuid, path);
     JsonData = response->Fire("/v1/files/get", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::createFiles(QString name, QString path){
+void Util::createFiles(const QString &name, const QString &path){
     QByteArray datas = CreateDicectory(name, path);
     JsonData = response->Fire("/v1/files/createDirectory", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::moveFiles(QString uuid, QString path, QString parent){
+void Util::moveFiles(const QString &uuid, const QString &path, const QString &parent){
     QByteArray datas = FilesMove(uuid, path, parent);
     JsonData = response->Fire("/v1/files/move", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::renameFiles(QString uuid, QString path, QString name){
+void Util::renameFiles(const QString &uuid, const QString &path, const QString &name){
     QByteArray datas = FilesRename(uuid, path, name);
     JsonData = response->Fire("/v1/files/rename", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::recycleFiles(QString uuid, QString path){
+void Util::recycleFiles(const QString &uuid, const QString &path){
     QByteArray datas = FilesRecycle(uuid, path);
     JsonData = response->Fire("/v1/files/recycle", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::removeFiles(QString uuid, QString path){
+void Util::removeFiles(const QString &uuid, const QString &path){
     QByteArray datas = FilesRemove(uuid, path);
     JsonData = response->Fire("/v1/files/remove", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::previewPDF(QString uuid, QString path){
+void Util::previewPDF(const QString &uuid, const QString &path){
     QByteArray datas = PreviewPDF(uuid, path);
     JsonData = response->Fire("/v1/preview/pdf", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::previewImage(QString uuid, QString path){
+void Util::previewImage(const QString &uuid, const QString &path){
     QByteArray datas = PreviewImage(uuid, path);
     JsonData = response->Fire("/v1/preview/image", this->getToken(), datas, post);
     qDebug() << JsonData;
 }
 
-void Util::saveToken(QByteArray Token){
+void Util::saveToken(const QByteArray &Token){
     QSettings settings(this->SystemPath(), QSettings::NativeFormat);
     settings.beginGroup(tr("AotuLogin"));
     QJsonValue data = this->getJson(Token, "token");

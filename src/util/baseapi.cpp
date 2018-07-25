@@ -13,7 +13,7 @@ BaseAPI::BaseAPI(QObject *parent) : QObject(parent)
 {
 }
 
-QByteArray BaseAPI::Fire(QString url, QString token, QByteArray data, method m){
+QByteArray BaseAPI::Fire(const QString &url, const QString &token, const QByteArray &data, method m){
 
     switch (m) {
     case get:return this->Get(url,token);break;
@@ -22,7 +22,7 @@ QByteArray BaseAPI::Fire(QString url, QString token, QByteArray data, method m){
     }
 }
 
-QByteArray BaseAPI::Get(QString url, QString token){
+QByteArray BaseAPI::Get(const QString &url, const QString &token){
     QNetworkRequest request = DefaultHeader(token, url);
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->get(request);
@@ -30,14 +30,14 @@ QByteArray BaseAPI::Get(QString url, QString token){
 
 }
 
-QByteArray BaseAPI::noTokenPost(QString url, QByteArray data){
+QByteArray BaseAPI::noTokenPost(const QString &url, const QByteArray &data){
     QNetworkRequest request = LoginHeader(url);
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->post(request, data);
     return this->wrapper_response(reply);
 }
 
-QByteArray BaseAPI::Post(QString url, QString token, QByteArray data){
+QByteArray BaseAPI::Post(const QString &url, const QString &token, const QByteArray &data){
     QNetworkRequest request = DefaultHeader(token, url);
     QNetworkAccessManager *manage = new QNetworkAccessManager(this);
     QNetworkReply *reply = manage->post(request, data);

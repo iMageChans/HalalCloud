@@ -15,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     Util *util = new Util;
-    util->Login("15618537992","bin258963");
 }
 
 MainWindow::~MainWindow()
