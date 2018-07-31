@@ -3,15 +3,26 @@
 
 #include <QWidget>
 
+class QLabel;
+
+namespace Ui {
+class LoginWidget;
+}
+
 class LoginWidget : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit LoginWidget(QWidget *parent = 0);
+    ~LoginWidget();
 
-signals:
+private:
+    QLabel *TitleIcon;
 
-public slots:
+    Ui::LoginWidget *ui;
+    void setupUI();
+    void setupTitleIcon();
 };
 
 #endif // LOGINWIDGET_H
