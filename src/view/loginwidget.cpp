@@ -14,7 +14,8 @@ LoginWidget::LoginWidget(QWidget *parent) :
 
 void LoginWidget::setupUI()
 {
-
+    ui->userEdit->setPlaceholderText("用户名");
+    ui->passwordEdit->setPlaceholderText("密码");
 }
 
 void LoginWidget::setupTitleIcon()
