@@ -78,6 +78,9 @@ border-style:outset;</string>
    <property name="styleSheet">
     <string notr="true">background:transparent;border-width:0;border-style:outset</string>
    </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -167,7 +170,7 @@ color:rgb(255, 255, 255)</string>
     <string>登陆</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>60</x>

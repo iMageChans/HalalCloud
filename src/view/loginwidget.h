@@ -4,6 +4,7 @@
 #include <QWidget>
 
 class QLabel;
+class Util;
 
 namespace Ui {
 class LoginWidget;
@@ -17,7 +18,11 @@ public:
     explicit LoginWidget(QWidget *parent = 0);
     ~LoginWidget();
 
+private slots:
+    void on_Login_clicked();
+
 private:
+    Util *util;
     QLabel *TitleIcon;
 
     Ui::LoginWidget *ui;
