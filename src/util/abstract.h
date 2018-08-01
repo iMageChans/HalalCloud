@@ -19,7 +19,7 @@ QNetworkRequest RequesBuild(const R &Token, const R &Url, const R &UploadId, req
 
 template <typename R>
 QNetworkRequest DefaultHeader(const R &Token, const R &Url){
-    QUrl url("http://api.blog120.com" + Url);
+    QUrl url("https://api.6pan.cn" + Url);
     QByteArray bearer;
     QNetworkRequest request;
     request.setUrl(url);
@@ -31,7 +31,7 @@ QNetworkRequest DefaultHeader(const R &Token, const R &Url){
 
 template <typename R>
 QNetworkRequest LoginHeader(const R &Url){
-    QUrl url("http://api.blog120.com" + Url);
+    QUrl url("https://api.6pan.cn" + Url);
     QNetworkRequest request;
     request.setUrl(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/json"));

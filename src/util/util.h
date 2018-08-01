@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QJsonValue>
+
 class BaseAPI;
 
 class Util : public QObject
@@ -10,7 +11,7 @@ class Util : public QObject
     Q_OBJECT
 public:
     explicit Util(QObject *parent = nullptr);
-    void Login(const QString &username, const QString &password);
+    QByteArray Login(const QString &username, const QString &password);
     void LoginOut();
     void getFilesList(const QString &Parent, const QString &path, const QString &Mime);
     void getPageFile(const QString &Parent, const QString &path);

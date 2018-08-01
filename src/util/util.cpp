@@ -41,11 +41,12 @@ QString Util::JsonToString(const QJsonValue &value){
     return value.toString();
 }
 
-void Util::Login(const QString &username, const QString &password){
+QByteArray Util::Login(const QString &username, const QString &password){
     QByteArray datas = LoginData(username,password);
     qDebug() << &datas;
     JsonData = response->Fire("/v1/user/login","",datas, post_no_token);
     this->saveToken(JsonData);
+    return JsonData;
 }
 
 QString Util::getToken(){

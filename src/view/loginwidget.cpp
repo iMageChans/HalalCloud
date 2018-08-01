@@ -1,7 +1,10 @@
 #include "loginwidget.h"
 #include "ui_loginwidget.h"
 #include "util/util.h"
+#include "model/model.h"
 #include <QLabel>
+#include <QByteArray>
+#include <QJsonValue>
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -21,7 +24,6 @@ void LoginWidget::setupUI()
 void LoginWidget::setupTitleIcon()
 {
 
-
 }
 
 LoginWidget::~LoginWidget()
@@ -31,5 +33,8 @@ LoginWidget::~LoginWidget()
 
 void LoginWidget::on_Login_clicked()
 {
-    util->Login(ui->userEdit->text(), ui->passwordEdit->text());
+    QByteArray Data = util->Login(ui->userEdit->text(), ui->passwordEdit->text());
+    Model *model = new Model;
+    QJsonValue Json = util->getJson(Data, "result");
+    model->getUserInfo(Json);
 }
