@@ -6,6 +6,7 @@
 #include <QRegExp>
 #include <QValidator>
 #include <QMessageBox>
+#include <QTimer>
 
 RegisterWidget::RegisterWidget(QWidget *parent) :
     QWidget(parent),
@@ -44,13 +45,14 @@ void RegisterWidget::on_back_clicked()
 
 void RegisterWidget::on_regis_clicked()
 {
-    User user = util->Registers(ui->name->text(),ui->username->text(),ui->password->text(), ui->code->text());
+    User user = util->Registers(ui->name->text(), reg.result, ui->password->text(), ui->code->text());
     ui->regis->setEnabled(false);
     ui->regis->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
     if (user.status == "200"){
-
-        MainWindow *main = new MainWindow;
-        main->show();
+        util->systemConfig("token", user.token, "AotuLogin");
+        util->systemConfig("username", user.result.phone, "AotuLogin");
+        LoginWidget *login = new LoginWidget;
+        login->show();
         this->close();
     }else {
         this->MessageBox(user.code);
@@ -70,4 +72,31 @@ void RegisterWidget::MessageBox(const QString &code)
         box.setText("注册失败");
     }
     box.exec();
+}
+
+void RegisterWidget::on_codeButton_clicked()
+{
+    reg = util->Cap(ui->username->text());
+    ui->codeButton->setEnabled(false);
+    msgTime = 60;
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(showTimelimit()));
+    timer->start( 1000 );
+}
+
+
+void RegisterWidget::showTimelimit()
+{
+    if(msgTime != 0)
+     {
+         msgTime -= 1; //注意字符类型
+         QString num = QString::number(msgTime);
+         ui->codeButton->setText(num);
+     }
+     else
+     {
+        ui->codeButton->setEnabled(true);
+        ui->codeButton->setText("获取验证码");
+     }
+
 }

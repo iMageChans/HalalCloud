@@ -10,6 +10,7 @@ typedef struct{
     QString uuid;
     QString name;
     QString icon;
+    QString phone;
     QString spaceUsed;
     QString spaceCapacity;
 }UserInfo;

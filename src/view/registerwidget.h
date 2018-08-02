@@ -2,6 +2,7 @@
 #define REGISTERWIDGET_H
 
 #include <QWidget>
+#include "model/model.h"
 
 class Util;
 
@@ -22,10 +23,16 @@ private slots:
 
     void on_regis_clicked();
 
+    void on_codeButton_clicked();
+
+    void showTimelimit();
+
 private:
     void MessageBox(const QString &code);
 
     Util *util;
+    Register reg;
+    int msgTime;
 
     Ui::RegisterWidget *ui;
     void setupUI();

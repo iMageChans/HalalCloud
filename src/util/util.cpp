@@ -22,22 +22,25 @@ Util::Util(QObject *parent) : QObject(parent)
 User Util::Login(const QString &username, const QString &password){
     QByteArray datas = LoginData(username,password);
     JsonData = response->Fire("/v1/user/login","",datas, post_no_token);
-    users = model->getUser(JsonData);
+    User users = model->getUser(JsonData);
     this->systemConfig("token", users.token, "AotuLogin");
     return users;
 }
 
-User Util::Registers(const QString &name, const QString &password, const QString &code, const QString &phone)
+Register Util::Cap(const QString &phone)
 {
     QByteArray Cap = Captcha(phone);
     JsonData = response->Fire("/v1/user/sendRegisterMessage","",Cap,post_no_token);
     Register regis = model->getRegister(JsonData);
-    if(regis.status == "200"){
-        QByteArray reg = registerUser(name, password, code, regis.result);
-        JsonData = response->Fire("/v1/user/register","",reg,post_no_token);
-        users = model->getUser(JsonData);
-        return users;
-    }
+    return regis;
+}
+
+User Util::Registers(const QString &name, const QString &phoneInfo, const QString &password, const QString &code)
+{
+    QByteArray reg = registerUser(name, password, code, phoneInfo);
+    JsonData = response->Fire("/v1/user/register","",reg,post_no_token);
+    User users = model->getUser(JsonData);
+    return users;
 }
 
 QString Util::getToken(){
@@ -160,4 +163,13 @@ void Util::deleteSystemConfig(const QString &key, const QString &Group)
         setting.remove(key);
         setting.endGroup();
     }
+}
+
+QString Util::getSystemConfig(const QString &key, const QString &Group){
+    QSettings settings(this->SystemPath(), QSettings::NativeFormat);
+    QString value = settings.value(Group + "/" + key).toString();
+    if (settings.contains(Group + "/" + key)){
+        value = settings.value(Group + "/" + key).toString();
+    }
+    return value;
 }

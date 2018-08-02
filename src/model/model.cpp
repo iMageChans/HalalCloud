@@ -33,6 +33,7 @@ UserInfo Model::getUserInfo(const QJsonValue &Data)
     userInfo.name = this->JsonToString(this->getJson(Data, "name"));
     userInfo.icon = this->JsonToString(this->getJson(Data, "icon"));
     userInfo.uuid = this->JsonToString(this->getJson(Data, "uuid"));
+    userInfo.phone = this->JsonToString(this->getJson(Data, "phone"));
     userInfo.spaceCapacity = this->JsonToString(this->getJson(Data, "spaceCapacity"));
     userInfo.spaceUsed = this->JsonToString(this->getJson(Data, "spaceUsed"));
     return userInfo;
@@ -42,6 +43,7 @@ Register Model::getRegister(const QByteArray &Data)
 {
     reg.status = this->JsonToString(this->getByteArray(Data, "status"));
     reg.result = this->JsonToString(this->getByteArray(Data, "result"));
+    return reg;
 }
 
 QJsonValue Model::getByteArray(const QByteArray &data, const QString &key){

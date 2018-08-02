@@ -19,6 +19,8 @@ LoginWidget::LoginWidget(QWidget *parent) :
     ui->setupUi(this);
     this->setupUI();
 
+    ui->userEdit->setText(util->getSystemConfig("username","AotuLogin"));
+
     connect(ui->autoLogin, SIGNAL(stateChanged(int)), this, SLOT(onStateChanged(int)));
 }
 
@@ -45,6 +47,7 @@ void LoginWidget::on_Login_clicked()
     ui->Login->setEnabled(false);
     ui->Login->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
     if (user.status == "200"){
+        util->systemConfig("username", user.result.phone, "AotuLogin");
         MainWindow *main = new MainWindow;
         main->show();
         this->close();
