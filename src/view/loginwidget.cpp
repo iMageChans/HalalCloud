@@ -41,15 +41,17 @@ LoginWidget::~LoginWidget()
 void LoginWidget::on_Login_clicked()
 {
     User user = util->Login(ui->userEdit->text(), ui->passwordEdit->text());
+    qDebug() << user.code;
     ui->Login->setEnabled(false);
+    ui->Login->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
     if (user.status == "200"){
-        ui->Login->setEnabled(true);
         MainWindow *main = new MainWindow;
         main->show();
         this->close();
     }else {
         this->MessageBox(user.code);
         ui->Login->setEnabled(true);
+        ui->Login->setStyleSheet("background:rgb(46, 193, 124);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
     }
 }
 
@@ -79,8 +81,12 @@ void LoginWidget::MessageBox(const QString &code)
         box.setText("登陆失败");
     }else if (code == "USER_NOT_FOUND"){
         box.setText("用户不存在");
-    }else {
-        box.setText("密码或者用户错误");
+    }else if (code == "{PASSWORD}_REQUIRED") {
+        box.setText("密码不能为空");
+    }else if (code == "{PHONE}_REQUIRED") {
+        box.setText("用户不能为空");
+    }else{
+        box.setText("登陆失败");
     }
     box.exec();
 }

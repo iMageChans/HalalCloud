@@ -23,6 +23,11 @@ typedef struct{
     QString token;
 }User;
 
+typedef struct{
+    QString status;
+    QString result;
+}Register;
+
 
 
 class Model : public QObject
@@ -31,6 +36,7 @@ class Model : public QObject
 public:
     explicit Model(QObject *parent = 0);
     User getUser(const QByteArray &Data);
+    Register getRegister(const QByteArray &Data);
 
 signals:
 
@@ -45,6 +51,7 @@ private:
 
     UserInfo userInfo;
     User users;
+    Register reg;
 };
 
 #endif // MODEL_H

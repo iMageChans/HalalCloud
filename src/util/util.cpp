@@ -27,6 +27,19 @@ User Util::Login(const QString &username, const QString &password){
     return users;
 }
 
+User Util::Registers(const QString &name, const QString &password, const QString &code, const QString &phone)
+{
+    QByteArray Cap = Captcha(phone);
+    JsonData = response->Fire("/v1/user/sendRegisterMessage","",Cap,post_no_token);
+    Register regis = model->getRegister(JsonData);
+    if(regis.status == "200"){
+        QByteArray reg = registerUser(name, password, code, regis.result);
+        JsonData = response->Fire("/v1/user/register","",reg,post_no_token);
+        users = model->getUser(JsonData);
+        return users;
+    }
+}
+
 QString Util::getToken(){
     QSettings settings(this->SystemPath(), QSettings::NativeFormat);
     Token = settings.value("AotuLogin/token").toString();

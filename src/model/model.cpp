@@ -22,6 +22,7 @@ User Model::getUser(const QByteArray &Data)
         users.token = this->JsonToString(this->getByteArray(Data, "token"));
     }else{
         users.message = this->JsonToString(this->getByteArray(Data, "message"));
+        users.code = this->JsonToString(this->getByteArray(Data, "code"));
     }
 
     return users;
@@ -35,6 +36,12 @@ UserInfo Model::getUserInfo(const QJsonValue &Data)
     userInfo.spaceCapacity = this->JsonToString(this->getJson(Data, "spaceCapacity"));
     userInfo.spaceUsed = this->JsonToString(this->getJson(Data, "spaceUsed"));
     return userInfo;
+}
+
+Register Model::getRegister(const QByteArray &Data)
+{
+    reg.status = this->JsonToString(this->getByteArray(Data, "status"));
+    reg.result = this->JsonToString(this->getByteArray(Data, "result"));
 }
 
 QJsonValue Model::getByteArray(const QByteArray &data, const QString &key){

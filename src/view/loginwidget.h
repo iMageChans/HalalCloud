@@ -32,7 +32,6 @@ private:
     void MessageBox(const QString &code);
 
     Util *util;
-    QLabel *TitleIcon;
 
     Ui::LoginWidget *ui;
     void setupUI();

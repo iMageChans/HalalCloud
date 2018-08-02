@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+class Util;
+
 namespace Ui {
 class RegisterWidget;
 }
@@ -18,7 +20,13 @@ public:
 private slots:
     void on_back_clicked();
 
+    void on_regis_clicked();
+
 private:
+    void MessageBox(const QString &code);
+
+    Util *util;
+
     Ui::RegisterWidget *ui;
     void setupUI();
 };
