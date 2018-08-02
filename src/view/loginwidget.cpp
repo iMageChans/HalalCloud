@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QByteArray>
 #include <QJsonValue>
+#include <QDesktopServices>
+#include <QUrl>
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -45,4 +47,14 @@ void LoginWidget::onStateChanged(int state)
     if (state == Qt::Checked){
         ui->savePassword->setCheckState(Qt::Checked);
     }
+}
+
+void LoginWidget::on_regis_clicked()
+{
+    QDesktopServices::openUrl(QUrl(QString("http://www.baidu.com/")));
+}
+
+void LoginWidget::on_forget_clicked()
+{
+    QDesktopServices::openUrl(QUrl(QString("http://www.baidu.com/")));
 }

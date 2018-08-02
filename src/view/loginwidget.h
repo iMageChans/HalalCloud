@@ -23,6 +23,10 @@ private slots:
 
     void onStateChanged(int state);
 
+    void on_regis_clicked();
+
+    void on_forget_clicked();
+
 private:
     Util *util;
     QLabel *TitleIcon;
