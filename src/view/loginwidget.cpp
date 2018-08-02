@@ -2,6 +2,7 @@
 #include "ui_loginwidget.h"
 #include "util/util.h"
 #include "model/model.h"
+#include "view/registerwidget.h"
 #include <QLabel>
 #include <QByteArray>
 #include <QJsonValue>
@@ -51,7 +52,9 @@ void LoginWidget::onStateChanged(int state)
 
 void LoginWidget::on_regis_clicked()
 {
-    QDesktopServices::openUrl(QUrl(QString("http://www.baidu.com/")));
+    RegisterWidget *reg = new RegisterWidget;
+    reg->show();
+    this->close();
 }
 
 void LoginWidget::on_forget_clicked()

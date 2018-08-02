@@ -170,7 +170,10 @@ color:rgb(215,215,215);</string>
    <property name="styleSheet">
     <string notr="true">background:rgb(46, 193, 124);
 border:none;
-color:rgb(255, 255, 255)</string>
+color:rgb(255, 255, 255);
+border:1px rgb(255, 255, 255);
+border-radius:5px;
+</string>
    </property>
    <property name="text">
     <string>登陆</string>
