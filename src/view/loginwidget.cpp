@@ -10,6 +10,7 @@
 #include <QUrl>
 #include <QMessageBox>
 #include <QDebug>
+#include <QTimer>
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -28,6 +29,18 @@ void LoginWidget::setupUI()
 {
     ui->userEdit->setPlaceholderText("用户名");
     ui->passwordEdit->setPlaceholderText("密码");
+
+    if(util->getSystemConfig("autoLogin", "AotuLogin") == "2")
+    {
+        ui->autoLogin->setCheckState(Qt::Checked);
+        ui->savePassword->setCheckState(Qt::Checked);
+        ui->Login->setEnabled(false);
+        ui->Login->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
+        autoTime = 0.5;
+        timer = new QTimer(this);
+        connect(timer, SIGNAL(timeout()), this, SLOT(showTimelimit()));
+        timer->start(1000);
+    }
 }
 
 void LoginWidget::setupTitleIcon()
@@ -63,6 +76,8 @@ void LoginWidget::onStateChanged(int state)
     if (state == Qt::Checked){
         ui->savePassword->setCheckState(Qt::Checked);
     }
+    util->systemConfig("autoLogin", QString::number(state), "AotuLogin");
+    util->systemConfig("savePassword", QString::number(state), "AotuLogin");
 }
 
 void LoginWidget::on_regis_clicked()
@@ -92,4 +107,39 @@ void LoginWidget::MessageBox(const QString &code)
         box.setText("登陆失败");
     }
     box.exec();
+}
+
+void LoginWidget::autoLogins()
+{
+    if(ui->autoLogin->isChecked() == true)
+    {
+        User user = util->getUserInfo();
+        if (user.status == "200")
+        {
+            MainWindow *main = new MainWindow;
+            main->show();
+            this->close();
+        }else if(user.code == "CREDENTIALS_REQUIRED"){
+            QMessageBox box;
+            box.setText("登陆过期，请重新登陆");
+            box.exec();
+            ui->Login->setEnabled(true);
+            ui->Login->setStyleSheet("background:rgb(46, 193, 124);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
+        }
+    }
+
+}
+
+void LoginWidget::showTimelimit()
+{
+    if(autoTime != 0)
+     {
+         autoTime -= 1;
+     }
+     else
+     {
+        this->autoLogins();
+        timer->stop();
+     }
+
 }

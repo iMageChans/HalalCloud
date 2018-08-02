@@ -43,6 +43,14 @@ User Util::Registers(const QString &name, const QString &phoneInfo, const QStrin
     return users;
 }
 
+User Util::getUserInfo()
+{
+    JsonData = response->Fire("/v1/user/info",this->getToken(),"", post);
+    User users = model->getUser(JsonData);
+    this->systemConfig("token", users.token, "AotuLogin");
+    return users;
+}
+
 QString Util::getToken(){
     QSettings settings(this->SystemPath(), QSettings::NativeFormat);
     Token = settings.value("AotuLogin/token").toString();
@@ -157,7 +165,7 @@ void Util::systemConfig(const QString &key, const QString &data, const QString &
 
 void Util::deleteSystemConfig(const QString &key, const QString &Group)
 {
-    QSettings setting(this->SystemPath(),QSettings::IniFormat);
+    QSettings setting(this->SystemPath(),QSettings::NativeFormat);
     if (setting.contains(Group + "/" + key)){
         setting.beginGroup(Group);
         setting.remove(key);

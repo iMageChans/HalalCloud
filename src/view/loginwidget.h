@@ -6,6 +6,7 @@
 
 class QLabel;
 class Util;
+class QTimer;
 
 namespace Ui {
 class LoginWidget;
@@ -28,10 +29,15 @@ private slots:
 
     void on_forget_clicked();
 
+    void showTimelimit();
+
 private:
     void MessageBox(const QString &code);
+    void autoLogins();
 
     Util *util;
+    int autoTime;
+    QTimer *timer;
 
     Ui::LoginWidget *ui;
     void setupUI();

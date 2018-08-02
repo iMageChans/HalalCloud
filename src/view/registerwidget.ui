@@ -125,12 +125,12 @@ border-style:outset;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLineEdit" name="code">
+  <widget class="QLineEdit" name="password">
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>330</y>
-     <width>70</width>
+     <y>290</y>
+     <width>171</width>
      <height>30</height>
     </rect>
    </property>
@@ -201,12 +201,12 @@ border-radius:5px;
     <string>获取验证码</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="password">
+  <widget class="QLineEdit" name="code">
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>290</y>
-     <width>171</width>
+     <y>330</y>
+     <width>70</width>
      <height>30</height>
     </rect>
    </property>

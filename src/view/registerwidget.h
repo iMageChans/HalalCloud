@@ -5,6 +5,7 @@
 #include "model/model.h"
 
 class Util;
+class QTimer;
 
 namespace Ui {
 class RegisterWidget;
@@ -33,6 +34,7 @@ private:
     Util *util;
     Register reg;
     int msgTime;
+    QTimer *timer;
 
     Ui::RegisterWidget *ui;
     void setupUI();

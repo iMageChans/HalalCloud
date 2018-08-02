@@ -79,7 +79,7 @@ void RegisterWidget::on_codeButton_clicked()
     reg = util->Cap(ui->username->text());
     ui->codeButton->setEnabled(false);
     msgTime = 60;
-    QTimer *timer = new QTimer(this);
+    timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(showTimelimit()));
     timer->start( 1000 );
 }
@@ -89,7 +89,7 @@ void RegisterWidget::showTimelimit()
 {
     if(msgTime != 0)
      {
-         msgTime -= 1; //注意字符类型
+         msgTime -= 1;
          QString num = QString::number(msgTime);
          ui->codeButton->setText(num);
      }
@@ -97,6 +97,7 @@ void RegisterWidget::showTimelimit()
      {
         ui->codeButton->setEnabled(true);
         ui->codeButton->setText("获取验证码");
+        timer->stop();
      }
 
 }
