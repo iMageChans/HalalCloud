@@ -29,6 +29,8 @@ private slots:
     void on_forget_clicked();
 
 private:
+    void MessageBox(const QString &code);
+
     Util *util;
     QLabel *TitleIcon;
 

@@ -1,4 +1,5 @@
 #include "loginwidget.h"
+#include "controller/mainwindow.h"
 #include "ui_loginwidget.h"
 #include "util/util.h"
 #include "view/registerwidget.h"
@@ -7,6 +8,7 @@
 #include <QJsonValue>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QMessageBox>
 #include <QDebug>
 
 LoginWidget::LoginWidget(QWidget *parent) :
@@ -39,7 +41,16 @@ LoginWidget::~LoginWidget()
 void LoginWidget::on_Login_clicked()
 {
     User user = util->Login(ui->userEdit->text(), ui->passwordEdit->text());
-    qDebug() << user.token;
+    ui->Login->setEnabled(false);
+    if (user.status == "200"){
+        ui->Login->setEnabled(true);
+        MainWindow *main = new MainWindow;
+        main->show();
+        this->close();
+    }else {
+        this->MessageBox(user.code);
+        ui->Login->setEnabled(true);
+    }
 }
 
 void LoginWidget::onStateChanged(int state)
@@ -59,4 +70,17 @@ void LoginWidget::on_regis_clicked()
 void LoginWidget::on_forget_clicked()
 {
     QDesktopServices::openUrl(QUrl(QString("http://www.baidu.com/")));
+}
+
+void LoginWidget::MessageBox(const QString &code)
+{
+    QMessageBox box;
+    if (code == "USER_LOGIN_FAILED"){
+        box.setText("登陆失败");
+    }else if (code == "USER_NOT_FOUND"){
+        box.setText("用户不存在");
+    }else {
+        box.setText("密码或者用户错误");
+    }
+    box.exec();
 }
