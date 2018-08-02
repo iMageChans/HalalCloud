@@ -30,9 +30,9 @@ SOURCES += \
     util/util.cpp \
     util/multiparupload.cpp \
     model/model.cpp \
-    util/config.cpp \
     model/viewmodel.cpp \
-    view/loginwidget.cpp
+    view/loginwidget.cpp \
+    view/registerwidget.cpp
 
 HEADERS += \
         controller/mainwindow.h \
@@ -42,13 +42,14 @@ HEADERS += \
     util/networkdata.h \
     util/abstract.h \
     model/model.h \
-    util/config.h \
     model/viewmodel.h \
-    view/loginwidget.h
+    view/loginwidget.h \
+    view/registerwidget.h
 
 FORMS += \
     view/loginwidget.ui \
-    controller/mainwindow.ui
+    controller/mainwindow.ui \
+    view/registerwidget.ui
 
 RESOURCES += \
     resource.qrc

@@ -119,6 +119,22 @@ QByteArray PreviewImage(const Image &uuid, const Image &Path){
     return getJsonData(Json);
 }
 
+template <typename CAPTCHA>
+QByteArray Captcha(const CAPTCHA &phone){
+    QJsonObject Json;
+    Json.insert("phone",phone);
+    return getJsonData(Json);
+}
+
+template <typename Register>
+QByteArray registerUser(const Register &name, const Register &password, const Register &code, const Register &phoneInfo){
+    QJsonObject Json;
+    Json.insert("name",name);
+    Json.insert("password",password);
+    Json.insert("code",code);
+    Json.insert("phoneInfo",phoneInfo);
+    return getJsonData(Json);
+}
 
 
 #endif // NETWORKDATA_H

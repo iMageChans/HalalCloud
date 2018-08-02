@@ -1,6 +1,7 @@
 #include "util.h"
 #include "baseapi.h"
 #include "networkdata.h"
+#include "model/model.h"
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QDebug>
@@ -15,37 +16,31 @@
 Util::Util(QObject *parent) : QObject(parent)
 {
     response = new BaseAPI;
+    model = new Model;
 }
 
-QJsonValue Util::getJson(const QByteArray &data, const QString &key){
-    QJsonParseError jsonError;
-    QJsonDocument docment = QJsonDocument::fromJson(data, &jsonError);
-    if(docment.isNull() && jsonError.error != QJsonParseError::NoError){return Error;}
-    if(!docment.isObject()){return Error;}
-    QJsonObject object = docment.object();
-    if (!object.contains(key)){return Error;}
-    return object.value(key);
-}
-
-QJsonValue Util::getJsonNest(const QByteArray &data, const QString &key, const QString &nestKey){
-    QJsonValue datas = this->getJson(data,key);
-    QJsonObject object = datas.toObject();
-    QJsonValue nestObj =  object.value(key);
-    if (nestObj.isObject()){return Error;}
-    QJsonObject value = nestObj.toObject();
-    if (!value.contains(nestKey)){return Error;}
-    return value.value(nestKey);
-}
-
-QString Util::JsonToString(const QJsonValue &value){
-    return value.toString();
-}
-
-void Util::Login(const QString &username, const QString &password){
+User Util::Login(const QString &username, const QString &password){
     QByteArray datas = LoginData(username,password);
-    qDebug() << &datas;
     JsonData = response->Fire("/v1/user/login","",datas, post_no_token);
-    this->saveToken(JsonData);
+    User users = model->getUser(JsonData);
+    this->systemConfig("token", users.token, "AotuLogin");
+    return users;
+}
+
+Register Util::Cap(const QString &phone)
+{
+    QByteArray Cap = Captcha(phone);
+    JsonData = response->Fire("/v1/user/sendRegisterMessage","",Cap,post_no_token);
+    Register regis = model->getRegister(JsonData);
+    return regis;
+}
+
+User Util::Registers(const QString &name, const QString &phoneInfo, const QString &password, const QString &code)
+{
+    QByteArray reg = registerUser(name, password, code, phoneInfo);
+    JsonData = response->Fire("/v1/user/register","",reg,post_no_token);
+    User users = model->getUser(JsonData);
+    return users;
 }
 
 QString Util::getToken(){
@@ -61,14 +56,9 @@ void Util::LoginOut(){
     QDateTime time = QDateTime::currentDateTime();
     QByteArray datas = LoginOutData(time.toTime_t());
     QByteArray rsp = response->Fire("/v1/user/logout", this->getToken(), datas, post);
-    if (this->getJson(rsp, "status") == 200){
-        QSettings setting(this->SystemPath(),QSettings::IniFormat);
-        if (setting.contains(tr("AotuLogin/token"))){
-            setting.beginGroup(tr("AotuLogin"));
-            setting.remove( "token");
-            setting.endGroup();
-        }
-    }
+//    if (this->getJson(rsp, "status") == 200){
+//        this->deleteSystemConfig("token", "AotuLogin");
+//    }
 }
 
 QString Util::getFilesHash(const QString &filePath){
@@ -87,8 +77,8 @@ QString Util::getFilesHash(const QString &filePath){
 void Util::getFilesList(const QString &Parent, const QString &path, const QString &Mime){
     QByteArray datas = FilesListData(Parent, path, Mime);
     JsonData = response->Fire("/v1/files/list", this->getToken(), datas, post);
-    QJsonValue data = this->getJsonNest(JsonData, "result", "list");
-    qDebug() << this->JsonToString(data);
+//    QJsonValue data = model->getJsonNest(JsonData, "result", "list");
+//    qDebug() << model->JsonToString(data);
 }
 
 void Util::getPageFile(const QString &Parent, const QString &path){
@@ -145,16 +135,6 @@ void Util::previewImage(const QString &uuid, const QString &path){
     qDebug() << JsonData;
 }
 
-void Util::saveToken(const QByteArray &Token){
-    QSettings settings(this->SystemPath(), QSettings::NativeFormat);
-    settings.beginGroup(tr("AotuLogin"));
-    QJsonValue data = this->getJson(Token, "token");
-    QString key("token");
-    QString value = this->JsonToString(data);
-    settings.setValue(key,value);
-    settings.endGroup();
-}
-
 QString Util::SystemPath(){
 #ifdef Q_OS_MAC
     {
@@ -165,4 +145,31 @@ QString Util::SystemPath(){
         return ""HKEY_CURRENT_USER\\Software\\Microsoft\\HalalCloud"
     }
 #endif
+}
+
+void Util::systemConfig(const QString &key, const QString &data, const QString &Group)
+{
+    QSettings settings(this->SystemPath(), QSettings::NativeFormat);
+    settings.beginGroup(Group);
+    settings.setValue(key,data);
+    settings.endGroup();
+}
+
+void Util::deleteSystemConfig(const QString &key, const QString &Group)
+{
+    QSettings setting(this->SystemPath(),QSettings::IniFormat);
+    if (setting.contains(Group + "/" + key)){
+        setting.beginGroup(Group);
+        setting.remove(key);
+        setting.endGroup();
+    }
+}
+
+QString Util::getSystemConfig(const QString &key, const QString &Group){
+    QSettings settings(this->SystemPath(), QSettings::NativeFormat);
+    QString value = settings.value(Group + "/" + key).toString();
+    if (settings.contains(Group + "/" + key)){
+        value = settings.value(Group + "/" + key).toString();
+    }
+    return value;
 }
