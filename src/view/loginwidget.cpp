@@ -35,6 +35,5 @@ void LoginWidget::on_Login_clicked()
 {
     QByteArray Data = util->Login(ui->userEdit->text(), ui->passwordEdit->text());
     Model *model = new Model;
-    QJsonValue Json = util->getJson(Data, "result");
-    model->getUserInfo(Json);
+    model->getUserInfo(Data);
 }

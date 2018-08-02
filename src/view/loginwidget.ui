@@ -65,6 +65,9 @@
 border-width:0;
 border-style:outset;</string>
    </property>
+   <property name="text">
+    <string>15618537992</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="passwordEdit">
    <property name="geometry">
@@ -77,6 +80,9 @@ border-style:outset;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">background:transparent;border-width:0;border-style:outset</string>
+   </property>
+   <property name="text">
+    <string>woshishei</string>
    </property>
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>

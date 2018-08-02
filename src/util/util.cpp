@@ -30,14 +30,23 @@ QJsonValue Util::getJson(const QByteArray &data, const QString &key){
 QJsonValue Util::getJsonNest(const QByteArray &data, const QString &key, const QString &nestKey){
     QJsonValue datas = this->getJson(data,key);
     QJsonObject object = datas.toObject();
-    QJsonValue nestObj =  object.value(key);
+    QJsonValue nestObj =  object.value(nestKey);
+    qDebug() << nestObj;
     if (nestObj.isObject()){return Error;}
-    QJsonObject value = nestObj.toObject();
-    if (!value.contains(nestKey)){return Error;}
-    return value.value(nestKey);
+    return nestObj;
 }
 
-QString Util::JsonToString(const QJsonValue &value){
+QString Util::JsonToString(const QJsonValue &value)
+{
+    if (value.isString())
+    {
+        return value.toString();
+
+    }else if (value.isDouble())
+    {
+        return QString::number(value.toDouble());
+    }
+
     return value.toString();
 }
 

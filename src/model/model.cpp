@@ -1,13 +1,19 @@
 #include "model.h"
-#include <QJsonValue>
+#include <QByteArray>
 #include <QDebug>
+#include "util/util.h"
 
 Model::Model(QObject *parent) : QObject(parent)
 {
-
+    util = new Util;
 }
 
-userInfo Model::getUserInfo(const QJsonValue Data)
+UserInfo Model::getUserInfo(const QByteArray &Data)
 {
-    qDebug() << Data;
+    userInfo.name = util->JsonToString(util->getJsonNest(Data, "result", "name"));
+    userInfo.icon = util->JsonToString(util->getJsonNest(Data, "result", "icon"));
+    userInfo.uuid = util->JsonToString(util->getJsonNest(Data, "result", "uuid"));
+    userInfo.spaceCapacity = util->JsonToString(util->getJsonNest(Data, "result", "spaceCapacity"));
+    userInfo.spaceUsed = util->JsonToString(util->getJsonNest(Data, "result", "spaceUsed"));
+    return userInfo;
 }
