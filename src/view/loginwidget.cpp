@@ -13,6 +13,8 @@ LoginWidget::LoginWidget(QWidget *parent) :
     util = new Util;
     ui->setupUi(this);
     this->setupUI();
+
+    connect(ui->autoLogin, SIGNAL(stateChanged(int)), this, SLOT(onStateChanged(int)));
 }
 
 void LoginWidget::setupUI()
@@ -36,4 +38,11 @@ void LoginWidget::on_Login_clicked()
     QByteArray Data = util->Login(ui->userEdit->text(), ui->passwordEdit->text());
     Model *model = new Model;
     model->getUserInfo(Data);
+}
+
+void LoginWidget::onStateChanged(int state)
+{
+    if (state == Qt::Checked){
+        ui->savePassword->setCheckState(Qt::Checked);
+    }
 }

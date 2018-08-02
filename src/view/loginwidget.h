@@ -21,6 +21,8 @@ public:
 private slots:
     void on_Login_clicked();
 
+    void onStateChanged(int state);
+
 private:
     Util *util;
     QLabel *TitleIcon;
