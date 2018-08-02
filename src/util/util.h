@@ -3,15 +3,17 @@
 
 #include <QObject>
 #include <QJsonValue>
+#include "model/model.h"
 
 class BaseAPI;
+class Model;
 
 class Util : public QObject
 {
     Q_OBJECT
 public:
     explicit Util(QObject *parent = nullptr);
-    QByteArray Login(const QString &username, const QString &password);
+    User Login(const QString &username, const QString &password);
     void LoginOut();
     void getFilesList(const QString &Parent, const QString &path, const QString &Mime);
     void getPageFile(const QString &Parent, const QString &path);
@@ -25,9 +27,9 @@ public:
     void previewImage(const QString &uuid, const QString &path);
     QString getFilesHash(const QString &filePath);
     QString getToken();
-    QString JsonToString(const QJsonValue &value);
-    QJsonValue getJson(const QByteArray &data, const QString &key);
-    QJsonValue getJsonNest(const QByteArray &data, const QString &key, const QString &nestKey);
+
+    void systemConfig(const QString &key, const QString &data, const QString &Group);
+    void deleteSystemConfig(const QString &key, const QString &Group);
 
     QByteArray JsonData;
     QString Token;
@@ -36,11 +38,13 @@ signals:
 public slots:
 
 private:
-    void saveToken(const QByteArray &Token);
+//    void saveToken(const QByteArray &Token);
     QString SystemPath();
 
     BaseAPI *response;
     QJsonValue Error;
+    Model *model;
+    User users;
 };
 
 #endif // UTIL_H

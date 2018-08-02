@@ -2,6 +2,7 @@
 #define LOGINWIDGET_H
 
 #include <QWidget>
+#include "model/model.h"
 
 class QLabel;
 class Util;

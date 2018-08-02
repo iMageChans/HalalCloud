@@ -1,13 +1,13 @@
 #include "loginwidget.h"
 #include "ui_loginwidget.h"
 #include "util/util.h"
-#include "model/model.h"
 #include "view/registerwidget.h"
 #include <QLabel>
 #include <QByteArray>
 #include <QJsonValue>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QDebug>
 
 LoginWidget::LoginWidget(QWidget *parent) :
     QWidget(parent),
@@ -38,9 +38,8 @@ LoginWidget::~LoginWidget()
 
 void LoginWidget::on_Login_clicked()
 {
-    QByteArray Data = util->Login(ui->userEdit->text(), ui->passwordEdit->text());
-    Model *model = new Model;
-    model->getUserInfo(Data);
+    User user = util->Login(ui->userEdit->text(), ui->passwordEdit->text());
+    qDebug() << user.token;
 }
 
 void LoginWidget::onStateChanged(int state)

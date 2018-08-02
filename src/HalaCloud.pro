@@ -30,7 +30,6 @@ SOURCES += \
     util/util.cpp \
     util/multiparupload.cpp \
     model/model.cpp \
-    util/config.cpp \
     model/viewmodel.cpp \
     view/loginwidget.cpp \
     view/registerwidget.cpp
@@ -43,7 +42,6 @@ HEADERS += \
     util/networkdata.h \
     util/abstract.h \
     model/model.h \
-    util/config.h \
     model/viewmodel.h \
     view/loginwidget.h \
     view/registerwidget.h
