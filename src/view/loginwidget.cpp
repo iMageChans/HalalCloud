@@ -34,12 +34,12 @@ void LoginWidget::setupUI()
     {
         ui->autoLogin->setCheckState(Qt::Checked);
         ui->savePassword->setCheckState(Qt::Checked);
-        ui->Login->setEnabled(false);
-        ui->Login->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
-        autoTime = 0.5;
+//        ui->Login->setEnabled(false);
+//        ui->Login->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
+        autoTime = 1;
         timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(showTimelimit()));
-        timer->start(1000);
+        timer->start(500);
     }
 }
 
@@ -127,7 +127,6 @@ void LoginWidget::autoLogins()
             ui->Login->setStyleSheet("background:rgb(46, 193, 124);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
         }
     }
-
 }
 
 void LoginWidget::showTimelimit()
@@ -138,7 +137,7 @@ void LoginWidget::showTimelimit()
      }
      else
      {
-        this->autoLogins();
+//        this->autoLogins();
         timer->stop();
      }
 
