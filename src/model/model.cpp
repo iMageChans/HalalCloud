@@ -30,6 +30,7 @@ User Model::getUser(const QByteArray &Data)
 
 UserInfo Model::getUserInfo(const QJsonValue &Data)
 {
+
     userInfo.name = this->JsonToString(this->getJson(Data, "name"));
     userInfo.icon = this->JsonToString(this->getJson(Data, "icon"));
     userInfo.uuid = this->JsonToString(this->getJson(Data, "uuid"));

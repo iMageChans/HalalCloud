@@ -56,12 +56,12 @@ LoginWidget::~LoginWidget()
 void LoginWidget::on_Login_clicked()
 {
     User user = util->Login(ui->userEdit->text(), ui->passwordEdit->text());
-    qDebug() << user.code;
     ui->Login->setEnabled(false);
     ui->Login->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
     if (user.status == "200"){
         util->systemConfig("username", user.result.phone, "AotuLogin");
         MainWindow *main = new MainWindow;
+        main->userSend(user);
         main->show();
         this->close();
     }else {
@@ -114,10 +114,13 @@ void LoginWidget::autoLogins()
     if(ui->autoLogin->isChecked() == true)
     {
         User user = util->getUserInfo();
+        qDebug() << user.result.spaceUsed;
+        qDebug() << user.result.spaceCapacity;
         if (user.status == "200")
         {
             MainWindow *main = new MainWindow;
             main->show();
+            main->userSend(user);
             this->close();
         }else if(user.code == "CREDENTIALS_REQUIRED"){
             QMessageBox box;

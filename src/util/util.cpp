@@ -64,7 +64,7 @@ void Util::LoginOut(){
     QDateTime time = QDateTime::currentDateTime();
     QByteArray datas = LoginOutData(time.toTime_t());
     QByteArray rsp = response->Fire("/v1/user/logout", this->getToken(), datas, post);
-//    if (this->getJson(rsp, "status") == 200){
+//    if (model->getByteArray(rsp, "status") == 200){
 //        this->deleteSystemConfig("token", "AotuLogin");
 //    }
 }

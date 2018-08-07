@@ -33,7 +33,7 @@
      <string notr="true">border:1px solid rgb(215,215,215);
 background:rgb(255, 255, 255);</string>
     </property>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="icon">
      <property name="geometry">
       <rect>
        <x>64</x>
@@ -97,7 +97,7 @@ border-radius:75px;
       <set>Qt::LinksAccessibleByMouse</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="name">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -148,7 +148,7 @@ QProgressBar {
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="capacity">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -168,7 +168,7 @@ color:#BFBFBF;</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="dilatation">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -185,7 +185,7 @@ color:#BFBFBF;</string>
       <string>扩容</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="Loginout">
      <property name="geometry">
       <rect>
        <x>40</x>
@@ -217,6 +217,24 @@ color: #4A90E2</string>
 background:rgb(255, 255, 255);
 </string>
     </property>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>14</x>
+       <y>15</y>
+       <width>50</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;PingFangSC-Regular&quot;;
+color:#919191;
+border:none;</string>
+     </property>
+     <property name="text">
+      <string>我的文件</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_3" native="true">
     <property name="geometry">
