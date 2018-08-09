@@ -22,7 +22,6 @@ public:
 
 private slots:
 
-
     void on_Loginout_clicked();
 
     void on_dilatation_clicked();
