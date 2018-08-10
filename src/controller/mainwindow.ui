@@ -235,6 +235,110 @@ border:none;</string>
       <string>我的文件</string>
      </property>
     </widget>
+    <widget class="QListWidget" name="MyFlies">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>181</width>
+       <height>192</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>全部文件</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource.qrc">
+        <normaloff>:/image/assets/done.png</normaloff>:/image/assets/done.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>图片</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource.qrc">
+        <normaloff>:/image/assets/image.png</normaloff>:/image/assets/image.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>视频</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource.qrc">
+        <normaloff>:/image/assets/play.png</normaloff>:/image/assets/play.png</iconset>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>14</x>
+       <y>240</y>
+       <width>50</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;PingFangSC-Regular&quot;;
+color:#919191;
+border:none;</string>
+     </property>
+     <property name="text">
+      <string>传输列表</string>
+     </property>
+    </widget>
+    <widget class="QListWidget" name="listWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>260</y>
+       <width>181</width>
+       <height>192</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>正在上传</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource.qrc">
+        <normaloff>:/image/assets/upload.png</normaloff>:/image/assets/upload.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>正在下载</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource.qrc">
+        <normaloff>:/image/assets/download.png</normaloff>:/image/assets/download.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>传输完成</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource.qrc">
+        <normaloff>:/image/assets/done.png</normaloff>:/image/assets/done.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>垃圾箱</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../resource.qrc">
+        <normaloff>:/image/assets/dustbin.png</normaloff>:/image/assets/dustbin.png</iconset>
+      </property>
+     </item>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_3" native="true">
     <property name="geometry">
@@ -249,6 +353,62 @@ border:none;</string>
      <string notr="true">border:1px solid rgb(215,215,215);
 background:rgb(255, 255, 255);</string>
     </property>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>14</x>
+       <y>18</y>
+       <width>32</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&lt;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>18</y>
+       <width>32</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&gt;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_3">
+     <property name="geometry">
+      <rect>
+       <x>92</x>
+       <y>18</y>
+       <width>89</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string> 上传</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource.qrc">
+       <normaloff>:/image/assets/upload.png</normaloff>:/image/assets/upload.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_4">
+     <property name="geometry">
+      <rect>
+       <x>189</x>
+       <y>18</y>
+       <width>125</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>新建文件夹</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_4" native="true">
     <property name="geometry">
@@ -272,6 +432,9 @@ background:rgb(255, 255, 255);</string>
       <width>780</width>
       <height>616</height>
      </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
    </widget>
   </widget>
