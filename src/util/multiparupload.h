@@ -3,21 +3,27 @@
 
 #include <QObject>
 #include <QString>
+#include "model/multiparuploadmodel.h"
 
 class BaseAPI;
 class QFileInfo;
+class multiparUploadModel;
+class Util;
+
 
 class MultiparUpload : public QObject
 {
     Q_OBJECT
 public:
     explicit MultiparUpload(QObject *parent = nullptr);
-    void setDefaultInfo(const QFileInfo &files);
+    void setDefaultInfo(const QFileInfo &files, const QString &parent, const QString &filespath);
+
 signals:
 
 public slots:
 
 private:
+    QString getFilesHash(const QString &filePath);
     QString url;
     QString token;
     long long Size;
@@ -27,7 +33,10 @@ private:
     int block_num;
     QString name;
     QString path;
-
+    multiparUploadModel *model;
+    BaseAPI *response;
+    Util *util;
+    upload_token TokenInfo;
 };
 
 #endif // MULTIPARUPLOAD_H

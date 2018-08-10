@@ -28,7 +28,6 @@ public:
     void removeFiles(const QString &uuid, const QString &path);
     void previewPDF(const QString &uuid, const QString &path);
     void previewImage(const QString &uuid, const QString &path);
-    QString getFilesHash(const QString &filePath);
     QString getToken();
 
     void systemConfig(const QString &key, const QString &data, const QString &Group);

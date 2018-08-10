@@ -7,8 +7,6 @@
 #include <QDebug>
 #include <QSettings>
 #include <QJsonParseError>
-#include <QFile>
-#include <QCryptographicHash>
 #include <QDateTime>
 #include <QSettings>
 #include <QDir>
@@ -67,18 +65,6 @@ void Util::LoginOut(){
 //    if (model->getByteArray(rsp, "status") == 200){
 //        this->deleteSystemConfig("token", "AotuLogin");
 //    }
-}
-
-QString Util::getFilesHash(const QString &filePath){
-    QFile localFile(filePath);
-    if(!localFile.open(QFile::ReadOnly)){
-        qDebug() << "file open error";
-    }
-    localFile.open(QFile::ReadOnly);
-    QByteArray ba = QCryptographicHash::hash(localFile.readAll(),QCryptographicHash::Sha1);
-    localFile.close();
-    qDebug() << ba.toHex().constData();
-    return ba.toHex().constData();
 }
 
 void Util::getFilesList(const QString &Parent, const QString &path, const QString &Mime){

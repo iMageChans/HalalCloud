@@ -131,6 +131,6 @@ void MainWindow::on_upload_clicked()
     QFileInfo files = QFileInfo(dir);
 
     MultiparUpload *upload = new MultiparUpload;
-    upload->setDefaultInfo(files);
+    upload->setDefaultInfo(files, "", "");
 
 }

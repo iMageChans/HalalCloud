@@ -16,6 +16,9 @@
     <height>700</height>
    </size>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>6盘</string>
   </property>
@@ -365,6 +368,9 @@ background:rgb(255, 255, 255);</string>
        <height>25</height>
       </rect>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="text">
       <string>&lt;</string>
      </property>
@@ -378,6 +384,9 @@ background:rgb(255, 255, 255);</string>
        <height>25</height>
       </rect>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="text">
       <string>&gt;</string>
      </property>
@@ -390,6 +399,9 @@ background:rgb(255, 255, 255);</string>
        <width>89</width>
        <height>33</height>
       </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
      </property>
      <property name="text">
       <string> 上传</string>
@@ -407,6 +419,9 @@ background:rgb(255, 255, 255);</string>
        <width>125</width>
        <height>25</height>
       </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
      </property>
      <property name="text">
       <string>新建文件夹</string>
