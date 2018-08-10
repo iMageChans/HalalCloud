@@ -12,6 +12,19 @@ typedef struct{
     QString type;
     QString uploadUrl;
     QString version;
+    QString uuid;
+    QString storeId;
+    QString pathId;
+    QString lft;
+    QString rgt;
+    QString path;
+    QString name;
+    QString ext;
+    QString size;
+    QString parent;
+    QString atime;
+    QString ctime;
+    QString mtime;
 }Token;
 
 typedef struct{
@@ -32,13 +45,13 @@ class multiparUploadModel : public QObject
 public:
     explicit multiparUploadModel(QObject *parent = nullptr);
     upload_token getTokenInfo(const QByteArray &Data);
-    Token getToken(const QJsonValue &Data);
 
 signals:
 
 public slots:
 
 private:
+    Token getToken(const QJsonValue &Data);
     QJsonValue getJson(const QJsonValue &data, const QString &key);
     QJsonValue getByteArray(const QByteArray &data, const QString &key);
     QString JsonToString(const QJsonValue &value);

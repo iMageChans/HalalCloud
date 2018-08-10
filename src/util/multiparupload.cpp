@@ -2,15 +2,22 @@
 #include "baseapi.h"
 #include "util.h"
 #include <QFileInfo>
+#include <QByteArray>
 #include <QDebug>
 #include <QUuid>
+#include <QFile>
+#include <QCryptographicHash>
+#include "util/util.h"
+#include "networkdata.h"
 
 MultiparUpload::MultiparUpload(QObject *parent) : QObject(parent)
 {
-
+    model = new multiparUploadModel;
+    response = new BaseAPI;
+    util = new Util;
 }
 
-void MultiparUpload::setDefaultInfo(const QFileInfo &files)
+void MultiparUpload::setDefaultInfo(const QFileInfo &files, const QString &parent, const QString &filespath)
 {
     Size = files.size();
     name = files.fileName();
@@ -20,5 +27,35 @@ void MultiparUpload::setDefaultInfo(const QFileInfo &files)
     progress = 0;
     QUuid id = QUuid::createUuid();
     uploadID = id.toString();
+    QString hash = this->getFilesHash(path);
+    QByteArray datas = getUploadToken(name, parent, filespath, hash);
+    QByteArray rsp = response->Fire("/v1/store/token",util->getToken(), datas, post);
+    TokenInfo = model->getTokenInfo(rsp);
+    token = TokenInfo.result.token;
+    url = TokenInfo.result.uploadUrl;
 
+    qDebug() << TokenInfo.status;
+    qDebug() << TokenInfo.result.name;
+    qDebug() << TokenInfo.result.parent;
+    qDebug() << TokenInfo.result.path;
+    qDebug() << TokenInfo.result.token;
+    qDebug() << TokenInfo.result.type;
+    qDebug() << TokenInfo.result.uploadUrl;
+    qDebug() << TokenInfo.result.version;
+    qDebug() << TokenInfo.code;
+    qDebug() << TokenInfo.success;
+    qDebug() << TokenInfo.token;
+}
+
+QString MultiparUpload::getFilesHash(const QString &filePath)
+{
+    QFile localFile(filePath);
+    if(!localFile.open(QFile::ReadOnly)){
+        qDebug() << "file open error";
+    }
+    localFile.open(QFile::ReadOnly);
+    QByteArray ba = QCryptographicHash::hash(localFile.readAll(),QCryptographicHash::Sha1);
+    localFile.close();
+    qDebug() << ba.toHex().constData();
+    return ba.toHex().constData();
 }

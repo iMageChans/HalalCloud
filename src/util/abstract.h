@@ -27,12 +27,16 @@ QNetworkRequest LoginHeader(const R &Url){
 }
 
 template <typename R>
-QNetworkRequest multiparUploadHeader(const R &Token, const R &Url, const R &UploadId){
+QNetworkRequest multiparUploadHeader(const R &token, const R &Url, const R &uploadId){
     QNetworkRequest request;
+    QByteArray Token;
+    Token.append(token);
+    QByteArray UploadId;
+    UploadId.append(uploadId);
     request.setUrl(Url);
     request.setRawHeader("Authorization", Token);
     request.setRawHeader("Content-Type", "application/octet-stream");
-    request.setHeader("UploadBatch", UploadId);
+    request.setRawHeader("UploadBatch", UploadId);
     request.setHeader(QNetworkRequest::ContentTypeHeader,"application/x-www-form-urlencoded");
     return request;
 }

@@ -30,6 +30,19 @@ Token multiparUploadModel::getToken(const QJsonValue &Data)
     token.type = this->JsonToString(this->getJson(Data, "type"));
     token.uploadUrl = this->JsonToString(this->getJson(Data, "uploadUrl"));
     token.version = this->JsonToString(this->getJson(Data, "version"));
+    token.uuid = this->JsonToString(this->getJson(Data, "uuid"));
+    token.storeId = this->JsonToString(this->getJson(Data, "storeId"));
+    token.pathId = this->JsonToString(this->getJson(Data, "pathId"));
+    token.lft = this->JsonToString(this->getJson(Data, "lft"));
+    token.rgt = this->JsonToString(this->getJson(Data, "rgt"));
+    token.path = this->JsonToString(this->getJson(Data, "path"));
+    token.name = this->JsonToString(this->getJson(Data, "name"));
+    token.ext = this->JsonToString(this->getJson(Data, "ext"));
+    token.size = this->JsonToString(this->getJson(Data, "size"));
+    token.parent = this->JsonToString(this->getJson(Data, "parent"));
+    token.atime = this->JsonToString(this->getJson(Data, "atime"));
+    token.ctime = this->JsonToString(this->getJson(Data, "ctime"));
+    token.mtime = this->JsonToString(this->getJson(Data, "mtime"));
     return token;
 }
 
