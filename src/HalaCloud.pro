@@ -32,7 +32,8 @@ SOURCES += \
     model/model.cpp \
     model/viewmodel.cpp \
     view/loginwidget.cpp \
-    view/registerwidget.cpp
+    view/registerwidget.cpp \
+    model/multiparuploadmodel.cpp
 
 HEADERS += \
         controller/mainwindow.h \
@@ -44,7 +45,8 @@ HEADERS += \
     model/model.h \
     model/viewmodel.h \
     view/loginwidget.h \
-    view/registerwidget.h
+    view/registerwidget.h \
+    model/multiparuploadmodel.h
 
 FORMS += \
     view/loginwidget.ui \
@@ -53,3 +55,5 @@ FORMS += \
 
 RESOURCES += \
     resource.qrc
+
+DISTFILES +=

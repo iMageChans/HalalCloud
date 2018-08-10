@@ -5,6 +5,7 @@
 #include "model/model.h"
 
 class Util;
+class QListWidgetItem;
 
 namespace Ui {
 class MainWindow;
@@ -26,10 +27,19 @@ private slots:
 
     void on_dilatation_clicked();
 
+    void on_MyFlies_itemClicked(QListWidgetItem *item);
+
+    void on_send_itemClicked(QListWidgetItem *item);
+
+    void on_upload_clicked();
+
 private:
     void setupUI();
     QString kb_to_gb(QString number);
     int progressInt(QString used, QString capacity);
+
+    void sendButtonState();
+    void fliesButtonState();
 
     Ui::MainWindow *ui;
 

@@ -20,7 +20,7 @@
    <string>6盘</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="widget" native="true">
+   <widget class="QWidget" name="My" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -203,7 +203,7 @@ color: #4A90E2</string>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="widget_2" native="true">
+   <widget class="QWidget" name="Left" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -217,7 +217,7 @@ color: #4A90E2</string>
 background:rgb(255, 255, 255);
 </string>
     </property>
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="MyFliesLabel">
      <property name="geometry">
       <rect>
        <x>14</x>
@@ -275,7 +275,7 @@ border:none;</string>
       </property>
      </item>
     </widget>
-    <widget class="QLabel" name="label_5">
+    <widget class="QLabel" name="SendLabel">
      <property name="geometry">
       <rect>
        <x>14</x>
@@ -293,7 +293,7 @@ border:none;</string>
       <string>传输列表</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="listWidget">
+    <widget class="QListWidget" name="send">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -301,6 +301,9 @@ border:none;</string>
        <width>181</width>
        <height>192</height>
       </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
      </property>
      <item>
       <property name="text">
@@ -340,7 +343,7 @@ border:none;</string>
      </item>
     </widget>
    </widget>
-   <widget class="QWidget" name="widget_3" native="true">
+   <widget class="QWidget" name="Top" native="true">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -353,7 +356,7 @@ border:none;</string>
      <string notr="true">border:1px solid rgb(215,215,215);
 background:rgb(255, 255, 255);</string>
     </property>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="pull">
      <property name="geometry">
       <rect>
        <x>14</x>
@@ -366,7 +369,7 @@ background:rgb(255, 255, 255);</string>
       <string>&lt;</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="push">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -379,7 +382,7 @@ background:rgb(255, 255, 255);</string>
       <string>&gt;</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_3">
+    <widget class="QPushButton" name="upload">
      <property name="geometry">
       <rect>
        <x>92</x>
@@ -396,7 +399,7 @@ background:rgb(255, 255, 255);</string>
        <normaloff>:/image/assets/upload.png</normaloff>:/image/assets/upload.png</iconset>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="mkdir">
      <property name="geometry">
       <rect>
        <x>189</x>
@@ -410,7 +413,7 @@ background:rgb(255, 255, 255);</string>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="widget_4" native="true">
+   <widget class="QWidget" name="Title" native="true">
     <property name="geometry">
      <rect>
       <x>200</x>

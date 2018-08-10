@@ -34,8 +34,8 @@ void LoginWidget::setupUI()
     {
         ui->autoLogin->setCheckState(Qt::Checked);
         ui->savePassword->setCheckState(Qt::Checked);
-//        ui->Login->setEnabled(false);
-//        ui->Login->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
+        ui->Login->setEnabled(false);
+        ui->Login->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
         autoTime = 1;
         timer = new QTimer(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(showTimelimit()));
@@ -140,7 +140,7 @@ void LoginWidget::showTimelimit()
      }
      else
      {
-//        this->autoLogins();
+        this->autoLogins();
         timer->stop();
      }
 

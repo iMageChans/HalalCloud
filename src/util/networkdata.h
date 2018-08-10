@@ -136,5 +136,15 @@ QByteArray registerUser(const Register &name, const Register &password, const Re
     return getJsonData(Json);
 }
 
+template <typename uploadToken>
+QByteArray getUploadToken(const uploadToken &name, const uploadToken &parent, const uploadToken &path, const uploadToken &hash){
+    QJsonObject Json;
+    Json.insert("name",name);
+    Json.insert("parent",parent);
+    Json.insert("path",path);
+    Json.insert("hash",hash);
+    return getJsonData(Json);
+}
+
 
 #endif // NETWORKDATA_H

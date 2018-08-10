@@ -73,7 +73,6 @@ QString Util::getFilesHash(const QString &filePath){
     QFile localFile(filePath);
     if(!localFile.open(QFile::ReadOnly)){
         qDebug() << "file open error";
-        return 0;
     }
     localFile.open(QFile::ReadOnly);
     QByteArray ba = QCryptographicHash::hash(localFile.readAll(),QCryptographicHash::Sha1);
@@ -86,7 +85,7 @@ void Util::getFilesList(const QString &Parent, const QString &path, const QStrin
     QByteArray datas = FilesListData(Parent, path, Mime);
     JsonData = response->Fire("/v1/files/list", this->getToken(), datas, post);
 //    QJsonValue data = model->getJsonNest(JsonData, "result", "list");
-//    qDebug() << model->JsonToString(data);
+    qDebug() << JsonData;
 }
 
 void Util::getPageFile(const QString &Parent, const QString &path){

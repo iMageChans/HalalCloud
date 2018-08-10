@@ -3,6 +3,10 @@
 #include "util/util.h"
 #include "view/loginwidget.h"
 #include <QDebug>
+#include <QListWidgetItem>
+#include <QFileInfo>
+#include <QFileDialog>
+#include "util/multiparupload.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -60,5 +64,73 @@ int MainWindow::progressInt(QString used, QString capacity)
 
 void MainWindow::on_dilatation_clicked()
 {
+
+}
+
+void MainWindow::on_MyFlies_itemClicked(QListWidgetItem *item)
+{
+    this->sendButtonState();
+
+    if (ui->MyFlies->item(0) == item)
+    {
+        util->getPageFile("","/");
+    }else if (ui->MyFlies->item(1) == item)
+    {
+
+    }else if (ui->MyFlies->item(2) == item)
+    {
+
+    }
+}
+
+void MainWindow::on_send_itemClicked(QListWidgetItem *item)
+{
+    this->fliesButtonState();
+
+    if (ui->send->item(0) == item)
+    {
+
+    }else if (ui->send->item(1) == item)
+    {
+
+    }else if (ui->send->item(2) == item)
+    {
+
+    }else if (ui->send->item(3) == item)
+    {
+
+    }
+}
+
+void MainWindow::fliesButtonState()
+{
+    QListWidgetItem *item = ui->MyFlies->item(0);
+    item->setSelected(false);
+    QListWidgetItem *item1 = ui->MyFlies->item(1);
+    item1->setSelected(false);
+    QListWidgetItem *item2 = ui->MyFlies->item(2);
+    item2->setSelected(false);
+}
+
+void MainWindow::sendButtonState()
+{
+    QListWidgetItem *item = ui->send->item(0);
+    item->setSelected(false);
+    QListWidgetItem *item1 = ui->send->item(1);
+    item1->setSelected(false);
+    QListWidgetItem *item2 = ui->send->item(2);
+    item2->setSelected(false);
+    QListWidgetItem *item3 = ui->send->item(3);
+    item3->setSelected(false);
+}
+
+void MainWindow::on_upload_clicked()
+{
+    QString dir = QFileDialog::getOpenFileName(this);
+
+    QFileInfo files = QFileInfo(dir);
+
+    MultiparUpload *upload = new MultiparUpload;
+    upload->setDefaultInfo(files);
 
 }
