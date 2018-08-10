@@ -6,7 +6,8 @@
 enum method{
     get ,
     post,
-    post_no_token
+    post_no_token,
+    multiparupload
 };
 
 class QNetworkReply;
@@ -30,6 +31,7 @@ private:
     QByteArray Post(const QString &url, const QString &token, const QByteArray &data);
     QByteArray noTokenPost(const QString &url, const QByteArray &data);
     QByteArray Get(const QString &url, const QString &token);
+    QByteArray upload(const QString &url, const QString &token, const QString &uploadID, const QByteArray &data);
 };
 
 #endif // BASEAPI_H

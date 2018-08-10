@@ -76,12 +76,19 @@ void RegisterWidget::MessageBox(const QString &code)
 
 void RegisterWidget::on_codeButton_clicked()
 {
-    reg = util->Cap(ui->username->text());
-    ui->codeButton->setEnabled(false);
-    msgTime = 60;
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(showTimelimit()));
-    timer->start( 1000 );
+    if (ui->username->text().length() > 0){
+        reg = util->Cap(ui->username->text());
+        ui->codeButton->setEnabled(false);
+        msgTime = 60;
+        timer = new QTimer(this);
+        connect(timer, SIGNAL(timeout()), this, SLOT(showTimelimit()));
+        timer->start( 1000 );
+    }else{
+        QMessageBox box;
+        box.setText("请填写手机号码");
+        box.exec();
+    }
+
 }
 
 
@@ -89,14 +96,18 @@ void RegisterWidget::showTimelimit()
 {
     if(msgTime != 0)
      {
-         msgTime -= 1; //注意字符类型
+         msgTime -= 1;
          QString num = QString::number(msgTime);
          ui->codeButton->setText(num);
+         ui->codeButton->setEnabled(false);
+         ui->codeButton->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
      }
      else
      {
         ui->codeButton->setEnabled(true);
+        ui->codeButton->setStyleSheet("background:rgb(46, 193, 124);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
         ui->codeButton->setText("获取验证码");
+        timer->stop();
      }
 
 }

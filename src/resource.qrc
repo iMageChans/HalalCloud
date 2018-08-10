@@ -32,7 +32,4 @@
         <file>assets/icon_76pt@2x.png</file>
         <file>assets/icon_83.5@2x.png</file>
     </qresource>
-    <qresource prefix="/icon">
-        <file>assets/icon_83.5@2x.png</file>
-    </qresource>
 </RCC>

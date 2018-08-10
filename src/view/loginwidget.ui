@@ -82,7 +82,7 @@ border-style:outset;</string>
     <string notr="true">background:transparent;border-width:0;border-style:outset</string>
    </property>
    <property name="text">
-    <string>woshishei</string>
+    <string>bin258963</string>
    </property>
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>
@@ -172,8 +172,7 @@ color:rgb(215,215,215);</string>
 border:none;
 color:rgb(255, 255, 255);
 border:1px rgb(255, 255, 255);
-border-radius:5px;
-</string>
+border-radius:5px;</string>
    </property>
    <property name="text">
     <string>登陆</string>

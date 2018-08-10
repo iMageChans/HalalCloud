@@ -44,6 +44,14 @@ QByteArray BaseAPI::Post(const QString &url, const QString &token, const QByteAr
     return this->wrapper_response(reply);
 }
 
+QByteArray BaseAPI::upload(const QString &url, const QString &token, const QString &uploadID, const QByteArray &data)
+{
+    QNetworkRequest request = multiparUploadHeader(token,url,uploadID);
+    QNetworkAccessManager *manage = new QNetworkAccessManager(this);
+    QNetworkReply *reply = manage->post(request, data);
+    return this->wrapper_response(reply);
+}
+
 QByteArray BaseAPI::wrapper_response(QNetworkReply *reply){
 
     QEventLoop temp_loop;

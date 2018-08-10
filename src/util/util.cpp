@@ -43,6 +43,14 @@ User Util::Registers(const QString &name, const QString &phoneInfo, const QStrin
     return users;
 }
 
+User Util::getUserInfo()
+{
+    JsonData = response->Fire("/v1/user/info",this->getToken(),"", post);
+    User users = model->getUser(JsonData);
+    this->systemConfig("token", users.token, "AotuLogin");
+    return users;
+}
+
 QString Util::getToken(){
     QSettings settings(this->SystemPath(), QSettings::NativeFormat);
     Token = settings.value("AotuLogin/token").toString();
@@ -56,7 +64,7 @@ void Util::LoginOut(){
     QDateTime time = QDateTime::currentDateTime();
     QByteArray datas = LoginOutData(time.toTime_t());
     QByteArray rsp = response->Fire("/v1/user/logout", this->getToken(), datas, post);
-//    if (this->getJson(rsp, "status") == 200){
+//    if (model->getByteArray(rsp, "status") == 200){
 //        this->deleteSystemConfig("token", "AotuLogin");
 //    }
 }
@@ -65,7 +73,6 @@ QString Util::getFilesHash(const QString &filePath){
     QFile localFile(filePath);
     if(!localFile.open(QFile::ReadOnly)){
         qDebug() << "file open error";
-        return 0;
     }
     localFile.open(QFile::ReadOnly);
     QByteArray ba = QCryptographicHash::hash(localFile.readAll(),QCryptographicHash::Sha1);
@@ -78,7 +85,7 @@ void Util::getFilesList(const QString &Parent, const QString &path, const QStrin
     QByteArray datas = FilesListData(Parent, path, Mime);
     JsonData = response->Fire("/v1/files/list", this->getToken(), datas, post);
 //    QJsonValue data = model->getJsonNest(JsonData, "result", "list");
-//    qDebug() << model->JsonToString(data);
+    qDebug() << JsonData;
 }
 
 void Util::getPageFile(const QString &Parent, const QString &path){
@@ -157,7 +164,7 @@ void Util::systemConfig(const QString &key, const QString &data, const QString &
 
 void Util::deleteSystemConfig(const QString &key, const QString &Group)
 {
-    QSettings setting(this->SystemPath(),QSettings::IniFormat);
+    QSettings setting(this->SystemPath(),QSettings::NativeFormat);
     if (setting.contains(Group + "/" + key)){
         setting.beginGroup(Group);
         setting.remove(key);

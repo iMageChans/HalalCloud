@@ -16,6 +16,7 @@ public:
     User Login(const QString &username, const QString &password);
     Register Cap(const QString &phone);
     User Registers(const QString &name, const QString &phoneInfo, const QString &password, const QString &code);
+    User getUserInfo();
     void LoginOut();
     void getFilesList(const QString &Parent, const QString &path, const QString &Mime);
     void getPageFile(const QString &Parent, const QString &path);
