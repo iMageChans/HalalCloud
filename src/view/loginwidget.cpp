@@ -59,7 +59,7 @@ void LoginWidget::on_Login_clicked()
     User user = util->Login(ui->userEdit->text(), ui->passwordEdit->text());
     ui->Login->setEnabled(false);
     ui->Login->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
-    if (user.status == "200"){
+    if (user.success){
         util->systemConfig("username", user.result.phone, "AotuLogin");
         MainWindow *main = new MainWindow;
         main->userSend(user);
@@ -118,7 +118,7 @@ void LoginWidget::autoLogins()
         User user = util->getUserInfo();
         qDebug() << user.result.spaceUsed;
         qDebug() << user.result.spaceCapacity;
-        if (user.status == "200")
+        if (user.success)
         {
             MainWindow *main = new MainWindow;
             main->show();

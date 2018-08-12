@@ -33,7 +33,9 @@ SOURCES += \
     view/loginwidget.cpp \
     view/registerwidget.cpp \
     model/multiparuploadmodel.cpp \
-    view/filesitemwidget.cpp
+    view/filesitemwidget.cpp \
+    view/mkdirwidget.cpp \
+    view/mkdirhlep.cpp
 
 HEADERS += \
         controller/mainwindow.h \
@@ -46,13 +48,18 @@ HEADERS += \
     view/loginwidget.h \
     view/registerwidget.h \
     model/multiparuploadmodel.h \
-    view/filesitemwidget.h
+    view/filesitemwidget.h \
+    view/mkdirwidget.h \
+    view/mkdirhlep.h \
+    model/struct.h
 
 FORMS += \
     view/loginwidget.ui \
     controller/mainwindow.ui \
     view/registerwidget.ui \
-    view/filesitemwidget.ui
+    view/filesitemwidget.ui \
+    view/mkdirwidget.ui \
+    view/mkdirhlep.ui
 
 RESOURCES += \
     resource.qrc

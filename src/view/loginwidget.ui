@@ -89,7 +89,9 @@ text-align: left;</string>
     <enum>Qt::TabFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">background:transparent;border-width:0;border-style:outset</string>
+    <string notr="true">background:transparent;
+border-width:0;
+border-style:outset</string>
    </property>
    <property name="text">
     <string>bin258963</string>

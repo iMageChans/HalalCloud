@@ -9,6 +9,8 @@
 #include "util/multiparupload.h"
 #include "view/filesitemwidget.h"
 #include <QListWidgetItem>
+#include "view/mkdirwidget.h"
+#include "view/mkdirhlep.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,6 +28,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupUI()
 {
+    mkdir = new mkdirWidget;
+    connect(mkdir,SIGNAL(sendClick(bool)),this,SLOT(receiveData(bool)));
+
     ui->name->setText(user.result.name);
     ui->capacity->setText(this->kb_to_gb(user.result.spaceUsed) + "/" + kb_to_gb(user.result.spaceCapacity));
 
@@ -64,18 +69,15 @@ void MainWindow::userSend(User data)
     this->setupUI();
 }
 
-QString MainWindow::kb_to_gb(QString number)
+QString MainWindow::kb_to_gb(int number)
 {
-    double data = number.toDouble();
-    return QString::number(data / 1024);
+    return QString::number(number / 1024);
 }
 
-int MainWindow::progressInt(QString used, QString capacity)
+int MainWindow::progressInt(int used, int capacity)
 {
-    int use = used.toInt();
-    int cap = capacity.toInt();
 
-    return use / cap;
+    return used / capacity;
 }
 
 void MainWindow::on_dilatation_clicked()
@@ -147,7 +149,6 @@ void MainWindow::sendButtonState()
 
 void MainWindow::on_upload_clicked()
 {
-    this->setFocusPolicy(Qt::StrongFocus);
     QString dir = QFileDialog::getOpenFileName(this);
 
     QFileInfo files = QFileInfo(dir);
@@ -158,6 +159,57 @@ void MainWindow::on_upload_clicked()
 }
 
 void MainWindow::on_checkBox_clicked()
+{
+
+}
+
+void MainWindow::on_mkdir_clicked()
+{
+    mkdir->show();
+}
+
+void MainWindow::receiveData(bool data)
+{
+    mkdirHlep *hlep = new mkdirHlep;
+    if(data)
+    {
+        hlep->helpText("创建成功");
+        hlep->show();
+    }else{
+        hlep->helpText("创建失败");
+        hlep->show();
+    }
+}
+
+void MainWindow::on_FilesListButton_clicked()
+{
+    filesList = util->getPageFile("","");
+    qDebug() << filesList.status;
+    qDebug() << filesList.success;
+    qDebug() << filesList.result.page;
+    qDebug() << filesList.result.pageSize;
+    qDebug() << filesList.result.totalCount;
+    qDebug() << filesList.result.totalPage;
+    qDebug() << filesList.result.list;
+    qDebug() << filesList.result.info.uuid;
+    qDebug() << filesList.result.info.storeId;
+    qDebug() << filesList.result.info.userId;
+    qDebug() << filesList.result.info.path;
+    qDebug() << filesList.result.info.name;
+    qDebug() << filesList.result.info.ext;
+    qDebug() << filesList.result.info.size;
+    qDebug() << filesList.result.info.parent;
+    qDebug() << filesList.result.info.type;
+    qDebug() << filesList.result.info.atime;
+    qDebug() << filesList.result.info.ctime;
+    qDebug() << filesList.result.info.mtime;
+    qDebug() << filesList.result.info.version;
+    qDebug() << filesList.result.info.locking;
+    qDebug() << filesList.code;
+    qDebug() << filesList.token;
+}
+
+void MainWindow::on_update_clicked()
 {
 
 }

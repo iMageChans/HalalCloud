@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QJsonValue>
 #include "model/model.h"
+#include "model/struct.h"
 
 class BaseAPI;
 class Model;
@@ -20,9 +21,9 @@ public:
     User getUserInfo();
     void LoginOut();
     void getFilesList(const QString &Parent, const QString &path, const QString &Mime);
-    void getPageFile(const QString &Parent, const QString &path);
+    FilesList getPageFile(const QString &Parent, const QString &path);
     void getFilesInfo(const QString &uuid, const QString &path);
-    void createFiles(const QString &name, const QString &path);
+    QByteArray createFiles(const QString &name, const QString &path);
     void moveFiles(const QString &uuid, const QString &path, const QString &parent);
     void renameFiles(const QString &uuid, const QString &path, const QString &name);
     void recycleFiles(const QString &uuid, const QString &path);

@@ -65,7 +65,7 @@ void Util::LoginOut(){
     QDateTime time = QDateTime::currentDateTime();
     QByteArray datas = LoginOutData(time.toTime_t());
     QByteArray rsp = response->Fire("/v1/user/logout", this->getToken(), datas, post);
-    if (model->JsonToString(model->getByteArray(rsp, "status")) == "200"){
+    if (model->getJsonDouble(model->getByteArray(rsp, "status")) == 200){
         this->deleteSystemConfig("token", "AotuLogin");
     }
 }
@@ -77,10 +77,10 @@ void Util::getFilesList(const QString &Parent, const QString &path, const QStrin
     qDebug() << JsonData;
 }
 
-void Util::getPageFile(const QString &Parent, const QString &path){
+FilesList Util::getPageFile(const QString &Parent, const QString &path){
     QByteArray datas = PageListData(Parent, path);
     JsonData = response->Fire("/v1/files/page", this->getToken(), datas, post);
-    qDebug() << JsonData;
+    return model->getList(JsonData);
 }
 
 void Util::getFilesInfo(const QString &uuid, const QString &path){
@@ -89,10 +89,9 @@ void Util::getFilesInfo(const QString &uuid, const QString &path){
     qDebug() << JsonData;
 }
 
-void Util::createFiles(const QString &name, const QString &path){
+QByteArray Util::createFiles(const QString &name, const QString &path){
     QByteArray datas = CreateDicectory(name, path);
-    JsonData = response->Fire("/v1/files/createDirectory", this->getToken(), datas, post);
-    qDebug() << JsonData;
+    return response->Fire("/v1/files/createDirectory", this->getToken(), datas, post);
 }
 
 void Util::moveFiles(const QString &uuid, const QString &path, const QString &parent){

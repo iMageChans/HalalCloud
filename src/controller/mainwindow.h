@@ -3,9 +3,11 @@
 
 #include <QMainWindow>
 #include "model/model.h"
+#include "model/struct.h"
 
 class Util;
 class QListWidgetItem;
+class mkdirWidget;
 
 namespace Ui {
 class MainWindow;
@@ -35,10 +37,19 @@ private slots:
 
     void on_checkBox_clicked();
 
+    void on_mkdir_clicked();
+
+    void receiveData(bool data);
+
+    void on_FilesListButton_clicked();
+
+    void on_update_clicked();
+
 private:
     void setupUI();
-    QString kb_to_gb(QString number);
-    int progressInt(QString used, QString capacity);
+    QString kb_to_gb(int number);
+    int progressInt(int used, int capacity);
+    void updateListData();
 
     void sendButtonState();
     void fliesButtonState();
@@ -47,6 +58,8 @@ private:
 
     Util *util;
     User user;
+    mkdirWidget *mkdir;
+    FilesList filesList;
 };
 
 #endif // MAINWINDOW_H

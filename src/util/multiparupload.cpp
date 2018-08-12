@@ -24,7 +24,6 @@ void MultiparUpload::setDefaultInfo(const QFileInfo &files, const QString &paren
          Size = files.size();
          name = files.fileName();
          path = files.filePath();
-         block_num = 0;
          block_size = 4 * 1024 * 1024;
          progress = 0;
          QUuid id = QUuid::createUuid();
@@ -35,7 +34,37 @@ void MultiparUpload::setDefaultInfo(const QFileInfo &files, const QString &paren
          TokenInfo = model->getTokenInfo(rsp);
          token = TokenInfo.result.token;
          url = TokenInfo.result.uploadUrl;
+
+         if (Size % block_size != 0)
+         {
+             block_num = int(Size / block_size + 1);
+         }else{
+             block_num = int(Size / block_size);
+         }
      }
+}
+
+QString MultiparUpload::makeBlockUrl(int offset, const QString &url)
+{
+    int size;
+    block_id = offset / block_size;
+    if (block_id < block_num - 1)
+    {
+        size = block_size;
+    }else{
+        size = int(Size - (block_id * block_size));
+    }
+    return url + "/mkblk/" + QString::number(size) + "/" + QString::number(block_id);
+}
+
+int MultiparUpload::BlockSize(int Size)
+{
+    if(Size < block_size)
+    {
+        return Size;
+    }else{
+        return block_size;
+    }
 }
 
 QString MultiparUpload::getFilesHash(const QString &filePath)
