@@ -6,13 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>980</width>
+    <width>1000</width>
     <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>980</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
     <height>700</height>
    </size>
   </property>
@@ -32,9 +38,18 @@
       <height>165</height>
      </rect>
     </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>165</height>
+     </size>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="styleSheet">
-     <string notr="true">border:1px solid rgb(215,215,215);
-background:rgb(255, 255, 255);</string>
+     <string notr="true">background: #F5F5F5;
+border: 1px solid #E9E9E9;</string>
     </property>
     <widget class="QLabel" name="icon">
      <property name="geometry">
@@ -103,15 +118,18 @@ border-radius:75px;
     <widget class="QLabel" name="name">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>1</x>
        <y>108</y>
-       <width>200</width>
+       <width>198</width>
        <height>15</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 9pt &quot;PingFangSC-Regular&quot;;
-color:#5A5A5A;</string>
+      <string notr="true">font-family: PingFangSC-Regular;
+font-size: 8px;
+color: #5A5A5A;
+text-align: center;
+border:none;</string>
      </property>
      <property name="text">
       <string>垃圾QT，吃屎吧Java</string>
@@ -131,14 +149,13 @@ color:#5A5A5A;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QProgressBar::chunk {
-   background-color: #05B8CC;
-   width: 20px;
+   	background: #2EC17C;
+	border-radius: 100px;
 }
  
 QProgressBar {
-   text-align: center;
-   border: 1px solid rgb(215, 215, 215);
-   border-radius:20px;
+   	background: #E9E9E9;
+	border-radius: 100px;
 }</string>
      </property>
      <property name="maximum">
@@ -154,15 +171,18 @@ QProgressBar {
     <widget class="QLabel" name="capacity">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>135</y>
-       <width>100</width>
+       <x>1</x>
+       <y>134</y>
+       <width>99</width>
        <height>11</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 9pt &quot;PingFangSC-Regular&quot;;
-color:#BFBFBF;</string>
+      <string notr="true">font-family: PingFangSC-Regular;
+font-size: 8px;
+color: #BFBFBF;
+text-align: center;
+border:none;</string>
      </property>
      <property name="text">
       <string>7/50G</string>
@@ -175,14 +195,20 @@ color:#BFBFBF;</string>
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>135</y>
-       <width>100</width>
+       <y>134</y>
+       <width>99</width>
        <height>11</height>
       </rect>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
      <property name="styleSheet">
-      <string notr="true">font: 9pt &quot;PingFangSC-Regular&quot;;
-color:#BFBFBF;</string>
+      <string notr="true">font-family: PingFangSC-Regular;
+font-size: 8px;
+color: #BFBFBF;
+text-align: center;
+border:none;</string>
      </property>
      <property name="text">
       <string>扩容</string>
@@ -192,14 +218,20 @@ color:#BFBFBF;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>145</y>
+       <y>144</y>
        <width>113</width>
        <height>20</height>
       </rect>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
      <property name="styleSheet">
-      <string notr="true">font:10px;
-color: #4A90E2</string>
+      <string notr="true">font-family: PingFangSC-Regular;
+font-size: 8px;
+color: #4A90E2;
+text-align: center;
+border:none;</string>
      </property>
      <property name="text">
       <string>切换账号</string>
@@ -215,9 +247,21 @@ color: #4A90E2</string>
       <height>536</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>200</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>536</height>
+     </size>
+    </property>
     <property name="styleSheet">
-     <string notr="true">border:1px solid rgb(215,215,215);
-background:rgb(255, 255, 255);
+     <string notr="true">background: #F5F5F5;
+border: 1px solid #E9E9E9;
 </string>
     </property>
     <widget class="QLabel" name="MyFliesLabel">
@@ -230,8 +274,10 @@ background:rgb(255, 255, 255);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 12pt &quot;PingFangSC-Regular&quot;;
-color:#919191;
+      <string notr="true">font-family: PingFangSC-Regular;
+font-size: 12px;
+color: #919191;
+text-align: left;
 border:none;</string>
      </property>
      <property name="text">
@@ -241,14 +287,40 @@ border:none;</string>
     <widget class="QListWidget" name="MyFlies">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>181</width>
-       <height>192</height>
+       <x>1</x>
+       <y>47</y>
+       <width>198</width>
+       <height>110</height>
       </rect>
      </property>
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QListWidget::item
+{
+	height:36px; 
+	font-family: PingFangSC-Medium;
+	font-size: 12px;
+	color: #5A5A5A;
+	text-align: left;
+}
+QListWidget::item:selected
+{
+	background: #E9E9E9;
+	font-family: PingFangSC-Medium;
+	font-size: 12px;
+	color: #5A5A5A;
+	text-align: left;
+}
+QListWidget
+{
+	border:none;
+}
+</string>
+     </property>
+     <property name="tabKeyNavigation">
+      <bool>false</bool>
      </property>
      <item>
       <property name="text">
@@ -256,7 +328,7 @@ border:none;</string>
       </property>
       <property name="icon">
        <iconset resource="../resource.qrc">
-        <normaloff>:/image/assets/done.png</normaloff>:/image/assets/done.png</iconset>
+        <normaloff>:/image/assets/mkdir.png</normaloff>:/image/assets/mkdir.png</iconset>
       </property>
      </item>
      <item>
@@ -282,14 +354,16 @@ border:none;</string>
      <property name="geometry">
       <rect>
        <x>14</x>
-       <y>240</y>
+       <y>173</y>
        <width>50</width>
        <height>17</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 12pt &quot;PingFangSC-Regular&quot;;
-color:#919191;
+      <string notr="true">font-family: PingFangSC-Regular;
+font-size: 12px;
+color: #919191;
+text-align: left;
 border:none;</string>
      </property>
      <property name="text">
@@ -299,14 +373,39 @@ border:none;</string>
     <widget class="QListWidget" name="send">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>260</y>
-       <width>181</width>
+       <x>1</x>
+       <y>205</y>
+       <width>198</width>
        <height>192</height>
       </rect>
      </property>
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QListWidget::item
+{
+	height:36px; 
+	font-family: PingFangSC-Medium;
+	font-size: 12px;
+	color: #5A5A5A;
+	text-align: left;
+}
+QListWidget::item:selected
+{
+	background: #E9E9E9;
+	font-family: PingFangSC-Medium;
+	font-size: 12px;
+	color: #5A5A5A;
+	text-align: left;
+}
+QListWidget
+{
+	border:none;
+}
+
+
+</string>
      </property>
      <item>
       <property name="text">
@@ -351,13 +450,22 @@ border:none;</string>
      <rect>
       <x>200</x>
       <y>0</y>
-      <width>780</width>
+      <width>802</width>
       <height>60</height>
      </rect>
     </property>
+    <property name="maximumSize">
+     <size>
+      <width>802</width>
+      <height>60</height>
+     </size>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="styleSheet">
-     <string notr="true">border:1px solid rgb(215,215,215);
-background:rgb(255, 255, 255);</string>
+     <string notr="true">background: #F5F5F5;
+border: 1px solid #E9E9E9;</string>
     </property>
     <widget class="QPushButton" name="pull">
      <property name="geometry">
@@ -369,46 +477,115 @@ background:rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
+      <enum>Qt::ClickFocus</enum>
      </property>
-     <property name="text">
-      <string>&lt;</string>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: #FFFFFF;
+	border: 1px solid #E9E9E9;
+	border-radius:3px;
+}
+QPushButton:pressed{
+	background:rgb(225, 225, 225);
+	border:none;
+	color:rgb(255, 255, 255);
+	border:1px rgb(255, 255, 255);
+	border-radius:3px;
+}</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource.qrc">
+       <normaloff>:/image/assets/left.png</normaloff>:/image/assets/left.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>7</width>
+       <height>12</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="push">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>45</x>
        <y>18</y>
        <width>32</width>
        <height>25</height>
       </rect>
      </property>
      <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
+      <enum>Qt::ClickFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: #FFFFFF;
+	border: 1px solid #E9E9E9;
+	border-radius:3px;
+}
+QPushButton:pressed{
+	background:rgb(225, 225, 225);
+	border:none;
+	color:rgb(255, 255, 255);
+	border:1px rgb(255, 255, 255);
+	border-radius:3px;
+}</string>
      </property>
      <property name="text">
-      <string>&gt;</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource.qrc">
+       <normaloff>:/image/assets/right.png</normaloff>:/image/assets/right.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>7</width>
+       <height>12</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="upload">
      <property name="geometry">
       <rect>
        <x>92</x>
-       <y>18</y>
+       <y>16</y>
        <width>89</width>
-       <height>33</height>
+       <height>29</height>
       </rect>
      </property>
      <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
+      <enum>Qt::TabFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background:#2EC17C;
+	border:none;
+	border-radius:5px;
+	color:rgb(255,255,255);
+}
+QPushButton:pressed{
+	background:rgb(225, 225, 225);
+	border:none;
+	color:rgb(255, 255, 255);
+	border:1px rgb(255, 255, 255);
+	border-radius:5px;
+}</string>
      </property>
      <property name="text">
       <string> 上传</string>
      </property>
      <property name="icon">
       <iconset resource="../resource.qrc">
-       <normaloff>:/image/assets/upload.png</normaloff>:/image/assets/upload.png</iconset>
+       <normaloff>:/image/assets/uploadwhite.png</normaloff>:/image/assets/uploadwhite.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>10</width>
+       <height>10</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="mkdir">
@@ -421,39 +598,386 @@ background:rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
+      <enum>Qt::ClickFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	font-family: PingFangSC-Regular;
+	font-size: 12px;
+	color: #5A5A5A;
+	text-align: center;
+	background: #FFFFFF;
+	border: 1px solid #E9E9E9;
+	border-radius: 5px;
+}
+QPushButton:pressed{
+	background:rgb(225, 225, 225);
+	border:none;
+	color:rgb(255, 255, 255);
+	border:1px rgb(255, 255, 255);
+	border-radius:5px;
+	text-align: center;
+}</string>
      </property>
      <property name="text">
       <string>新建文件夹</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource.qrc">
+       <normaloff>:/image/assets/mkdir.png</normaloff>:/image/assets/mkdir.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>16</width>
+       <height>12</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="seach">
+     <property name="geometry">
+      <rect>
+       <x>483</x>
+       <y>18</y>
+       <width>172</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit{
+	background: #FFFFFF;
+	border: 1px solid #E9E9E9;
+	border-radius: 5px;
+}
+QLineEdit:focus {
+	border-width:2px;
+}</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="listV">
+     <property name="geometry">
+      <rect>
+       <x>663</x>
+       <y>18</y>
+       <width>32</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: #FFFFFF;
+	border: 1px solid #E9E9E9;
+	border-radius:3px;
+}
+QPushButton:pressed{
+	background:rgb(225, 225, 225);
+	border:none;
+	color:rgb(255, 255, 255);
+	border:1px rgb(255, 255, 255);
+	border-radius:3px;
+}</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource.qrc">
+       <normaloff>:/image/assets/listV.png</normaloff>:/image/assets/listV.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>12</width>
+       <height>12</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="listH">
+     <property name="geometry">
+      <rect>
+       <x>694</x>
+       <y>18</y>
+       <width>32</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: #FFFFFF;
+	border: 1px solid #E9E9E9;
+	border-radius:3px;
+}
+QPushButton:pressed{
+	background:rgb(225, 225, 225);
+	border:none;
+	color:rgb(255, 255, 255);
+	border:1px rgb(255, 255, 255);
+	border-radius:3px;
+}</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource.qrc">
+       <normaloff>:/image/assets/listblack.png</normaloff>:/image/assets/listblack.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>14</width>
+       <height>12</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="update">
+     <property name="geometry">
+      <rect>
+       <x>734</x>
+       <y>18</y>
+       <width>32</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: #FFFFFF;
+	border: 1px solid #E9E9E9;
+	border-radius:3px;
+}
+QPushButton:pressed{
+	background:rgb(225, 225, 225);
+	border:none;
+	color:rgb(255, 255, 255);
+	border:1px rgb(255, 255, 255);
+	border-radius:3px;
+}</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource.qrc">
+       <normaloff>:/image/assets/load.png</normaloff>:/image/assets/load.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>14</width>
+       <height>14</height>
+      </size>
      </property>
     </widget>
    </widget>
    <widget class="QWidget" name="Title" native="true">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>201</x>
       <y>60</y>
-      <width>780</width>
+      <width>802</width>
       <height>24</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">border:1px solid rgb(215,215,215);
-background:rgb(255, 255, 255);</string>
-    </property>
-   </widget>
-   <widget class="QListView" name="listView">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>84</y>
-      <width>780</width>
-      <height>616</height>
-     </rect>
+    <property name="maximumSize">
+     <size>
+      <width>802</width>
+      <height>24</height>
+     </size>
     </property>
     <property name="focusPolicy">
      <enum>Qt::NoFocus</enum>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background: #FFFFFF;</string>
+    </property>
+    <widget class="QPushButton" name="FilesListButton">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>3</y>
+       <width>50</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: PingFangSC-Regular;
+font-size: 12px;
+color: #5A5A5A;
+letter-spacing: 0.5px;
+text-align: left;
+border:none;</string>
+     </property>
+     <property name="text">
+      <string>全部文件</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>108</y>
+      <width>802</width>
+      <height>591</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>802</width>
+      <height>620</height>
+     </size>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #F5F5F5;
+border: 1px solid #E9E9E9;</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="Title_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>201</x>
+      <y>83</y>
+      <width>802</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>802</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #F5F5F5;</string>
+    </property>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>5</y>
+       <width>319</width>
+       <height>14</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: PingFangSC-Regular;
+font-size: 10px;
+color: #919191;
+letter-spacing: 0.42px;
+text-align: left;
+border:none;</string>
+     </property>
+     <property name="text">
+      <string>文件名</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>5</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>365</x>
+       <y>0</y>
+       <width>1</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: #E9E9E9;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_3">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>0</y>
+       <width>274</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: PingFangSC-Regular;
+font-size: 10px;
+color: #919191;
+letter-spacing: 0.42px;
+text-align: left;
+border:none;</string>
+     </property>
+     <property name="text">
+      <string>文件名</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>645</x>
+       <y>0</y>
+       <width>1</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: #E9E9E9;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_4">
+     <property name="geometry">
+      <rect>
+       <x>650</x>
+       <y>0</y>
+       <width>255</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-family: PingFangSC-Regular;
+font-size: 10px;
+color: #919191;
+letter-spacing: 0.42px;
+text-align: left;
+border:none;</string>
+     </property>
+     <property name="text">
+      <string>修改时间</string>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>

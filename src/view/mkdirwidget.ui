@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mkdirWidget</class>
+ <widget class="QWidget" name="mkdirWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>340</width>
+    <height>180</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>新建文件夹</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: #F5F5F5;</string>
+  </property>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>60</y>
+     <width>240</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{
+	background: #FFFFFF;
+	border: 1px solid #E9E9E9;
+	border-radius: 5px;
+}
+QLineEdit:focus {
+	border-width:2px;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Yes">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>120</y>
+     <width>80</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background:#2EC17C;
+	border:none;
+	border-radius:5px;
+	color:rgb(255,255,255);
+}
+QPushButton:pressed{
+	background:rgb(225, 225, 225);
+	border:none;
+	color:rgb(255, 255, 255);
+	border:1px rgb(255, 255, 255);
+	border-radius:5px;
+}</string>
+   </property>
+   <property name="text">
+    <string>确定</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="No">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>120</y>
+     <width>80</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	font-family: PingFangSC-Regular;
+	font-size: 12px;
+	color: #5A5A5A;
+	text-align: center;
+	background: #FFFFFF;
+	border: 1px solid #E9E9E9;
+	border-radius: 5px;
+}
+QPushButton:pressed{
+	background:rgb(225, 225, 225);
+	border:none;
+	color:rgb(255, 255, 255);
+	border:1px rgb(255, 255, 255);
+	border-radius:5px;
+	text-align: center;
+}</string>
+   </property>
+   <property name="text">
+    <string>取消</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

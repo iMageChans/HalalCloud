@@ -18,6 +18,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
 {
     util = new Util;
     ui->setupUi(this);
+    this->setFocusPolicy(Qt::StrongFocus);
     this->setupUI();
 
     ui->userEdit->setText(util->getSystemConfig("username","AotuLogin"));
@@ -58,12 +59,13 @@ void LoginWidget::on_Login_clicked()
     User user = util->Login(ui->userEdit->text(), ui->passwordEdit->text());
     ui->Login->setEnabled(false);
     ui->Login->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
-    if (user.status == "200"){
+    if (user.success){
         util->systemConfig("username", user.result.phone, "AotuLogin");
         MainWindow *main = new MainWindow;
         main->userSend(user);
         main->show();
         this->close();
+        this->setFocusPolicy(Qt::NoFocus);
     }else {
         this->MessageBox(user.code);
         ui->Login->setEnabled(true);
@@ -116,12 +118,13 @@ void LoginWidget::autoLogins()
         User user = util->getUserInfo();
         qDebug() << user.result.spaceUsed;
         qDebug() << user.result.spaceCapacity;
-        if (user.status == "200")
+        if (user.success)
         {
             MainWindow *main = new MainWindow;
             main->show();
             main->userSend(user);
             this->close();
+            this->setFocusPolicy(Qt::NoFocus);
         }else if(user.code == "CREDENTIALS_REQUIRED"){
             QMessageBox box;
             box.setText("登陆过期，请重新登陆");

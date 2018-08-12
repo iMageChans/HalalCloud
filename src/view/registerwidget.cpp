@@ -15,6 +15,8 @@ RegisterWidget::RegisterWidget(QWidget *parent) :
     util = new Util;
     ui->setupUi(this);
     this->setupUI();
+
+    this->setFocusPolicy(Qt::StrongFocus);
 }
 
 void RegisterWidget::setupUI()
@@ -48,7 +50,7 @@ void RegisterWidget::on_regis_clicked()
     User user = util->Registers(ui->name->text(), reg.result, ui->password->text(), ui->code->text());
     ui->regis->setEnabled(false);
     ui->regis->setStyleSheet("background:rgb(215, 215, 215);border:none;color:rgb(255, 255, 255);border:1px rgb(255, 255, 255);border-radius:5px;");
-    if (user.status == "200"){
+    if (user.success){
         util->systemConfig("token", user.token, "AotuLogin");
         util->systemConfig("username", user.result.phone, "AotuLogin");
         LoginWidget *login = new LoginWidget;

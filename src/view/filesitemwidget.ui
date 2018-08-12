@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FilesItemWidget</class>
+ <widget class="QWidget" name="FilesItemWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>782</width>
+    <height>36</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>782</width>
+    <height>36</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: #F7F7F7;</string>
+  </property>
+  <widget class="QCheckBox" name="checkBox">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>10</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border:none;
+background: rgba(0, 0, 0, 0);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>8</y>
+     <width>24</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border:none;
+font-family: PingFangSC-Regular;
+font-size: 12px;
+color: #5A5A5A;
+letter-spacing: 0.5px;
+text-align: left;
+background: rgba(0, 0, 0, 0);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../resource.qrc">
+     <normaloff>:/image/assets/dir.png</normaloff>:/image/assets/dir.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>24</width>
+     <height>20</height>
+    </size>
+   </property>
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="capacity">
+   <property name="geometry">
+    <rect>
+     <x>374</x>
+     <y>10</y>
+     <width>65</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: PingFangSC-Regular;
+font-size: 12px;
+color: #5A5A5A;
+letter-spacing: 0.5px;
+text-align: left;
+border:none;
+background: rgba(0, 0, 0, 0);</string>
+   </property>
+   <property name="text">
+    <string>10000G</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Timer">
+   <property name="geometry">
+    <rect>
+     <x>658</x>
+     <y>10</y>
+     <width>115</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: PingFangSC-Regular;
+font-size: 12px;
+color: #5A5A5A;
+letter-spacing: 0.5px;
+text-align: left;
+border:none;
+background: rgba(0, 0, 0, 0);</string>
+   </property>
+   <property name="text">
+    <string>2017.5.15 10:99</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Name">
+   <property name="geometry">
+    <rect>
+     <x>69</x>
+     <y>10</y>
+     <width>180</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: PingFangSC-Regular;
+font-size: 12px;
+color: #5A5A5A;
+letter-spacing: 0.5px;
+text-align: left;
+border:none;
+background: rgba(0, 0, 0, 0);</string>
+   </property>
+   <property name="text">
+    <string>10000G</string>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

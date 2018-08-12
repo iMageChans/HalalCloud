@@ -3,9 +3,12 @@
 
 #include <QMainWindow>
 #include "model/model.h"
+#include "model/struct.h"
 
 class Util;
+class Model;
 class QListWidgetItem;
+class mkdirWidget;
 
 namespace Ui {
 class MainWindow;
@@ -24,19 +27,24 @@ public:
 private slots:
 
     void on_Loginout_clicked();
-
     void on_dilatation_clicked();
-
     void on_MyFlies_itemClicked(QListWidgetItem *item);
-
     void on_send_itemClicked(QListWidgetItem *item);
-
     void on_upload_clicked();
+    void on_checkBox_clicked();
+    void on_mkdir_clicked();
+    void receiveData(bool data);
+    void on_FilesListButton_clicked();
+    void on_update_clicked();
+    void ListRowNum(int row);
 
 private:
     void setupUI();
-    QString kb_to_gb(QString number);
-    int progressInt(QString used, QString capacity);
+    QString kb_to_gb(int number);
+    void setItem(const QString &uuid, const QString &pach);
+    void addItem(filesListData data);
+    int progressInt(int used, int capacity);
+    void updateListData();
 
     void sendButtonState();
     void fliesButtonState();
@@ -44,7 +52,11 @@ private:
     Ui::MainWindow *ui;
 
     Util *util;
+    Model *model;
     User user;
+    mkdirWidget *mkdir;
+    FilesList filesList;
+    filesListData listData;
 };
 
 #endif // MAINWINDOW_H

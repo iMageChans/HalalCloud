@@ -19,32 +19,52 @@ MultiparUpload::MultiparUpload(QObject *parent) : QObject(parent)
 
 void MultiparUpload::setDefaultInfo(const QFileInfo &files, const QString &parent, const QString &filespath)
 {
-    Size = files.size();
-    name = files.fileName();
-    path = files.filePath();
-    block_num = 0;
-    block_size = 4 * 1024 * 1024;
-    progress = 0;
-    QUuid id = QUuid::createUuid();
-    uploadID = id.toString();
-    QString hash = this->getFilesHash(path);
-    QByteArray datas = getUploadToken(name, parent, filespath, hash);
-    QByteArray rsp = response->Fire("/v1/store/token",util->getToken(), datas, post);
-    TokenInfo = model->getTokenInfo(rsp);
-    token = TokenInfo.result.token;
-    url = TokenInfo.result.uploadUrl;
+     if (files.isFile())
+     {
+         Size = files.size();
+         name = files.fileName();
+         path = files.filePath();
+         block_size = 4 * 1024 * 1024;
+         progress = 0;
+         QUuid id = QUuid::createUuid();
+         uploadID = id.toString();
+         QString hash = this->getFilesHash(path);
+         QByteArray datas = getUploadToken(name, parent, filespath, hash);
+         QByteArray rsp = response->Fire("/v1/store/token",util->getToken(), datas, post);
+         TokenInfo = model->getTokenInfo(rsp);
+         token = TokenInfo.result.token;
+         url = TokenInfo.result.uploadUrl;
 
-    qDebug() << TokenInfo.status;
-    qDebug() << TokenInfo.result.name;
-    qDebug() << TokenInfo.result.parent;
-    qDebug() << TokenInfo.result.path;
-    qDebug() << TokenInfo.result.token;
-    qDebug() << TokenInfo.result.type;
-    qDebug() << TokenInfo.result.uploadUrl;
-    qDebug() << TokenInfo.result.version;
-    qDebug() << TokenInfo.code;
-    qDebug() << TokenInfo.success;
-    qDebug() << TokenInfo.token;
+         if (Size % block_size != 0)
+         {
+             block_num = int(Size / block_size + 1);
+         }else{
+             block_num = int(Size / block_size);
+         }
+     }
+}
+
+QString MultiparUpload::makeBlockUrl(int offset, const QString &url)
+{
+    int size;
+    block_id = offset / block_size;
+    if (block_id < block_num - 1)
+    {
+        size = block_size;
+    }else{
+        size = int(Size - (block_id * block_size));
+    }
+    return url + "/mkblk/" + QString::number(size) + "/" + QString::number(block_id);
+}
+
+int MultiparUpload::BlockSize(int Size)
+{
+    if(Size < block_size)
+    {
+        return Size;
+    }else{
+        return block_size;
+    }
 }
 
 QString MultiparUpload::getFilesHash(const QString &filePath)

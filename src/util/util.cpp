@@ -10,6 +10,9 @@
 #include <QDateTime>
 #include <QSettings>
 #include <QDir>
+#include <QPixmap>
+#include <QBitmap>
+#include <QPainter>
 
 Util::Util(QObject *parent) : QObject(parent)
 {
@@ -62,9 +65,9 @@ void Util::LoginOut(){
     QDateTime time = QDateTime::currentDateTime();
     QByteArray datas = LoginOutData(time.toTime_t());
     QByteArray rsp = response->Fire("/v1/user/logout", this->getToken(), datas, post);
-//    if (model->getByteArray(rsp, "status") == 200){
-//        this->deleteSystemConfig("token", "AotuLogin");
-//    }
+    if (model->getJsonDouble(model->getByteArray(rsp, "status")) == 200){
+        this->deleteSystemConfig("token", "AotuLogin");
+    }
 }
 
 void Util::getFilesList(const QString &Parent, const QString &path, const QString &Mime){
@@ -74,10 +77,10 @@ void Util::getFilesList(const QString &Parent, const QString &path, const QStrin
     qDebug() << JsonData;
 }
 
-void Util::getPageFile(const QString &Parent, const QString &path){
+FilesList Util::getPageFile(const QString &Parent, const QString &path){
     QByteArray datas = PageListData(Parent, path);
     JsonData = response->Fire("/v1/files/page", this->getToken(), datas, post);
-    qDebug() << JsonData;
+    return model->getList(JsonData);
 }
 
 void Util::getFilesInfo(const QString &uuid, const QString &path){
@@ -86,10 +89,9 @@ void Util::getFilesInfo(const QString &uuid, const QString &path){
     qDebug() << JsonData;
 }
 
-void Util::createFiles(const QString &name, const QString &path){
+QByteArray Util::createFiles(const QString &name, const QString &path){
     QByteArray datas = CreateDicectory(name, path);
-    JsonData = response->Fire("/v1/files/createDirectory", this->getToken(), datas, post);
-    qDebug() << JsonData;
+    return response->Fire("/v1/files/createDirectory", this->getToken(), datas, post);
 }
 
 void Util::moveFiles(const QString &uuid, const QString &path, const QString &parent){
@@ -165,4 +167,24 @@ QString Util::getSystemConfig(const QString &key, const QString &Group){
         value = settings.value(Group + "/" + key).toString();
     }
     return value;
+}
+
+QPixmap Util::PixmapToRound(QPixmap &src, int radius)
+{
+    if (src.isNull()) {
+            return QPixmap();
+        }
+
+        QSize size(2*radius, 2*radius);
+        QBitmap mask(size);
+        QPainter painter(&mask);
+        painter.setRenderHint(QPainter::Antialiasing);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform);
+        painter.fillRect(0, 0, size.width(), size.height(), Qt::white);
+        painter.setBrush(QColor(0, 0, 0));
+        painter.drawRoundedRect(0, 0, size.width(), size.height(), 99, 99);
+
+        QPixmap image = src.scaled(size);
+        image.setMask(mask);
+        return image;
 }

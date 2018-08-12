@@ -24,6 +24,8 @@ public slots:
 
 private:
     QString getFilesHash(const QString &filePath);
+    int BlockSize(int Size);
+    QString makeBlockUrl(int offset, const QString &url);
     QString url;
     QString token;
     long long Size;
@@ -37,6 +39,8 @@ private:
     BaseAPI *response;
     Util *util;
     upload_token TokenInfo;
+    int upload_bolck_Size;
+    int block_id;
 };
 
 #endif // MULTIPARUPLOAD_H
