@@ -6,6 +6,7 @@
 #include "model/struct.h"
 
 class Util;
+class Model;
 class QListWidgetItem;
 class mkdirWidget;
 
@@ -48,6 +49,7 @@ private slots:
 private:
     void setupUI();
     QString kb_to_gb(int number);
+    void addItem(filesListData data);
     int progressInt(int used, int capacity);
     void updateListData();
 
@@ -57,9 +59,11 @@ private:
     Ui::MainWindow *ui;
 
     Util *util;
+    Model *model;
     User user;
     mkdirWidget *mkdir;
     FilesList filesList;
+    filesListData listData;
 };
 
 #endif // MAINWINDOW_H

@@ -11,12 +11,14 @@
 #include <QListWidgetItem>
 #include "view/mkdirwidget.h"
 #include "view/mkdirhlep.h"
+#include "model/model.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     util = new Util;
+    model = new Model;
     ui->setupUi(this);
     this->setFocusPolicy(Qt::StrongFocus);
 }
@@ -30,6 +32,8 @@ void MainWindow::setupUI()
 {
     mkdir = new mkdirWidget;
     connect(mkdir,SIGNAL(sendClick(bool)),this,SLOT(receiveData(bool)));
+
+    this->on_update_clicked();
 
     ui->name->setText(user.result.name);
     ui->capacity->setText(this->kb_to_gb(user.result.spaceUsed) + "/" + kb_to_gb(user.result.spaceCapacity));
@@ -45,12 +49,7 @@ void MainWindow::setupUI()
     fitpixmap_userIcon = util->PixmapToRound(fitpixmap_userIcon,37);
     ui->icon->setPixmap(fitpixmap_userIcon);
 
-    FilesItemWidget *FielsItem = new FilesItemWidget;
-    QListWidgetItem *Item = new QListWidgetItem(ui->listWidget);
 
-    ui->listWidget->addItem(Item);
-    ui->listWidget->setItemWidget(Item,FielsItem);
-    Item->setSizeHint(QSize(782,36));
 }
 
 
@@ -183,33 +182,47 @@ void MainWindow::receiveData(bool data)
 
 void MainWindow::on_FilesListButton_clicked()
 {
-    filesList = util->getPageFile("","");
-    qDebug() << filesList.status;
-    qDebug() << filesList.success;
-    qDebug() << filesList.result.page;
-    qDebug() << filesList.result.pageSize;
-    qDebug() << filesList.result.totalCount;
-    qDebug() << filesList.result.totalPage;
-    qDebug() << filesList.result.list;
-    qDebug() << filesList.result.info.uuid;
-    qDebug() << filesList.result.info.storeId;
-    qDebug() << filesList.result.info.userId;
-    qDebug() << filesList.result.info.path;
-    qDebug() << filesList.result.info.name;
-    qDebug() << filesList.result.info.ext;
-    qDebug() << filesList.result.info.size;
-    qDebug() << filesList.result.info.parent;
-    qDebug() << filesList.result.info.type;
-    qDebug() << filesList.result.info.atime;
-    qDebug() << filesList.result.info.ctime;
-    qDebug() << filesList.result.info.mtime;
-    qDebug() << filesList.result.info.version;
-    qDebug() << filesList.result.info.locking;
-    qDebug() << filesList.code;
-    qDebug() << filesList.token;
+    this->on_update_clicked();
 }
 
 void MainWindow::on_update_clicked()
 {
+    filesList = util->getPageFile("","");
+    int n_array = filesList.result.list.size();
+    for (int i = 0; i < n_array; ++i){
+        QJsonValue value = filesList.result.list.at(i);
+        listData = model->getFilesListData(value);
+        this->addItem(listData);
+        qDebug() << listData.uuid;
+        qDebug() << listData.storeId;
+        qDebug() << listData.userId;
+        qDebug() << listData.path;
+        qDebug() << listData.name;
+        qDebug() << listData.ext;
+        qDebug() << listData.size;
+        qDebug() << listData.parent;
+        qDebug() << listData.type;
+        qDebug() << listData.atime;
+        qDebug() << listData.ctime;
+        qDebug() << listData.mtime;
+        qDebug() << listData.version;
+        qDebug() << listData.locking;
+        qDebug() << listData.mime;
+        qDebug() << listData.preview;
+        qDebug() << listData.flag;
+
+    }
+}
+
+void MainWindow::addItem(filesListData data)
+{
+    FilesItemWidget *FilesItem = new FilesItemWidget;
+    FilesItem->setName(data.name);
+    FilesItem->setCapacity(data.size);
+    FilesItem->setTime(data.atime);
+    QListWidgetItem *Item = new QListWidgetItem(ui->listWidget);
+    ui->listWidget->addItem(Item);
+    ui->listWidget->setItemWidget(Item,FilesItem);
+    Item->setSizeHint(QSize(782,36));
 
 }

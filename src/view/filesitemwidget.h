@@ -15,8 +15,12 @@ public:
     explicit FilesItemWidget(QWidget *parent = nullptr);
     ~FilesItemWidget();
 
+    void setName(QString &name);
+    void setCapacity(long Size);
+    void setTime(long time);
+
 private slots:
-    void on_pushButton_2_clicked(bool checked);
+
 
 private:
     Ui::FilesItemWidget *ui;

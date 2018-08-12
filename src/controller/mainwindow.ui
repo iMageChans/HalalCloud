@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>980</width>
+    <width>1000</width>
     <height>700</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>980</width>
+    <width>1000</width>
     <height>700</height>
    </size>
   </property>
@@ -450,13 +450,13 @@ QListWidget
      <rect>
       <x>200</x>
       <y>0</y>
-      <width>780</width>
+      <width>802</width>
       <height>60</height>
      </rect>
     </property>
     <property name="maximumSize">
      <size>
-      <width>780</width>
+      <width>802</width>
       <height>60</height>
      </size>
     </property>
@@ -782,13 +782,13 @@ QPushButton:pressed{
      <rect>
       <x>201</x>
       <y>60</y>
-      <width>780</width>
+      <width>802</width>
       <height>24</height>
      </rect>
     </property>
     <property name="maximumSize">
      <size>
-      <width>780</width>
+      <width>802</width>
       <height>24</height>
      </size>
     </property>
@@ -825,7 +825,7 @@ border:none;</string>
      <rect>
       <x>200</x>
       <y>108</y>
-      <width>780</width>
+      <width>802</width>
       <height>591</height>
      </rect>
     </property>
@@ -837,7 +837,7 @@ border:none;</string>
     </property>
     <property name="maximumSize">
      <size>
-      <width>780</width>
+      <width>802</width>
       <height>620</height>
      </size>
     </property>
@@ -854,13 +854,13 @@ border: 1px solid #E9E9E9;</string>
      <rect>
       <x>201</x>
       <y>83</y>
-      <width>780</width>
+      <width>802</width>
       <height>24</height>
      </rect>
     </property>
     <property name="maximumSize">
      <size>
-      <width>780</width>
+      <width>802</width>
       <height>24</height>
      </size>
     </property>

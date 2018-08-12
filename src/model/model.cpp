@@ -88,6 +88,27 @@ ListInfo Model::getListInfo(const QJsonValue &Data)
     return info;
 }
 
+filesListData Model::getFilesListData(const QJsonValue &Data)
+{
+    filesData.uuid = this->getJsonString(this->getJson(Data, "uuid"));
+    filesData.storeId = this->getJsonString(this->getJson(Data, "storeId"));
+    filesData.userId = this->getJsonDouble(this->getJson(Data, "userId"));
+    filesData.path = this->getJsonString(this->getJson(Data, "path"));
+    filesData.name = this->getJsonString(this->getJson(Data, "name"));
+    filesData.ext = this->getJsonString(this->getJson(Data, "ext"));
+    filesData.size = this->getJsonDouble(this->getJson(Data, "size"));
+    filesData.parent = this->getJsonString(this->getJson(Data, "parent"));
+    filesData.type = this->getJsonDouble(this->getJson(Data, "type"));
+    filesData.atime = this->getJsonLoog(this->getJson(Data, "atime"));
+    filesData.ctime = this->getJsonLoog(this->getJson(Data, "ctime"));
+    filesData.mtime = this->getJsonLoog(this->getJson(Data, "mtime"));
+    filesData.version = this->getJsonDouble(this->getJson(Data, "version"));
+    filesData.locking = this->getJsonBool(this->getJson(Data, "locking"));
+    filesData.preview = this->getJsonBool(this->getJson(Data, "preview"));
+    filesData.flag = this->getJsonBool(this->getJson(Data, "flag"));
+    return filesData;
+}
+
 QJsonValue Model::getByteArray(const QByteArray &data, const QString &key){
     QJsonParseError jsonError;
     QJsonDocument docment = QJsonDocument::fromJson(data, &jsonError);

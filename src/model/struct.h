@@ -62,6 +62,26 @@ typedef struct{
     ListData result;
 }FilesList;
 
+typedef struct{
+    QString uuid;
+    QString storeId;
+    int userId;
+    QString path;
+    QString name;
+    QString ext;
+    long size;
+    QString parent;
+    int type;
+    long atime;
+    long ctime;
+    long mtime;
+    int version;
+    bool locking;
+    QString mime;
+    int preview;
+    int flag;
+}filesListData;
+
 
 
 #endif // STRUCT_H

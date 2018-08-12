@@ -18,6 +18,7 @@ public:
     FilesList getList(const QByteArray &Data);
     ListData getListData(const QJsonValue &Data);
     ListInfo getListInfo(const QJsonValue &Data);
+    filesListData getFilesListData(const QJsonValue &Data);
     QString getJsonString(const QJsonValue &value);
     QJsonValue getJson(const QJsonValue &data, const QString &key);
     QJsonArray getJsonArray(const QJsonValue &data, const QString &key);
@@ -38,6 +39,7 @@ private:
     FilesList filesList;
     ListData listData;
     ListInfo info;
+    filesListData filesData;
 };
 
 #endif // MODEL_H
