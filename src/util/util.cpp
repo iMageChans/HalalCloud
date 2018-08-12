@@ -10,6 +10,9 @@
 #include <QDateTime>
 #include <QSettings>
 #include <QDir>
+#include <QPixmap>
+#include <QBitmap>
+#include <QPainter>
 
 Util::Util(QObject *parent) : QObject(parent)
 {
@@ -62,9 +65,9 @@ void Util::LoginOut(){
     QDateTime time = QDateTime::currentDateTime();
     QByteArray datas = LoginOutData(time.toTime_t());
     QByteArray rsp = response->Fire("/v1/user/logout", this->getToken(), datas, post);
-//    if (model->getByteArray(rsp, "status") == 200){
-//        this->deleteSystemConfig("token", "AotuLogin");
-//    }
+    if (model->JsonToString(model->getByteArray(rsp, "status")) == "200"){
+        this->deleteSystemConfig("token", "AotuLogin");
+    }
 }
 
 void Util::getFilesList(const QString &Parent, const QString &path, const QString &Mime){
@@ -165,4 +168,24 @@ QString Util::getSystemConfig(const QString &key, const QString &Group){
         value = settings.value(Group + "/" + key).toString();
     }
     return value;
+}
+
+QPixmap Util::PixmapToRound(QPixmap &src, int radius)
+{
+    if (src.isNull()) {
+            return QPixmap();
+        }
+
+        QSize size(2*radius, 2*radius);
+        QBitmap mask(size);
+        QPainter painter(&mask);
+        painter.setRenderHint(QPainter::Antialiasing);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform);
+        painter.fillRect(0, 0, size.width(), size.height(), Qt::white);
+        painter.setBrush(QColor(0, 0, 0));
+        painter.drawRoundedRect(0, 0, size.width(), size.height(), 99, 99);
+
+        QPixmap image = src.scaled(size);
+        image.setMask(mask);
+        return image;
 }

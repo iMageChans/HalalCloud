@@ -61,12 +61,16 @@
     </rect>
    </property>
    <property name="focusPolicy">
-    <enum>Qt::StrongFocus</enum>
+    <enum>Qt::TabFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">background:transparent;
 border-width:0;
-border-style:outset;</string>
+border-style:outset;
+font-family: PingFangSC-Regular;
+font-size: 15px;
+color: #404040;
+text-align: left;</string>
    </property>
    <property name="text">
     <string>15618537992</string>
@@ -80,6 +84,9 @@ border-style:outset;</string>
      <width>231</width>
      <height>30</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::TabFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">background:transparent;border-width:0;border-style:outset</string>
@@ -136,7 +143,15 @@ border-style:outset;</string>
     <item>
      <widget class="QCheckBox" name="autoLogin">
       <property name="styleSheet">
-       <string notr="true">color:rgb(215,215,215);</string>
+       <string notr="true">QCheckBox{
+	ont-family: PingFangSC-Regular;
+	font-size: 14px;
+	color: #919191;
+	text-align: center;
+	width: 13px;
+    height: 14px;
+}
+</string>
       </property>
       <property name="text">
        <string>自动登录</string>
@@ -149,10 +164,13 @@ border-style:outset;</string>
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">background:transparent;
+       <string notr="true">font-family: PingFangSC-Regular;
+font-size: 14px;
+color: #919191;
+text-align: center;
+background:transparent;
 border-width:0;
-border-style:outset;
-color:rgb(215,215,215);</string>
+border-style:outset;</string>
       </property>
       <property name="text">
        <string>注册账号</string>
@@ -170,12 +188,17 @@ color:rgb(215,215,215);</string>
      <height>48</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background:rgb(46, 193, 124);
+    <string notr="true">background: #2EC17C;
+border-radius: 5px;
 border:none;
-color:rgb(255, 255, 255);
-border:1px rgb(255, 255, 255);
-border-radius:5px;</string>
+font-family: PingFangSC-Regular;
+font-size: 18px;
+color: #FFFFFF;
+text-align: center;</string>
    </property>
    <property name="text">
     <string>登陆</string>
@@ -187,15 +210,21 @@ border-radius:5px;</string>
      <x>60</x>
      <y>300</y>
      <width>271</width>
-     <height>32</height>
+     <height>36</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QCheckBox" name="savePassword">
       <property name="styleSheet">
-       <string notr="true">color:rgb(215,215,215);
-selection-background-color: rgb(46, 193, 124);
+       <string notr="true">QCheckBox{
+	ont-family: PingFangSC-Regular;
+	font-size: 14px;
+	color: #919191;
+	text-align: center;
+	width: 13px;
+    height: 14px;
+}
 </string>
       </property>
       <property name="text">
@@ -209,10 +238,14 @@ selection-background-color: rgb(46, 193, 124);
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">background:transparent;
+       <string notr="true">font-family: PingFangSC-Regular;
+font-size: 14px;
+color: #919191;
+text-align: center;
+background:transparent;
 border-width:0;
 border-style:outset;
-color:rgb(215,215,215);</string>
+</string>
       </property>
       <property name="text">
        <string>忘记密码</string>

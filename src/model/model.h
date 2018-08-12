@@ -38,16 +38,14 @@ public:
     explicit Model(QObject *parent = 0);
     User getUser(const QByteArray &Data);
     Register getRegister(const QByteArray &Data);
-
+    QString JsonToString(const QJsonValue &value);
+    QJsonValue getJson(const QJsonValue &data, const QString &key);
+    QJsonValue getByteArray(const QByteArray &data, const QString &key);
 signals:
 
 public slots:
 
 private:
-    QJsonValue getJson(const QJsonValue &data, const QString &key);
-    QJsonValue getByteArray(const QByteArray &data, const QString &key);
-    QString JsonToString(const QJsonValue &value);
-
     UserInfo getUserInfo(const QJsonValue &Data);
 
     UserInfo userInfo;

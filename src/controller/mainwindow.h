@@ -33,6 +33,8 @@ private slots:
 
     void on_upload_clicked();
 
+    void on_checkBox_clicked();
+
 private:
     void setupUI();
     QString kb_to_gb(QString number);

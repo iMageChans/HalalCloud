@@ -7,6 +7,7 @@
 
 class BaseAPI;
 class Model;
+class QPixmap;
 
 class Util : public QObject
 {
@@ -33,6 +34,8 @@ public:
     void systemConfig(const QString &key, const QString &data, const QString &Group);
     void deleteSystemConfig(const QString &key, const QString &Group);
     QString getSystemConfig(const QString &key, const QString &Group);
+
+    QPixmap PixmapToRound(QPixmap &src, int radius);
 
     QByteArray JsonData;
     QString Token;

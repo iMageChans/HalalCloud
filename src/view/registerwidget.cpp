@@ -15,6 +15,8 @@ RegisterWidget::RegisterWidget(QWidget *parent) :
     util = new Util;
     ui->setupUi(this);
     this->setupUI();
+
+    this->setFocusPolicy(Qt::StrongFocus);
 }
 
 void RegisterWidget::setupUI()

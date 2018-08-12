@@ -18,6 +18,7 @@ LoginWidget::LoginWidget(QWidget *parent) :
 {
     util = new Util;
     ui->setupUi(this);
+    this->setFocusPolicy(Qt::StrongFocus);
     this->setupUI();
 
     ui->userEdit->setText(util->getSystemConfig("username","AotuLogin"));
@@ -64,6 +65,7 @@ void LoginWidget::on_Login_clicked()
         main->userSend(user);
         main->show();
         this->close();
+        this->setFocusPolicy(Qt::NoFocus);
     }else {
         this->MessageBox(user.code);
         ui->Login->setEnabled(true);
@@ -122,6 +124,7 @@ void LoginWidget::autoLogins()
             main->show();
             main->userSend(user);
             this->close();
+            this->setFocusPolicy(Qt::NoFocus);
         }else if(user.code == "CREDENTIALS_REQUIRED"){
             QMessageBox box;
             box.setText("登陆过期，请重新登陆");

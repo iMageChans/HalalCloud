@@ -172,11 +172,13 @@ border-style:outset;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background:rgb(46, 193, 124);
+    <string notr="true">background: #2EC17C;
+border-radius: 5px;
 border:none;
-color:rgb(255, 255, 255);
-border:1px rgb(255, 255, 255);
-border-radius:5px;
+font-family: PingFangSC-Regular;
+font-size: 18px;
+color: #FFFFFF;
+text-align: center;
 </string>
    </property>
    <property name="text">

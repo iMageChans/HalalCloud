@@ -31,5 +31,14 @@
         <file>assets/icon_76pt.png</file>
         <file>assets/icon_76pt@2x.png</file>
         <file>assets/icon_83.5@2x.png</file>
+        <file>assets/left.png</file>
+        <file>assets/load.png</file>
+        <file>assets/mkdir.png</file>
+        <file>assets/right.png</file>
+        <file>assets/uploadwhite.png</file>
+        <file>assets/txt.png</file>
+        <file>assets/listV.png</file>
+        <file>assets/listblack.png</file>
+        <file>assets/draw.png</file>
     </qresource>
 </RCC>
