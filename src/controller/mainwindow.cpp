@@ -33,6 +33,8 @@ void MainWindow::setupUI()
     mkdir = new mkdirWidget;
     connect(mkdir,SIGNAL(sendClick(bool)),this,SLOT(receiveData(bool)));
 
+    connect(ui->listWidget,SIGNAL(currentRowChanged(int)),this,SLOT(ListRowNum(int)));
+
     this->on_update_clicked();
 
     ui->name->setText(user.result.name);
@@ -187,30 +189,17 @@ void MainWindow::on_FilesListButton_clicked()
 
 void MainWindow::on_update_clicked()
 {
-    filesList = util->getPageFile("","");
+    this->setItem("","/");
+}
+
+void MainWindow::setItem(const QString &uuid, const QString &pach)
+{
+    filesList = util->getPageFile(uuid,pach);
     int n_array = filesList.result.list.size();
     for (int i = 0; i < n_array; ++i){
         QJsonValue value = filesList.result.list.at(i);
         listData = model->getFilesListData(value);
         this->addItem(listData);
-        qDebug() << listData.uuid;
-        qDebug() << listData.storeId;
-        qDebug() << listData.userId;
-        qDebug() << listData.path;
-        qDebug() << listData.name;
-        qDebug() << listData.ext;
-        qDebug() << listData.size;
-        qDebug() << listData.parent;
-        qDebug() << listData.type;
-        qDebug() << listData.atime;
-        qDebug() << listData.ctime;
-        qDebug() << listData.mtime;
-        qDebug() << listData.version;
-        qDebug() << listData.locking;
-        qDebug() << listData.mime;
-        qDebug() << listData.preview;
-        qDebug() << listData.flag;
-
     }
 }
 
@@ -225,4 +214,9 @@ void MainWindow::addItem(filesListData data)
     ui->listWidget->setItemWidget(Item,FilesItem);
     Item->setSizeHint(QSize(782,36));
 
+}
+
+void MainWindow::ListRowNum(int row)
+{
+    qDebug() << row;
 }

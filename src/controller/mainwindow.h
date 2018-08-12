@@ -27,28 +27,21 @@ public:
 private slots:
 
     void on_Loginout_clicked();
-
     void on_dilatation_clicked();
-
     void on_MyFlies_itemClicked(QListWidgetItem *item);
-
     void on_send_itemClicked(QListWidgetItem *item);
-
     void on_upload_clicked();
-
     void on_checkBox_clicked();
-
     void on_mkdir_clicked();
-
     void receiveData(bool data);
-
     void on_FilesListButton_clicked();
-
     void on_update_clicked();
+    void ListRowNum(int row);
 
 private:
     void setupUI();
     QString kb_to_gb(int number);
+    void setItem(const QString &uuid, const QString &pach);
     void addItem(filesListData data);
     int progressInt(int used, int capacity);
     void updateListData();
