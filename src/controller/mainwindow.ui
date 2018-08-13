@@ -826,7 +826,7 @@ border:none;</string>
       <x>200</x>
       <y>108</y>
       <width>802</width>
-      <height>591</height>
+      <height>593</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -845,8 +845,23 @@ border:none;</string>
      <enum>Qt::NoFocus</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background: #F5F5F5;
-border: 1px solid #E9E9E9;</string>
+     <string notr="true">QListView{
+    background: #FFFFFF;
+    alternate-background-color:#F5F5F5;
+}
+QListWidget::Item:hover{
+	background:#F7F7F7;
+ }
+QListWidget::item:selected{
+	background:#2EC17C; 
+	color:red;
+}</string>
+    </property>
+    <property name="autoScroll">
+     <bool>true</bool>
+    </property>
+    <property name="alternatingRowColors">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QWidget" name="Title_2" native="true">

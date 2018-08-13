@@ -194,12 +194,16 @@ void MainWindow::on_update_clicked()
 
 void MainWindow::setItem(const QString &uuid, const QString &pach)
 {
-    filesList = util->getPageFile(uuid,pach);
-    int n_array = filesList.result.list.size();
-    for (int i = 0; i < n_array; ++i){
-        QJsonValue value = filesList.result.list.at(i);
-        listData = model->getFilesListData(value);
-        this->addItem(listData);
+    ui->listWidget->clear();
+
+    if (ui->listWidget->count() == 0){
+        filesList = util->getPageFile(uuid,pach);
+        int n_array = filesList.result.list.size();
+        for (int i = 0; i < n_array; ++i){
+            QJsonValue value = filesList.result.list.at(i);
+            listData = model->getFilesListData(value);
+            this->addItem(listData);
+        }
     }
 }
 
@@ -212,8 +216,11 @@ void MainWindow::addItem(filesListData data)
     QListWidgetItem *Item = new QListWidgetItem(ui->listWidget);
     ui->listWidget->addItem(Item);
     ui->listWidget->setItemWidget(Item,FilesItem);
-    Item->setSizeHint(QSize(782,36));
+    Item->setSizeHint(QSize(780,36));
 
+    if(Item->isSelected()){
+        FilesItem->setTextColor("color:#FFFFFF");
+    }
 }
 
 void MainWindow::ListRowNum(int row)

@@ -35,7 +35,8 @@ SOURCES += \
     model/multiparuploadmodel.cpp \
     view/filesitemwidget.cpp \
     view/mkdirwidget.cpp \
-    view/mkdirhlep.cpp
+    view/mkdirhlep.cpp \
+    view/mediaplayer.cpp
 
 HEADERS += \
         controller/mainwindow.h \
@@ -51,7 +52,8 @@ HEADERS += \
     view/filesitemwidget.h \
     view/mkdirwidget.h \
     view/mkdirhlep.h \
-    model/struct.h
+    model/struct.h \
+    view/mediaplayer.h
 
 FORMS += \
     view/loginwidget.ui \
@@ -59,9 +61,11 @@ FORMS += \
     view/registerwidget.ui \
     view/filesitemwidget.ui \
     view/mkdirwidget.ui \
-    view/mkdirhlep.ui
+    view/mkdirhlep.ui \
+    view/mediaplayer.ui
 
 RESOURCES += \
     resource.qrc
 
-DISTFILES +=
+INCLUDEPATH += $$PWD/3rd/mac/vlc/include
+LIBS += -L$$PWD/3rd/mac/vlc/lib/ -lvlc.5
