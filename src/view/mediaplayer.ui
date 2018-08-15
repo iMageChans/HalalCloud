@@ -224,11 +224,14 @@ text-align: center;</string>
              <string notr="true">font-family: PingFangSC-Medium;
 font-size: 12px;
 color: #FFFFFF;
-text-align: left;
+text-align: center center;
 background:rgba(0, 0, 0,0);</string>
             </property>
             <property name="text">
-             <string>150:22 / 150:22</string>
+             <string>  00:00 / 00:00</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -368,12 +371,15 @@ text-align: center;</string>
              <string notr="true">font-family: PingFangSC-Medium;
 font-size: 14px;
 color: #FFFFFF;
-text-align: center;
+text-align:center center;
 background:rgba(0, 0, 0,0);
 border:none;</string>
             </property>
             <property name="text">
              <string> 字幕 </string>
+            </property>
+            <property name="default">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -395,7 +401,7 @@ border:none;</string>
              <string notr="true">font-family: PingFangSC-Medium;
 font-size: 14px;
 color: #FFFFFF;
-text-align: center;
+text-align:center center;
 background:rgba(0, 0, 0,0);
 border:none;</string>
             </property>

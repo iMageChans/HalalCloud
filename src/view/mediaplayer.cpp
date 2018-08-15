@@ -25,7 +25,7 @@ MediaPlayer::MediaPlayer(QWidget *parent) :
     image_width = 1920;
     image_height = 1080;
 
-    m_pVlcPlayer=NULL;
+    m_pVlcPlayer=nullptr;
 
     m_eMediaPlayStatus=MEDIA_STATUS_STOPED;
     m_updateTimer = new QTimer(this);
@@ -142,17 +142,13 @@ void MediaPlayer::UpdateUserInterface()
         ui->AudioSlider->setValue(volumePos);
         ui->AudioSlider->blockSignals(statesVolume);
 
-        QTime startTime;
-        startTime = startTime.addMSecs(libvlc_media_player_get_time(m_pVlcPlayer));
-        qDebug() << startTime;
-        QString startTimeString = startTime.toString("hh:mm:ss");
+        int v_timer = libvlc_media_player_get_time(m_pVlcPlayer);
+        QString videoTime = QDateTime::fromTime_t(v_timer / 1000).toString("mm:ss");
 
-        QTime remainTime;
-        remainTime = remainTime.addMSecs(libvlc_media_player_get_length(m_pVlcPlayer) - libvlc_media_player_get_time(m_pVlcPlayer));
-        qDebug() << remainTime;
-        QString endTimeSTring = remainTime.toString("hh:mm:ss");
+        int l_timer = libvlc_media_player_get_length(m_pVlcPlayer);
+        QString videoLength = QDateTime::fromTime_t(l_timer / 1000).toString("mm:ss");
 
-        ui->Timer->setText(startTimeString + " / " + endTimeSTring);
+        ui->Timer->setText(videoTime + " / " + videoLength);
 
     }
 }
