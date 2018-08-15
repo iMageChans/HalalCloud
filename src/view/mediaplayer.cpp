@@ -22,8 +22,8 @@ MediaPlayer::MediaPlayer(QWidget *parent) :
         qDebug()<<"Instance call ok...";
     }
 
-    image_width = 1280;
-    image_height = 740;
+    image_width = 1920;
+    image_height = 1080;
 
     m_pVlcPlayer=NULL;
 

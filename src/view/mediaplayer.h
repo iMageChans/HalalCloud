@@ -15,7 +15,7 @@ enum MediaPlayStatus{
 static unsigned char *video_callback_outBuffer = nullptr;
 static QMutex buff_Mutex;
 
-#define MAX_VIDEOBUFF_SIZE 8192000
+#define MAX_VIDEOBUFF_SIZE 1024 * 1024 * 50
 
 class QTimer;
 
