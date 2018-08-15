@@ -5,8 +5,6 @@
 #include "vlc/vlc.h"
 #include "view/displywidget.h"
 
-#include "RenderWidget.h"
-
 enum MediaPlayStatus{
     MEDIA_STATUS_PLAY,
     MEDIA_STATUS_PAUSE,
@@ -67,8 +65,6 @@ private:
     MediaPlayStatus m_eMediaPlayStatus;
     DisplyWidget *m_pDisplayWidget;
     QTimer *m_updateTimer;
-
-    RenderWidget *m_pRenderWidget;
 
 protected:
     void resizeEvent(QResizeEvent *event);
