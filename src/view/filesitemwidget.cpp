@@ -15,7 +15,7 @@ FilesItemWidget::~FilesItemWidget()
     delete ui;
 }
 
-void FilesItemWidget::setName(QString &name)
+void FilesItemWidget::setName(const QString &name)
 {
     ui->Name->setText(name);
 }
@@ -30,4 +30,10 @@ void FilesItemWidget::setTime(long time)
 {
     QString Time = QDateTime::fromTime_t(uint(time / 1000)).toString("yyyy.MM.dd hh:mm");
     ui->Timer->setText(Time);
+}
+
+void FilesItemWidget::setTextColor(const QString &Color){
+    ui->Name->setStyleSheet(Color);
+    ui->capacity->setStyleSheet(Color);
+    ui->Timer->setStyleSheet(Color);
 }

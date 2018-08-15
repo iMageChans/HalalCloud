@@ -20,7 +20,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #F7F7F7;</string>
+   <string notr="true"/>
   </property>
   <widget class="QCheckBox" name="checkBox">
    <property name="geometry">
@@ -93,7 +93,6 @@ background: rgba(0, 0, 0, 0);</string>
     <string notr="true">font-family: PingFangSC-Regular;
 font-size: 12px;
 color: #5A5A5A;
-letter-spacing: 0.5px;
 text-align: left;
 border:none;
 background: rgba(0, 0, 0, 0);</string>
@@ -107,7 +106,7 @@ background: rgba(0, 0, 0, 0);</string>
     <rect>
      <x>658</x>
      <y>10</y>
-     <width>115</width>
+     <width>105</width>
      <height>17</height>
     </rect>
    </property>
@@ -115,7 +114,6 @@ background: rgba(0, 0, 0, 0);</string>
     <string notr="true">font-family: PingFangSC-Regular;
 font-size: 12px;
 color: #5A5A5A;
-letter-spacing: 0.5px;
 text-align: left;
 border:none;
 background: rgba(0, 0, 0, 0);</string>
@@ -137,7 +135,6 @@ background: rgba(0, 0, 0, 0);</string>
     <string notr="true">font-family: PingFangSC-Regular;
 font-size: 12px;
 color: #5A5A5A;
-letter-spacing: 0.5px;
 text-align: left;
 border:none;
 background: rgba(0, 0, 0, 0);</string>

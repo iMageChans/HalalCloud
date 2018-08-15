@@ -16,7 +16,7 @@ class RegisterWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit RegisterWidget(QWidget *parent = 0);
+    explicit RegisterWidget(QWidget *parent = nullptr);
     ~RegisterWidget();
 
 private slots:

@@ -15,9 +15,10 @@ public:
     explicit FilesItemWidget(QWidget *parent = nullptr);
     ~FilesItemWidget();
 
-    void setName(QString &name);
+    void setName(const QString &name);
     void setCapacity(long Size);
     void setTime(long time);
+    void setTextColor(const QString &Color);
 
 private slots:
 

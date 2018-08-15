@@ -14,7 +14,6 @@
         <file>assets/muisc.png</file>
         <file>assets/pdf.png</file>
         <file>assets/play.png</file>
-        <file>assets/stop.png</file>
         <file>assets/upload.png</file>
         <file>assets/word.png</file>
         <file>assets/icon_20pt.png</file>
@@ -40,5 +39,9 @@
         <file>assets/listV.png</file>
         <file>assets/listblack.png</file>
         <file>assets/draw.png</file>
+        <file>assets/Stop.png</file>
+        <file>assets/Shape.png</file>
+        <file>assets/Palyer.png</file>
+        <file>assets/audio.png</file>
     </qresource>
 </RCC>
