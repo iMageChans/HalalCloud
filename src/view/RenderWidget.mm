@@ -21,7 +21,7 @@
  *****************************************************************************/
 
 #include <QtGlobal>
-#if defined( Q_WS_MAC ) && defined( QT_MAC_USE_COCOA )
+#ifdef Q_OS_MAC
 
 #include "RenderWidget.h"
 #include <QPalette>
@@ -77,7 +77,7 @@ RenderWidget::RenderWidget( QWidget *parent ) :
     m_container = new QMacCocoaViewContainer( 0, this);
      m_container->setAutoFillBackground( true );
 
-     QVBoxLayout* vLayout= new QVBoxLayout(this);
+     QVBoxLayout *vLayout= new QVBoxLayout(this);
      vLayout->setContentsMargins(0,0,0,0);
 
 
@@ -93,10 +93,10 @@ RenderWidget::~RenderWidget()
 
 void* RenderWidget::drawableId() const
 {
-    VLCNSView*    m_video = [[VLCNSView alloc] init];
+    VLCNSView *m_video = [[VLCNSView alloc] init];
+    qDebug() << m_video;
     m_container->setCocoaView(m_video);
     [m_video release];
-
     return (void*)m_video;
 
 }

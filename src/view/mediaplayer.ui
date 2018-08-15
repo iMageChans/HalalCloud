@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>642</width>
-    <height>528</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>642</width>
-    <height>482</height>
+    <width>800</width>
+    <height>600</height>
    </size>
   </property>
   <property name="focusPolicy">
@@ -56,11 +56,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QWidget" name="videoWidget" native="true">
-       <property name="styleSheet">
-        <string notr="true">background:rgb(0,0,0);</string>
-       </property>
-      </widget>
+      <widget class="QWidget" name="videoWidget" native="true"/>
      </item>
      <item>
       <widget class="QWidget" name="widget_2" native="true">
@@ -126,7 +122,7 @@ text-align: center;</string>
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../resource.qrc">
+             <iconset>
               <normaloff>:/image/assets/Palyer.png</normaloff>:/image/assets/Palyer.png</iconset>
             </property>
             <property name="iconSize">
@@ -228,11 +224,14 @@ text-align: center;</string>
              <string notr="true">font-family: PingFangSC-Medium;
 font-size: 12px;
 color: #FFFFFF;
-text-align: left;
+text-align: center center;
 background:rgba(0, 0, 0,0);</string>
             </property>
             <property name="text">
-             <string>150:22 / 150:22</string>
+             <string>  00:00 / 00:00</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -262,7 +261,7 @@ text-align: center;</string>
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../resource.qrc">
+             <iconset>
               <normaloff>:/image/assets/audio.png</normaloff>:/image/assets/audio.png</iconset>
             </property>
             <property name="iconSize">
@@ -372,12 +371,15 @@ text-align: center;</string>
              <string notr="true">font-family: PingFangSC-Medium;
 font-size: 14px;
 color: #FFFFFF;
-text-align: center;
+text-align:center center;
 background:rgba(0, 0, 0,0);
 border:none;</string>
             </property>
             <property name="text">
              <string> 字幕 </string>
+            </property>
+            <property name="default">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -399,7 +401,7 @@ border:none;</string>
              <string notr="true">font-family: PingFangSC-Medium;
 font-size: 14px;
 color: #FFFFFF;
-text-align: center;
+text-align:center center;
 background:rgba(0, 0, 0,0);
 border:none;</string>
             </property>
@@ -434,7 +436,7 @@ text-align: center;</string>
              <string/>
             </property>
             <property name="icon">
-             <iconset resource="../resource.qrc">
+             <iconset>
               <normaloff>:/image/assets/Shape.png</normaloff>:/image/assets/Shape.png</iconset>
             </property>
             <property name="iconSize">
@@ -454,8 +456,6 @@ text-align: center;</string>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
