@@ -2,7 +2,7 @@
 #define MEDIAPLAYER_H
 
 #include <QWidget>
-#include "vlc/vlc.h"
+#include <vlc/vlc.h>
 #include "view/displywidget.h"
 
 #include "RenderWidget.h"
@@ -60,7 +60,6 @@ private:
     int GetImageHeight(){return image_height;}
 
     MediaPlayStatus m_eMediaPlayStatus;
-    DisplyWidget *m_pDisplayWidget;
     QTimer *m_updateTimer;
 
     RenderWidget *m_pRenderWidget;

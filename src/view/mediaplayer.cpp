@@ -26,6 +26,8 @@ MediaPlayer::MediaPlayer(QWidget *parent) :
     image_width = 1280;
     image_height = 740;
 
+    m_pVlcPlayer=NULL;
+
     m_eMediaPlayStatus=MEDIA_STATUS_STOPED;
     m_updateTimer = new QTimer(this);
     connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(UpdateUserInterface()));
@@ -43,25 +45,26 @@ MediaPlayer::MediaPlayer(QWidget *parent) :
 
 MediaPlayer::~MediaPlayer()
 {
-    if (m_pInstance != nullptr){
-        libvlc_release(m_pInstance);
-        m_pInstance = nullptr;
-    }
-
     if( m_pRenderWidget != nullptr){
         delete  m_pRenderWidget;
-        m_pRenderWidget=nullptr;
+         m_pRenderWidget=nullptr;
     }
 
     if(m_pVlcPlayer != nullptr){
         libvlc_media_player_release(m_pVlcPlayer);
-        m_pVlcPlayer=nullptr;
+         m_pVlcPlayer=nullptr;
+
+    }
+    if(m_pInstance != nullptr){
+        libvlc_release(m_pInstance);
+        m_pInstance=nullptr;
     }
 
     if(m_updateTimer !=nullptr){
         m_updateTimer->stop();
         m_updateTimer=nullptr;
     }
+
 
     delete ui;
 }
@@ -76,6 +79,10 @@ void MediaPlayer::on_Player_clicked()
 
     if (m_pInstance == nullptr){
         return;
+    }
+
+    if(m_pVlcPlayer != nullptr){
+        MediaPlayerStop();
     }
 
     QString filePath = "http://221.228.226.23/11/t/j/v/b/tjvbwspwhqdmgouolposcsfafpedmb/sh.yinyuetai.com/691201536EE4912BF7E4F1E2C67B8119.mp4";
@@ -135,12 +142,12 @@ void MediaPlayer::UpdateUserInterface()
         ui->AudioSlider->blockSignals(statesVolume);
 
         QTime startTime;
-        startTime = startTime.addMSecs(int(libvlc_media_player_get_time(m_pVlcPlayer)));
+        startTime = startTime.addMSecs(libvlc_media_player_get_time(m_pVlcPlayer));
         qDebug() << startTime;
         QString startTimeString = startTime.toString("hh:mm:ss");
 
         QTime remainTime;
-        remainTime = remainTime.addMSecs(int(libvlc_media_player_get_length(m_pVlcPlayer) - libvlc_media_player_get_time(m_pVlcPlayer)));
+        remainTime = remainTime.addMSecs(libvlc_media_player_get_length(m_pVlcPlayer) - libvlc_media_player_get_time(m_pVlcPlayer));
         qDebug() << remainTime;
         QString endTimeSTring = remainTime.toString("hh:mm:ss");
 

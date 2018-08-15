@@ -78,7 +78,6 @@ LIBS += -framework Foundation -framework Appkit -framework Cocoa
 
 OBJECTIVE_SOURCES += view/RenderWidget.mm
 
-INCLUDEPATH += $$PWD/3rd/mac/libvlc/include
 LIBS += -L$$PWD/3rd/mac/libvlc/lib/ -lvlc.5
-
+INCLUDEPATH += $$PWD/3rd/mac/libvlc/include
 }
