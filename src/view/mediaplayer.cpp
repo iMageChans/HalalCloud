@@ -1,46 +1,82 @@
 #include "mediaplayer.h"
 #include "ui_mediaplayer.h"
+#include <QMutex>
+#include <QTimer>
+#include <QTime>
 #include <QDebug>
 #include <QFileDialog>
 #include <QDir>
+#include <vlc/libvlc.h>
+
+unsigned char *video_callback_outBuffer = nullptr;
+QMutex buff_Mutex;
 
 MediaPlayer::MediaPlayer(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MediaPlayer)
 {
+    ui->setupUi(this);
 
+    m_pInstance = libvlc_new(0,nullptr);
 
-    m_pInstance = libvlc_new(0,NULL);
-
-    if(m_pInstance == NULL){
+    if(m_pInstance == nullptr){
         qDebug()<<"Instance NULL";
-
     }else{
         qDebug()<<"Instance call ok...";
     }
 
-    ui->setupUi(this);
+    image_width = 1280;
+    image_height = 740;
+
+    m_eMediaPlayStatus=MEDIA_STATUS_STOPED;
+    m_updateTimer = new QTimer(this);
+
+    connect(m_updateTimer,SIGNAL(timeout()),this,SLOT(UpdateUserInterface()));
+
+    QVBoxLayout *vLayout = new QVBoxLayout(ui->videoWidget);
+    vLayout->setContentsMargins(0,0,0,0);
+
+    m_pDisplayWidget = new DisplyWidget();
+    vLayout->addWidget(m_pDisplayWidget);
+    ui->videoWidget->setLayout(vLayout);
+
+    video_callback_outBuffer = (unsigned char*)malloc(8192000);
 }
 
 MediaPlayer::~MediaPlayer()
 {
-    if (m_pInstance != NULL){
+    if (m_pInstance != nullptr){
         libvlc_release(m_pInstance);
-        m_pInstance = NULL;
+        m_pInstance = nullptr;
+    }
+
+    if(m_pDisplayWidget != nullptr){
+        delete m_pDisplayWidget;
+        m_pDisplayWidget = nullptr;
+    }
+
+    if(video_callback_outBuffer != nullptr){
+        free(video_callback_outBuffer);
+        video_callback_outBuffer = nullptr;
     }
     delete ui;
 }
 
-void MediaPlayer::on_pushButton_clicked()
+void MediaPlayer::on_Player_clicked()
 {
-    if (m_pInstance == NULL){
+    if (m_pVlcPlayer == nullptr){
+        libvlc_media_player_stop(m_pVlcPlayer);
+        libvlc_media_player_release(m_pVlcPlayer);
+        m_pVlcPlayer = nullptr;
+    }
+
+    if (m_pInstance == nullptr){
         return;
     }
 
-    QString filePath = QFileDialog::getOpenFileName(this,tr("Open media file"),".",tr("Media Files (*.avi *.mp4 *.mkv *.ogg *.mp3 *.wma *.wma *.m4a)"));
+    QString filePath = "http://221.228.226.23/11/t/j/v/b/tjvbwspwhqdmgouolposcsfafpedmb/sh.yinyuetai.com/691201536EE4912BF7E4F1E2C67B8119.mp4";
     if (filePath.length() != 0){
-        filePath = QDir::toNativeSeparators(filePath);
-        libvlc_media_t* media=libvlc_media_new_path(m_pInstance,filePath.toUtf8().data());
+        libvlc_media_t* media=libvlc_media_new_location(m_pInstance,filePath.toUtf8().data());
         m_pVlcPlayer=libvlc_media_player_new_from_media(media);
         libvlc_media_release(media);
 
@@ -49,10 +85,35 @@ void MediaPlayer::on_pushButton_clicked()
     }
 }
 
-void MediaPlayer::MediaPlayerSetDrawableWindow(libvlc_media_player_t *player)
+void MediaPlayer::on_VideoSlider_valueChanged(int value)
 {
 
-//    libvlc_media_player_set_nsobject(player, (void*)ui->videoWidget);
+}
+
+void MediaPlayer::on_AudioSlider_valueChanged(int value)
+{
+
+}
+
+void MediaPlayer::on_Subtitle_clicked()
+{
+
+}
+
+void MediaPlayer::on_Resolution_clicked()
+{
+
+}
+
+void MediaPlayer::on_Big_clicked()
+{
+
+}
+
+void MediaPlayer::MediaPlayerSetDrawableWindow(libvlc_media_player_t *player)
+{
+    libvlc_video_set_callbacks(player, lockCallback, unlockCallback, displayCallback, this);
+    libvlc_video_set_format(player, "RGBA", uint(image_width), uint(image_height), uint(image_width * 4));
 
 //#if defined(Q_OS_WIN32)
 //    libvlc_media_player_set_hwnd(player,(void*)m_pRenderWidget->drawableId());
@@ -65,9 +126,66 @@ void MediaPlayer::MediaPlayerSetDrawableWindow(libvlc_media_player_t *player)
 
 void MediaPlayer::MediaPlayerPlay()
 {
-    if(m_pInstance == NULL){
+    if(m_pInstance == nullptr){
         return;
     }
 
+    if(m_eMediaPlayStatus==MEDIA_STATUS_PLAY)
+    {
+        libvlc_media_player_pause(m_pVlcPlayer);
+        m_eMediaPlayStatus=MEDIA_STATUS_PAUSE;
+    }
+    else if(m_eMediaPlayStatus==MEDIA_STATUS_PAUSE)
+    {
+        libvlc_media_player_play(m_pVlcPlayer);
+        m_eMediaPlayStatus=MEDIA_STATUS_PLAY;
+        resize(ui->videoWidget->frameSize());
 
+    }
+    else{
+        libvlc_media_player_play(m_pVlcPlayer);
+        m_eMediaPlayStatus=MEDIA_STATUS_PLAY;
+        resize(ui->videoWidget->frameSize());
+    }
+}
+
+void *MediaPlayer::lockCallback(void *opaque, void **plane){
+    buff_Mutex.lock();
+    *plane = video_callback_outBuffer;
+    return nullptr;
+}
+
+void MediaPlayer::unlockCallback(void *opaque, void *picture, void *const *plane){
+    MediaPlayer * player = (MediaPlayer *)opaque;
+    if (player == nullptr){
+        return;
+    }
+
+    int width = player->GetImageWidth();
+    int height = player->GetImageHeight();
+
+    QImage image((unsigned char*)video_callback_outBuffer, width, height, QImage::Format_ARGB32);
+    image = image.rgbSwapped();
+    player->ShowFrame(image);
+    buff_Mutex.unlock();
+}
+
+void MediaPlayer::displayCallback(void *opaque, void *picture){
+
+}
+
+void MediaPlayer::ShowFrame(QImage image){
+    if(m_pDisplayWidget != nullptr){
+        m_pDisplayWidget->SetDisplayImage(image);
+    }
+}
+
+void MediaPlayer::MediaPlayerStop()
+{
+    if(m_pVlcPlayer != nullptr)
+    {
+        libvlc_media_player_release(m_pVlcPlayer);
+        m_pVlcPlayer = nullptr;
+        m_eMediaPlayStatus = MEDIA_STATUS_STOPED;
+    }
 }

@@ -36,7 +36,8 @@ SOURCES += \
     view/filesitemwidget.cpp \
     view/mkdirwidget.cpp \
     view/mkdirhlep.cpp \
-    view/mediaplayer.cpp
+    view/mediaplayer.cpp \
+    view/displywidget.cpp
 
 HEADERS += \
         controller/mainwindow.h \
@@ -53,7 +54,8 @@ HEADERS += \
     view/mkdirwidget.h \
     view/mkdirhlep.h \
     model/struct.h \
-    view/mediaplayer.h
+    view/mediaplayer.h \
+    view/displywidget.h
 
 FORMS += \
     view/loginwidget.ui \
@@ -67,5 +69,15 @@ FORMS += \
 RESOURCES += \
     resource.qrc
 
-INCLUDEPATH += $$PWD/3rd/mac/vlc/include
-LIBS += -L$$PWD/3rd/mac/vlc/lib/ -lvlc.5
+macx {
+
+QT += opengl
+DEFINES += MEIDA_PLAYER_MACOSX
+LIBS += -framework Foundation -framework Appkit -framework Cocoa
+
+OBJECTIVE_SOURCES += RenderWidget.mm
+
+INCLUDEPATH += $$PWD/3rd/mac/libvlc/include
+LIBS += -L$$PWD/3rd/mac/libvlc/lib/ -lvlc.5
+
+}

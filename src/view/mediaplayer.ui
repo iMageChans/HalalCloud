@@ -6,45 +6,54 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>480</height>
+    <width>642</width>
+    <height>528</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>640</width>
-    <height>480</height>
+    <width>642</width>
+    <height>482</height>
    </size>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="leftMargin">
-    <number>1</number>
+    <number>0</number>
    </property>
    <property name="topMargin">
-    <number>1</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>1</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>1</number>
+    <number>0</number>
    </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <property name="leftMargin">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="topMargin">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="rightMargin">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="bottomMargin">
-      <number>1</number>
+      <number>0</number>
      </property>
      <item>
       <widget class="QWidget" name="videoWidget" native="true">
@@ -55,19 +64,384 @@
      </item>
      <item>
       <widget class="QWidget" name="widget_2" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>48</height>
+        </size>
+       </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>90</height>
+         <height>48</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background: #5A5A5A;</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
+           <number>3</number>
+          </property>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="Player">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>44</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background:rgba(0, 0, 0,0);
+border:none;
+font-family: PingFangSC-Regular;
+font-size: 18px;
+color: #FFFFFF;
+text-align: center;</string>
+            </property>
             <property name="text">
-             <string>播放</string>
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../resource.qrc">
+              <normaloff>:/image/assets/Palyer.png</normaloff>:/image/assets/Palyer.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>41</width>
+              <height>46</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_3" native="true">
+            <property name="styleSheet">
+             <string notr="true">background:rgba(0, 0, 0,0);</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_6">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QWidget" name="widget_4" native="true">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>12</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>12</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSlider" name="VideoSlider">
+                 <property name="minimumSize">
+                  <size>
+                   <width>150</width>
+                   <height>22</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background:rgba(0,0,0,0)</string>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_5" native="true">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>10</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="Timer">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font-family: PingFangSC-Medium;
+font-size: 12px;
+color: #FFFFFF;
+text-align: left;
+background:rgba(0, 0, 0,0);</string>
+            </property>
+            <property name="text">
+             <string>150:22 / 150:22</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>44</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background:rgba(0, 0, 0,0);
+border:none;
+font-family: PingFangSC-Regular;
+font-size: 18px;
+color: #FFFFFF;
+text-align: center;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../resource.qrc">
+              <normaloff>:/image/assets/audio.png</normaloff>:/image/assets/audio.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>42</width>
+              <height>39</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>120</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background:rgba(0, 0, 0,0);</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QWidget" name="widget_6" native="true">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>12</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>12</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QSlider" name="AudioSlider">
+                 <property name="minimumSize">
+                  <size>
+                   <width>50</width>
+                   <height>22</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>150</width>
+                   <height>22</height>
+                  </size>
+                 </property>
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_7" native="true"/>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Subtitle">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>44</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font-family: PingFangSC-Medium;
+font-size: 14px;
+color: #FFFFFF;
+text-align: center;
+background:rgba(0, 0, 0,0);
+border:none;</string>
+            </property>
+            <property name="text">
+             <string> 字幕 </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Resolution">
+            <property name="minimumSize">
+             <size>
+              <width>98</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>98</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font-family: PingFangSC-Medium;
+font-size: 14px;
+color: #FFFFFF;
+text-align: center;
+background:rgba(0, 0, 0,0);
+border:none;</string>
+            </property>
+            <property name="text">
+             <string>   高清1080P   </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Big">
+            <property name="minimumSize">
+             <size>
+              <width>44</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>44</width>
+              <height>46</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background:rgba(0, 0, 0,0);
+border:none;
+font-family: PingFangSC-Regular;
+font-size: 18px;
+color: #FFFFFF;
+text-align: center;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../resource.qrc">
+              <normaloff>:/image/assets/Shape.png</normaloff>:/image/assets/Shape.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>39</width>
+              <height>44</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -80,6 +454,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resource.qrc"/>
+ </resources>
  <connections/>
 </ui>
