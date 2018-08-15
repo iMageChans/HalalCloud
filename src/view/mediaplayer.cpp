@@ -1,7 +1,6 @@
 #include "mediaplayer.h"
 #include "ui_mediaplayer.h"
 #include <QMutex>
-#include <QTimer>
 #include <QTime>
 #include <QDebug>
 #include <QFileDialog>
@@ -38,16 +37,18 @@ MediaPlayer::MediaPlayer(QWidget *parent) :
     QVBoxLayout *vLayout = new QVBoxLayout(ui->videoWidget);
     vLayout->setContentsMargins(0,0,0,0);
 
-    m_pRenderWidget = new RenderWidget();
-    vLayout->addWidget(m_pRenderWidget);
+    m_pDisplayWidget = new DisplyWidget();
+    vLayout->addWidget(m_pDisplayWidget);
     ui->videoWidget->setLayout(vLayout);
+
+    video_callback_outBuffer = (unsigned char*)malloc(MAX_VIDEOBUFF_SIZE);
 }
 
 MediaPlayer::~MediaPlayer()
 {
-    if( m_pRenderWidget != nullptr){
-        delete  m_pRenderWidget;
-         m_pRenderWidget=nullptr;
+    if(m_pDisplayWidget != nullptr){
+        delete m_pDisplayWidget;
+        m_pDisplayWidget = nullptr;
     }
 
     if(m_pVlcPlayer != nullptr){
@@ -71,7 +72,7 @@ MediaPlayer::~MediaPlayer()
 
 void MediaPlayer::resizeEvent(QResizeEvent *event)
 {
-    m_pRenderWidget->resize(event->size());
+    m_pDisplayWidget->resize(event->size());
 }
 
 void MediaPlayer::on_Player_clicked()
@@ -174,13 +175,8 @@ void MediaPlayer::on_Big_clicked()
 void MediaPlayer::MediaPlayerSetDrawableWindow(libvlc_media_player_t *player)
 {
 
-#if defined(Q_OS_WIN32)
-    libvlc_media_player_set_hwnd(player,(void*)m_pRenderWidget->drawableId());
-#elif defined(Q_OS_MAC)
-    libvlc_media_player_set_nsobject(player, m_pRenderWidget->drawableId());
-#elif defined(Q_OS_UNIX)
-    libvlc_media_player_set_xwindow(player,(int)ui->videoWidget->winId());
-#endif
+    libvlc_video_set_callbacks(player, lockCallback, unlockCallback, displayCallback, this);
+    libvlc_video_set_format(player, "RGBA", uint(image_width), uint(image_height), uint(image_width * 4));
 
     if(m_updateTimer!=nullptr){
 
@@ -210,6 +206,37 @@ void MediaPlayer::MediaPlayerPlay()
         libvlc_media_player_play(m_pVlcPlayer);
         m_eMediaPlayStatus=MEDIA_STATUS_PLAY;
         resize(ui->videoWidget->frameSize());
+    }
+}
+
+void *MediaPlayer::lockCallback(void *opaque, void **plane){
+    buff_Mutex.lock();
+    *plane = video_callback_outBuffer;
+    return nullptr;
+}
+
+void MediaPlayer::unlockCallback(void *opaque, void *picture, void *const *plane){
+    MediaPlayer * player = (MediaPlayer *)opaque;
+    if (player == nullptr){
+        return;
+    }
+
+    int width = player->GetImageWidth();
+    int height = player->GetImageHeight();
+
+    QImage image((unsigned char*)video_callback_outBuffer, width, height, QImage::Format_ARGB32);
+    image = image.rgbSwapped();
+    player->ShowFrame(image);
+    buff_Mutex.unlock();
+}
+
+void MediaPlayer::displayCallback(void *opaque, void *picture){
+
+}
+
+void MediaPlayer::ShowFrame(QImage image){
+    if(m_pDisplayWidget != nullptr){
+        m_pDisplayWidget->SetDisplayImage(image);
     }
 }
 

@@ -2,16 +2,20 @@
 #define MEDIAPLAYER_H
 
 #include <QWidget>
+#include <QTimer>
 #include <vlc/vlc.h>
 #include "view/displywidget.h"
-
-#include "RenderWidget.h"
 
 enum MediaPlayStatus{
     MEDIA_STATUS_PLAY,
     MEDIA_STATUS_PAUSE,
     MEDIA_STATUS_STOPED
 };
+
+static unsigned char *video_callback_outBuffer = nullptr;
+static QMutex buff_Mutex;
+
+#define MAX_VIDEOBUFF_SIZE 8192000
 
 class QTimer;
 
@@ -43,10 +47,14 @@ private slots:
     void UpdateUserInterface();
 
 private:
+    static void *lockCallback(void *opaque, void **plane);
+    static void unlockCallback(void *opaque, void *picture, void *const *plane);
+    static void displayCallback(void *opaque, void *picture);
 
     Ui::MediaPlayer *ui;
 
     void MediaPlayerSetDrawableWindow(libvlc_media_player_t* player);
+    void ShowFrame(QImage image);
     void MediaPlayerPlay();
     void MediaPlayerStop();
 
@@ -61,8 +69,7 @@ private:
 
     MediaPlayStatus m_eMediaPlayStatus;
     QTimer *m_updateTimer;
-
-    RenderWidget *m_pRenderWidget;
+    DisplyWidget *m_pDisplayWidget;
 
 protected:
     void resizeEvent(QResizeEvent *event);
