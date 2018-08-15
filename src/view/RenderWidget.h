@@ -25,7 +25,7 @@
 
 #include <QtGlobal>
 #include <QWidget>
- #if defined( Q_WS_MAC ) && defined( QT_MAC_USE_COCOA )
+#ifdef Q_OS_MAC
 #include <QMacCocoaViewContainer>
 #else
 #endif
@@ -35,15 +35,15 @@ class RenderWidget : public QWidget
     Q_OBJECT
 
 public:
- #if defined( Q_WS_MAC ) && defined( QT_MAC_USE_COCOA )
-    RenderWidget( QWidget* parent = NULL );
+#ifdef Q_OS_MAC
+    RenderWidget( QWidget* parent = nullptr );
     virtual ~RenderWidget();
 
     void* drawableId() const;
 
 private:
 
-    QMacCocoaViewContainer*  m_container;
+    QMacCocoaViewContainer *m_container;
 
 #else
     RenderWidget( QWidget* parent = 0 ):QWidget(parent){}

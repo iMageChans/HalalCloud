@@ -44,16 +44,11 @@ private slots:
 
 private:
 
-    static void *lockCallback(void *opaque, void **plane);
-    static void unlockCallback(void *opaque, void *picture, void *const *plane);
-    static void displayCallback(void *opaque, void *picture);
-
     Ui::MediaPlayer *ui;
 
     void MediaPlayerSetDrawableWindow(libvlc_media_player_t* player);
     void MediaPlayerPlay();
     void MediaPlayerStop();
-    void ShowFrame(QImage image);
 
     libvlc_instance_t *m_pInstance;
     libvlc_media_player_t *m_pVlcPlayer;

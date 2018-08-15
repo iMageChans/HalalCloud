@@ -55,7 +55,8 @@ HEADERS += \
     view/mkdirhlep.h \
     model/struct.h \
     view/mediaplayer.h \
-    view/displywidget.h
+    view/displywidget.h \
+    view/RenderWidget.h
 
 FORMS += \
     view/loginwidget.ui \
@@ -75,7 +76,7 @@ QT += opengl
 DEFINES += MEIDA_PLAYER_MACOSX
 LIBS += -framework Foundation -framework Appkit -framework Cocoa
 
-OBJECTIVE_SOURCES += RenderWidget.mm
+OBJECTIVE_SOURCES += view/RenderWidget.mm
 
 INCLUDEPATH += $$PWD/3rd/mac/libvlc/include
 LIBS += -L$$PWD/3rd/mac/libvlc/lib/ -lvlc.5

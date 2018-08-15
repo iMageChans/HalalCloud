@@ -5,11 +5,9 @@
 #include <QTime>
 #include <QDebug>
 #include <QFileDialog>
+#include <QResizeEvent>
 #include <QDir>
 #include <vlc/libvlc.h>
-
-unsigned char *video_callback_outBuffer = nullptr;
-QMutex buff_Mutex;
 
 MediaPlayer::MediaPlayer(QWidget *parent) :
     QWidget(parent),
@@ -30,17 +28,17 @@ MediaPlayer::MediaPlayer(QWidget *parent) :
 
     m_eMediaPlayStatus=MEDIA_STATUS_STOPED;
     m_updateTimer = new QTimer(this);
+    connect(m_updateTimer, SIGNAL(timeout()), this, SLOT(UpdateUserInterface()));
 
-    connect(m_updateTimer,SIGNAL(timeout()),this,SLOT(UpdateUserInterface()));
+    ui->VideoSlider->setMaximum(1000);
+    ui->AudioSlider->setMaximum(100);
 
     QVBoxLayout *vLayout = new QVBoxLayout(ui->videoWidget);
     vLayout->setContentsMargins(0,0,0,0);
 
-    m_pDisplayWidget = new DisplyWidget();
-    vLayout->addWidget(m_pDisplayWidget);
+    m_pRenderWidget = new RenderWidget();
+    vLayout->addWidget(m_pRenderWidget);
     ui->videoWidget->setLayout(vLayout);
-
-    video_callback_outBuffer = (unsigned char*)malloc(8192000);
 }
 
 MediaPlayer::~MediaPlayer()
@@ -50,25 +48,31 @@ MediaPlayer::~MediaPlayer()
         m_pInstance = nullptr;
     }
 
-    if(m_pDisplayWidget != nullptr){
-        delete m_pDisplayWidget;
-        m_pDisplayWidget = nullptr;
+    if( m_pRenderWidget != nullptr){
+        delete  m_pRenderWidget;
+        m_pRenderWidget=nullptr;
     }
 
-    if(video_callback_outBuffer != nullptr){
-        free(video_callback_outBuffer);
-        video_callback_outBuffer = nullptr;
+    if(m_pVlcPlayer != nullptr){
+        libvlc_media_player_release(m_pVlcPlayer);
+        m_pVlcPlayer=nullptr;
     }
+
+    if(m_updateTimer !=nullptr){
+        m_updateTimer->stop();
+        m_updateTimer=nullptr;
+    }
+
     delete ui;
+}
+
+void MediaPlayer::resizeEvent(QResizeEvent *event)
+{
+    m_pRenderWidget->resize(event->size());
 }
 
 void MediaPlayer::on_Player_clicked()
 {
-    if (m_pVlcPlayer == nullptr){
-        libvlc_media_player_stop(m_pVlcPlayer);
-        libvlc_media_player_release(m_pVlcPlayer);
-        m_pVlcPlayer = nullptr;
-    }
 
     if (m_pInstance == nullptr){
         return;
@@ -87,12 +91,62 @@ void MediaPlayer::on_Player_clicked()
 
 void MediaPlayer::on_VideoSlider_valueChanged(int value)
 {
+    if(m_pVlcPlayer ==nullptr){
+        return;
+    }
 
+    if(libvlc_media_player_is_playing(m_pVlcPlayer)){
+        float pos= (float)value / (float)ui->VideoSlider->maximum();
+        libvlc_media_player_set_position(m_pVlcPlayer,pos);
+    }
 }
 
 void MediaPlayer::on_AudioSlider_valueChanged(int value)
 {
+    if(m_pVlcPlayer ==nullptr){
+        return;
+    }
 
+    if(libvlc_media_player_is_playing(m_pVlcPlayer)){
+        int volume=value;
+        libvlc_audio_set_volume(m_pVlcPlayer,volume);
+    }
+}
+
+void MediaPlayer::UpdateUserInterface()
+{
+
+    if(m_pVlcPlayer==nullptr){
+        return;
+    }
+
+    if(libvlc_media_player_is_playing(m_pVlcPlayer))
+    {
+        int progressPos = libvlc_media_player_get_position(m_pVlcPlayer)*ui->VideoSlider->maximum();
+        int volumePos = libvlc_audio_get_volume(m_pVlcPlayer);
+
+
+        bool states=ui->VideoSlider->blockSignals(true);
+        ui->VideoSlider->setValue(progressPos);
+        ui->VideoSlider->blockSignals(states);
+
+        bool statesVolume=ui->AudioSlider->blockSignals(true);
+        ui->AudioSlider->setValue(volumePos);
+        ui->AudioSlider->blockSignals(statesVolume);
+
+        QTime startTime;
+        startTime = startTime.addMSecs(int(libvlc_media_player_get_time(m_pVlcPlayer)));
+        qDebug() << startTime;
+        QString startTimeString = startTime.toString("hh:mm:ss");
+
+        QTime remainTime;
+        remainTime = remainTime.addMSecs(int(libvlc_media_player_get_length(m_pVlcPlayer) - libvlc_media_player_get_time(m_pVlcPlayer)));
+        qDebug() << remainTime;
+        QString endTimeSTring = remainTime.toString("hh:mm:ss");
+
+        ui->Timer->setText(startTimeString + " / " + endTimeSTring);
+
+    }
 }
 
 void MediaPlayer::on_Subtitle_clicked()
@@ -112,16 +166,19 @@ void MediaPlayer::on_Big_clicked()
 
 void MediaPlayer::MediaPlayerSetDrawableWindow(libvlc_media_player_t *player)
 {
-    libvlc_video_set_callbacks(player, lockCallback, unlockCallback, displayCallback, this);
-    libvlc_video_set_format(player, "RGBA", uint(image_width), uint(image_height), uint(image_width * 4));
 
-//#if defined(Q_OS_WIN32)
-//    libvlc_media_player_set_hwnd(player,(void*)m_pRenderWidget->drawableId());
-//#elif defined(Q_OS_MAC)
-//    libvlc_media_player_set_nsobject(player, (void*)ui->videoWidget);
-//#elif defined(Q_OS_UNIX)
-//    libvlc_media_player_set_xwindow(player,(int)ui->videoWidget->winId());
-//#endif
+#if defined(Q_OS_WIN32)
+    libvlc_media_player_set_hwnd(player,(void*)m_pRenderWidget->drawableId());
+#elif defined(Q_OS_MAC)
+    libvlc_media_player_set_nsobject(player, m_pRenderWidget->drawableId());
+#elif defined(Q_OS_UNIX)
+    libvlc_media_player_set_xwindow(player,(int)ui->videoWidget->winId());
+#endif
+
+    if(m_updateTimer!=nullptr){
+
+        m_updateTimer->start(100);
+    }
 }
 
 void MediaPlayer::MediaPlayerPlay()
@@ -146,37 +203,6 @@ void MediaPlayer::MediaPlayerPlay()
         libvlc_media_player_play(m_pVlcPlayer);
         m_eMediaPlayStatus=MEDIA_STATUS_PLAY;
         resize(ui->videoWidget->frameSize());
-    }
-}
-
-void *MediaPlayer::lockCallback(void *opaque, void **plane){
-    buff_Mutex.lock();
-    *plane = video_callback_outBuffer;
-    return nullptr;
-}
-
-void MediaPlayer::unlockCallback(void *opaque, void *picture, void *const *plane){
-    MediaPlayer * player = (MediaPlayer *)opaque;
-    if (player == nullptr){
-        return;
-    }
-
-    int width = player->GetImageWidth();
-    int height = player->GetImageHeight();
-
-    QImage image((unsigned char*)video_callback_outBuffer, width, height, QImage::Format_ARGB32);
-    image = image.rgbSwapped();
-    player->ShowFrame(image);
-    buff_Mutex.unlock();
-}
-
-void MediaPlayer::displayCallback(void *opaque, void *picture){
-
-}
-
-void MediaPlayer::ShowFrame(QImage image){
-    if(m_pDisplayWidget != nullptr){
-        m_pDisplayWidget->SetDisplayImage(image);
     }
 }
 
