@@ -80,4 +80,5 @@ OBJECTIVE_SOURCES += view/RenderWidget.mm
 
 LIBS += -L$$PWD/3rd/mac/libvlc/lib/ -lvlc.5
 INCLUDEPATH += $$PWD/3rd/mac/libvlc/include
+
 }

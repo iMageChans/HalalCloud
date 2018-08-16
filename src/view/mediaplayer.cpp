@@ -171,8 +171,14 @@ void MediaPlayer::on_Big_clicked()
 void MediaPlayer::MediaPlayerSetDrawableWindow(libvlc_media_player_t *player)
 {
 
+#if defined(Q_OS_WIN32)
+    libvlc_media_player_set_hwnd(player,(void*)m_pRenderWidget->drawableId());
+#elif defined(Q_OS_MAC)
     libvlc_video_set_callbacks(player, lockCallback, unlockCallback, displayCallback, this);
     libvlc_video_set_format(player, "RGBA", uint(image_width), uint(image_height), uint(image_width * 4));
+#elif defined(Q_OS_UNIX)
+    libvlc_media_player_set_xwindow(player,(int)ui->videoWidget->winId());
+#endif
 
     if(m_updateTimer!=nullptr){
 
