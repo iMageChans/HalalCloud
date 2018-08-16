@@ -79,3 +79,9 @@ LIBS += -L$$PWD/3rd/mac/libvlc/lib/ -lvlc.5
 INCLUDEPATH += $$PWD/3rd/mac/libvlc/include
 
 }
+
+win32 {
+DEFINES +=MEIDA_PLAYER_WIN32
+INCLUDEPATH += $$PWD/3rd/win/libvlc/include
+LIBS += -L$$PWD/3rd/win/libvlc/lib -lvlc.dll
+}

@@ -86,7 +86,7 @@ void MediaPlayer::on_Player_clicked()
         MediaPlayerStop();
     }
 
-    QString filePath = "http://221.228.226.23/11/t/j/v/b/tjvbwspwhqdmgouolposcsfafpedmb/sh.yinyuetai.com/691201536EE4912BF7E4F1E2C67B8119.mp4";
+    QString filePath = "http://upos-hz-mirrorcos.acgvideo.com/upgcxcode/34/46/22854634/22854634-1-16.mp4?um_deadline=1534418240&platform=html5&rate=209100&oi=2501663261&um_sign=005effffe7b3517ba3875d02cfd29573&gen=playurl&os=cos&trid=d235b7cd41b645c3b76e0090030baf84";
     if (filePath.length() != 0){
         libvlc_media_t* media=libvlc_media_new_location(m_pInstance,filePath.toUtf8().data());
         m_pVlcPlayer=libvlc_media_player_new_from_media(media);
@@ -172,7 +172,7 @@ void MediaPlayer::MediaPlayerSetDrawableWindow(libvlc_media_player_t *player)
 {
 
 #if defined(Q_OS_WIN32)
-    libvlc_media_player_set_hwnd(player,(void*)m_pRenderWidget->drawableId());
+    libvlc_media_player_set_hwnd(player,(void*)ui->videoWidget->winId());
 #elif defined(Q_OS_MAC)
     libvlc_video_set_callbacks(player, lockCallback, unlockCallback, displayCallback, this);
     libvlc_video_set_format(player, "RGBA", uint(image_width), uint(image_height), uint(image_width * 4));
